@@ -1,1 +1,7 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# my portfolio site made by Next.js
+
+setup
+```
+$ npm install
+$ npm run dev
+```
