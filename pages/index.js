@@ -3,20 +3,18 @@ import Link from 'next/link'
 import Works from '../components/react/works'
 import { useRouter } from 'next/router'
 import _Head from '../components/react/head'
+import BackgroundContextSender from '../components/animation/backgroundContextSender'
 
 const Home = () =>  {
-  
-  const router = useRouter()  //パス情報とか
-  
   return (
     <div className="container">
       <_Head title="home"/>
-  
+      <BackgroundContextSender position={({x:0,y:100})}/>
       {/* <Works/> */}
       <h1>main page</h1>
       <Link href="/other">other page</Link>
     </div>
   )
 }
-  
-export default Home 
+
+export default Home

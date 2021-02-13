@@ -9,8 +9,14 @@ export default class Background extends React.Component {
   }
 
   componentDidMount() {
-    const position = this.props.position
+    const {position} = this.props
     this.updatePosition(position)
+  }
+  componentDidUpdate() {
+    console.log("Background#componentDidUpdate");
+    const { position } = this.props;
+    console.log(position)
+    this.updatePosition(position);
   }
 
   updatePosition(position) {
