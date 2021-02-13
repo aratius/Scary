@@ -1,39 +1,22 @@
 import React from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
 import Works from '../components/react/works'
+import { useRouter } from 'next/router'
+import _Head from '../components/react/head'
 
-import { getWorks } from '../components/api/works'
-export default class Home extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      works: null
-    }
-  }
-
-  componentDidMount = () => {
-    getWorks().then(data => {
-      console.log(data)
-      this.setState({ works: data.contents })
-    })
-  }
+const Home = () =>  {
   
-  render() {
-    const works = this.state.works
-    return (
-      <div className="container">
-        <Head>
-          <title>Create Next App</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <Works/>
-        <Link href="/fuck">fuck</Link>
-
-      </div>
-    )
-  }
+  const router = useRouter()  //パス情報とか
+  
+  return (
+    <div className="container">
+      <_Head title="home"/>
+  
+      {/* <Works/> */}
+      <h1>main page</h1>
+      <Link href="/other">other page</Link>
+    </div>
+  )
 }
+  
+export default Home 

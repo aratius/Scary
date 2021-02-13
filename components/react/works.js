@@ -3,6 +3,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { getWorks } from '../api/works'
+
+/**
+ * WORKSを綺麗に揃える
+ */
 export default class Works extends React.Component {
 
   constructor(props) {
