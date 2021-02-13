@@ -12,10 +12,10 @@ export default class Background extends React.Component {
     const {position} = this.props
     this.updatePosition(position)
   }
+
   componentDidUpdate() {
     console.log("Background#componentDidUpdate");
     const { position } = this.props;
-    console.log(position)
     this.updatePosition(position);
   }
 
@@ -24,15 +24,15 @@ export default class Background extends React.Component {
     gsap.to(circle , {
       x: position.x,
       y: position.y,
-      duration: 1
+      duration: 1.5,
+      ease: "elastic.out"
     })
   }
-
+  
   render () {
     return (
       <div>
-        <div className={styles.circle} ref={this.circleRef}>
-        </div>
+        <div className={styles.circle} ref={this.circleRef}></div>
       </div>
     )
   }

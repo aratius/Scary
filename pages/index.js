@@ -9,7 +9,7 @@ const Home = () =>  {
   return (
     <div className="container">
       <_Head title="home"/>
-      <BackgroundContextSender position={({x:0,y:100})}/>
+      <BackgroundContextSender position={({x:300,y:100})}/>
       {/* <Works/> */}
       <h1>main page</h1>
       <Link href="/other">other page</Link>

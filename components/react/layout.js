@@ -9,24 +9,18 @@ export default class Layout extends React.Component {
     super(props)
 
     const updatePosition=(position)=>{
-      if(
-        !(
-          (this.state.position.x==position.x) &&
-          (this.state.position.y==position.y)
-        )
-      ){
+      if(!((this.state.position.x==position.x) && (this.state.position.y==position.y))){
         console.log('updatePosition')
         this.setState({
           position,
         })
       }
     }
-
+    
     this.state={
       position:{x:null,y:null},
       updatePosition,
     }
-
   }
 
   render() {
