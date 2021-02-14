@@ -31,7 +31,7 @@ export default class Background extends React.Component {
   
   render () {
     return (
-      <div>
+      <div className={styles.background}>
         <div className={styles.circle} ref={this.circleRef}></div>
       </div>
     )
