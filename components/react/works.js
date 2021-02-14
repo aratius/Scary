@@ -12,20 +12,22 @@ export default class Works extends React.Component {
   constructor(props) {
     super(props)
 
+    console.log(props)
+
     this.state = {
       works: null
     }
   }
 
   componentDidMount = () => {
-    getWorks().then(data => {
-      console.log(data)
-      this.setState({ works: data.contents })
-    })
+    // getWorks().then(data => {
+    //   console.log(data)
+    //   this.setState({ works: data.contents })
+    // })
   }
   
   render() {
-    const works = this.state.works
+    const works = this.props.data.contents
     return (
       <>
         <ul>
