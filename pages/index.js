@@ -22,7 +22,7 @@ export default Home
 
 //getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
 export async function getStaticProps(context) {
-  console.log("foo")  //サーバー側で実行される 開発時はコマンドラインに出力される
+  console.log("hello world")  //サーバー側で実行される 開発時はコマンドラインに出力される
 
   const data = await getWorks()
   return {props: {data}}
