@@ -35,7 +35,7 @@ jobs:
           # GitHub Actions の Secrets で作成した値を参照する形で
           # Vercel デプロイ時に必要となる各種パラメタを設定する
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: 26e77c65f5f6a6a5e1e041d2eb0f2a5567398645
+          github-token: eda27448fc2610a84707d16585f6e47ecd04a136
           vercel-args: '--prod' # Optional
           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
