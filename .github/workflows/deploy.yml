@@ -3,7 +3,8 @@ on:
   # 一応動確のために手動で GitHub Actions を実行可能にする
   # その際の引数として checkout 時の ref を渡している
   # default 部分はリポジトリに設定されているデフォルトブランチを指定する
-  workflow_dispatch:
+  repository_dispatch:
+    types: [update_post]
     inputs:
       ref:
         description: branch|tag|SHA to checkout
@@ -11,8 +12,8 @@ on:
         required: true
   # 毎日日本時間の 11時 に GitHub Actions が実行される (cron の時刻は UST)
   # 実行の際に参照されるブランチは上記の default で指定したものが使用される
-  schedule:
-    - cron:  '0 2 * * *'
+  # schedule:
+  #   - cron:  '0 2 * * *'
 jobs:
   deploy:
     runs-on: ubuntu-latest
