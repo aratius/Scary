@@ -9,7 +9,7 @@ import { getWorks } from '../components/api/works'
 const Home = ({ data }) =>  {
   return (
     <div className="container">
-      <_Head title="home yo"/>
+      <_Head title="home"/>
       <BackgroundContextSender position={({x:300,y:100})}/>
       <Works data={data}/>
       <h1>main page</h1>
