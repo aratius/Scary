@@ -3,17 +3,16 @@ on:
   # 一応動確のために手動で GitHub Actions を実行可能にする
   # その際の引数として checkout 時の ref を渡している
   # default 部分はリポジトリに設定されているデフォルトブランチを指定する
-  repository_dispatch:
-    types: [update_post]
+  workflow_dispatch:
     inputs:
       ref:
         description: branch|tag|SHA to checkout
-        default: 'develop'
+        default: 'main'
         required: true
   # 毎日日本時間の 11時 に GitHub Actions が実行される (cron の時刻は UST)
   # 実行の際に参照されるブランチは上記の default で指定したものが使用される
-  # schedule:
-  #   - cron:  '0 2 * * *'
+  schedule:
+    - cron:  '0 2 * * *'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,13 +28,12 @@ jobs:
         shell: bash
         run: |
           npm install
-          npm run build
+          npm run build:posts
       - uses: amondnet/vercel-action@v20
         with:
           # GitHub Actions の Secrets で作成した値を参照する形で
           # Vercel デプロイ時に必要となる各種パラメタを設定する
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: eda27448fc2610a84707d16585f6e47ecd04a136
           vercel-args: '--prod' # Optional
           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
