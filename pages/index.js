@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Base from '../components/react/base'
 import Works from '../components/react/works'
 import { getWorks } from '../components/api/works'
+import styles from '../styles/modules/top.module.scss'
+
 export default class Home extends Base {
 
   //ページタイトル
@@ -19,9 +21,13 @@ export default class Home extends Base {
     const data = this.props.works
     return (
       <>
-        <Works data={data}/>
-        <h1>main page</h1>
-        <Link href="/other">other page</Link>
+        <div className={styles.lead__container}>
+          <h1>living too fast</h1>
+        </div>
+        <div className={styles.main__container}>
+          <Works data={data}/>
+          <Link href="/other">other page</Link>
+        </div>
       </>
     )
   }

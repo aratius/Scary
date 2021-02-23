@@ -1,0 +1,14 @@
+.masonry__grid {
+  display: flex;
+  margin-left: -30px; /* 項目間の余白のサイズ */
+  width: auto;
+}
+.masonry__grid__column {
+  padding-left: 30px; /* 項目間の余白のサイズ */
+  background-clip: padding-box;
+  .masonry__item {
+    // background: grey;
+    object-fit: cover;
+    margin-bottom: 30px;
+  }
+}

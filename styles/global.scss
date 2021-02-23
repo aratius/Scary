@@ -1,3 +1,5 @@
+@import './config.scss';
+
 html,
 body {
   padding: 0;
@@ -10,10 +12,16 @@ body {
 
 * {
   box-sizing: border-box;
+  color: $base-f-col;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 a {
-  color: #0070f3;
+  color: $base-f-col;
   text-decoration: none;
 }
 

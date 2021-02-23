@@ -1,0 +1,27 @@
+@import '../../config.scss';
+
+.container {
+  width: 100%;
+  height: $header-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    height: 60%;
+  }
+  ul {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    li {
+      text-align: center;
+      margin: 0 $m-2;
+      a {
+        text-decoration: none;
+        color: $base-f-col;
+      }
+    }
+  }
+}
