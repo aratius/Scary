@@ -8,8 +8,16 @@ $m-7: 35px;
 $m-8: 40px;
 $m-9: 45px;
 $m-10: 50px;
+$m-20: 100px;
+$m-30: 200px;
 
 $base-f-col: #34323a;
+$white-f-col: rgb(243, 243, 243);
 
-$header-height: 60px;
+$header-height: 80px;
+$header-height-sp: 60px;
 $main-content-width: 80%;
+
+$pc: 1024px; // PC
+$tab: 680px; // タブレット
+$sp: 480px;  // スマホ

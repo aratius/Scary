@@ -26,7 +26,15 @@ export default class Home extends Base {
         </div>
         <div className={styles.main__container}>
           <Works data={data}/>
-          <Link href="/other">other page</Link>
+          <div className={styles.about__container}>
+            <img src="./assets/images/600x400.png"/>
+            <div className={styles.about__content}>
+              <p>ダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストです</p>
+              <div className={styles.about__btn__container}>
+                <Link href="/about">about</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </>
     )

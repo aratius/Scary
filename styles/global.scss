@@ -33,3 +33,13 @@ img {
   max-width: 100%;
   display: block;
 }
+
+p {
+  font-size: small;
+  @media (max-width: ($sp)) {
+    font-size: x-small;
+  }
+  @media (min-width: ($pc)) {
+    font-size: large;
+  }
+}
