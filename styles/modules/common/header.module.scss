@@ -6,11 +6,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
   @media (max-width: ($sp)) {
     height: $header-height-sp;
   }
+  @media (min-width: ($pc)) {
+  }
   img {
+    margin-left: $m-6;
     height: 40%;
+    @media (max-width: ($sp)) {
+      margin-left: $m-2;
+    }
   }
   ul {
     height: 100%;
