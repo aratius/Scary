@@ -28,6 +28,10 @@
     display: flex;
     align-items: center;
     list-style: none;
+    margin-right: $m-6;
+    @media (max-width: ($sp)) {
+      margin-right: $m-2;
+    }
     li {
       text-align: center;
       margin: 0 $m-2;

@@ -4,6 +4,7 @@ import Base from '../components/react/base'
 import Works from '../components/react/works'
 import { getWorks } from '../components/api/works'
 import styles from '../styles/modules/top.module.scss'
+import Shuffle from 'shuffle-text'
 
 export default class Home extends Base {
 
@@ -16,13 +17,18 @@ export default class Home extends Base {
   get circlePos() {
     return {x: 100, y: 500}
   }
+
+  componentDidMount() {
+    this.shuffleText = new Shuffle(this.lead)
+    this.shuffleText.start()
+  }
   
   renderChild = () => {
     const data = this.props.works
     return (
       <>
         <div className={styles.lead__container}>
-          <h1>living too fast</h1>
+          <h1 ref={node => this.lead = node}>living too fast</h1>
         </div>
         <div className={styles.main__container}>
           <Works data={data}/>
