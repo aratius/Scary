@@ -1,5 +1,4 @@
 import React from 'react'
-import _Head from './head'
 import Background from '../animation/background'
 import BackgroundContext from '../context/backgroundContext'
 

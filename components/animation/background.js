@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles/background.module.css'
+import styles from '../../styles/modules/background.module.css'
 import gsap from 'gsap'
 
 export default class Background extends React.Component {

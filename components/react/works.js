@@ -1,8 +1,4 @@
 import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-
-import { getWorks } from '../api/works'
 
 /**
  * WORKSを綺麗に揃える
@@ -12,18 +8,9 @@ export default class Works extends React.Component {
   constructor(props) {
     super(props)
 
-    console.log(props)
-
     this.state = {
       works: null
     }
-  }
-
-  componentDidMount = () => {
-    // getWorks().then(data => {
-    //   console.log(data)
-    //   this.setState({ works: data.contents })
-    // })
   }
   
   render() {

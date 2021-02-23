@@ -1,31 +1,27 @@
 import React from "react";
-import { useState, useEffect } from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import _Head from '../components/react/head'
-import BackgroundContextSender from '../components/animation/backgroundContextSender'
+import Base from "../components/react/base";
 
-const Other = () => {
+export default class Other extends Base {
 
-  const [loaded, setLoaded] = useState(false)
+  //ページタイトル
+  get title () {
+    return 'OTHER'
+  }
 
-  useEffect(() => {
-    setLoaded(true)
-  })
-
-  const sender=<BackgroundContextSender position={({x:0,y:500})}/>
-  if (!loaded) return sender;
-
-  return (
-    <div className="container">
-      <_Head title="other page"/>
-      {sender}
-      {/* <Works/> */}
-      <h1>other page</h1>
-      <Link href="/">main page</Link>
-    </div>
-  )
+  //背景のサークルの座標 
+  get circlePos() {
+    return {x: 400, y: 200}
+  }
+  
+  renderChild = () => {
+    return (
+      <>
+        {/* <Works/> */}
+        <h1>other page</h1>
+        <Link href="/">main page</Link>
+      </>
+    )
+  }
+  
 }
-
-export default Other
