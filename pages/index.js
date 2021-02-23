@@ -20,9 +20,13 @@ export default class Home extends Base {
 
   componentDidMount() {
     this.shuffleText = new Shuffle(this.lead)
+    this.shuffleText.duration = 4000
+    this.shuffleText.sourceRandomCharacter = ""
+    this.shuffleText.emptyCharacter = ""
     this.shuffleText.start()
+    console.log(this.shuffleText)
   }
-  
+
   renderChild = () => {
     const data = this.props.works
     return (
@@ -49,7 +53,7 @@ export default class Home extends Base {
 
 //getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
 export async function getStaticProps(context) {
-  console.log("hello world")  //サーバー側で実行される 開発時はコマンドラインに出力される
+  console.log("static props top")  //サーバー側で実行される 開発時はコマンドラインに出力される
 
   const works = await getWorks()
   return {props: {works}}
