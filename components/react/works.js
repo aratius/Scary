@@ -1,11 +1,13 @@
 import React from 'react'
 import Masonry from 'react-masonry-css'
-import styles from '../../styles/modules/works.module.scss'
+import stylesTop from '../../styles/modules/components/works-top.module.scss'
+import stylesWorks from '../../styles/modules/components/works-works.module.scss'
+import { STYLES_WORKS } from '../utils/config'
 
 /**
  * WORKSを綺麗に揃える
  */
-export default class Works extends React.Component {
+export default class _Works extends React.Component {
 
   constructor(props) {
     super(props)
@@ -23,6 +25,7 @@ export default class Works extends React.Component {
       1048: 2,
       576: 1,
     }
+    const styles = this.props.styles == STYLES_WORKS.TOP ? stylesTop : stylesWorks
   
     return (
       <>

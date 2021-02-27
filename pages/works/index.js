@@ -1,17 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
-import Base from '../components/react/base'
-import _Works from '../components/react/works'
-import { getWorks } from '../components/api/works'
-import styles from '../styles/modules/top.module.scss'
+import Base from '../../components/react/base'
+import _Works from '../../components/react/works'
+import { getWorks } from '../../components/api/works'
+import styles from '../../styles/modules/works/index.module.scss'
 import Shuffle from 'shuffle-text'
-import { STYLES_WORKS } from '../components/utils/config'
+import { STYLES_WORKS } from '../../components/utils/config'
 
-export default class Home extends Base {
+export default class Works extends Base {
 
   //ページタイトル
   get title () {
-    return 'TOP'
+    return 'WORKS'
   }
 
   //背景のサークルの座標 
@@ -20,23 +20,14 @@ export default class Home extends Base {
   }
 
   componentDidMount() {
-    this.shuffleText = new Shuffle(this.lead)
-    this.shuffleText.duration = 4000
-    this.shuffleText.sourceRandomCharacter = ""
-    this.shuffleText.emptyCharacter = ""
-    this.shuffleText.start()
-    console.log(this.shuffleText)
   }
 
   renderChild = () => {
     const data = this.props.works
     return (
       <>
-        <div className={styles.lead__container}>
-          <h1 ref={node => this.lead = node}>living too fast</h1>
-        </div>
         <div className={styles.main__container}>
-          <_Works data={data} styles={STYLES_WORKS.TOP}/>
+          <_Works data={data} styles={STYLES_WORKS.WORKS}/>
           <div className={styles.about__container}>
             <img src="./assets/images/600x400.png"/>
             <div className={styles.about__content}>
