@@ -11,22 +11,16 @@ export default class _Works extends React.Component {
 
   constructor(props) {
     super(props)
-
-    this.state = {
-      works: null
-    }
   }
   
   render() {
     const works = this.props.data.contents
-    const breakpointColumnsObj = {
-      default: 4,
-      1350: 3,
-      1048: 2,
-      576: 1,
-    }
-    const styles = this.props.styles == STYLES_WORKS.TOP ? stylesTop : stylesWorks
-  
+    const isTop = this.props.styles == STYLES_WORKS.TOP
+    //適用するスタイルを分岐
+    const styles = isTop ? stylesTop : stylesWorks
+    
+    const breakpointColumnsObj = isTop ? STYLES_WORKS.BREAKPOINTS.TOP : STYLES_WORKS.BREAKPOINTS.WORKS
+    
     return (
       <>
         <ul>
