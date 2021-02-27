@@ -4,7 +4,6 @@ import Base from '../../components/react/base'
 import _Works from '../../components/react/works'
 import { getWorks } from '../../components/api/works'
 import styles from '../../styles/modules/works/index.module.scss'
-import Shuffle from 'shuffle-text'
 import { STYLES_WORKS } from '../../components/utils/config'
 
 export default class Works extends Base {
@@ -28,15 +27,6 @@ export default class Works extends Base {
       <>
         <div className={styles.main__container}>
           <_Works data={data} styles={STYLES_WORKS.WORKS}/>
-          <div className={styles.about__container}>
-            <img src="./assets/images/600x400.png"/>
-            <div className={styles.about__content}>
-              <p>ダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストです</p>
-              <div className={styles.about__btn__container}>
-                <Link href="/about">about</Link>
-              </div>
-            </div>
-          </div>
         </div>
       </>
     )
