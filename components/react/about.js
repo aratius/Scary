@@ -2,7 +2,6 @@ import baseStyles from '../../styles/modules/common/base.module.scss'
 
 export default function About (props) {
 
-  console.log("about",props.data)
   const data = props.data
 
   return (

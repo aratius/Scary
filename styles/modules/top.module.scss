@@ -12,6 +12,10 @@ $lead-height: 95vh;
   position: absolute;
   top: 0;
   left: 0;
+  img {
+    width: 70%;
+    max-width: 700px;
+  }
 }
 
 .main__container {
@@ -20,7 +24,7 @@ $lead-height: 95vh;
   top: 0;
   left: 10%;
   margin-top: $lead-height;
-  
+
   .about__container {
     width: 100%;
     margin: $m-20 0;

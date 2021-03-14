@@ -17,7 +17,7 @@ export default function Works (props) {
       title="WORKS"
     >
       <div className={baseStyles.main__container}>
-        <h1>WORKS</h1>
+        <img src="/assets/images/logos/works.svg" className={baseStyles.title}/>
         <_Works data={worksData} styles={STYLES_WORKS.WORKS}/>
       </div>
     </Base>

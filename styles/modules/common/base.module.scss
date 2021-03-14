@@ -5,4 +5,8 @@
   position: absolute;
   top: $header-height + $m-10;
   left: calc((100% - #{$main-content-width}) / 2);
+  .title {
+    width: 30%;
+    margin: $m-4 0;
+  }
 }

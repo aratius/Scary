@@ -32,7 +32,6 @@ export default function _Base (props) {
         }
       }))
     }
-    console.log(tasks)
     await Promise.all(tasks)
     completeLoading()
   }
@@ -51,7 +50,7 @@ export default function _Base (props) {
     // moveIn animation
     if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
     for(const i in elements){
-      const dur = Math.random()*3 + 5
+      const dur = Math.random()*10 + 5
       const x = (Math.random()-0.5) * 20 + "px"
       const y = (Math.random()-1.3) * 30 + "px"
       moveInTweens[i] = gsap.fromTo(elements[i], {x: x, y: y}, {x: 0, y: 0, duration: dur, delay: 0, ease: "elastic.out(5)"})
