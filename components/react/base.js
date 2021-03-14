@@ -41,12 +41,14 @@ export default function _Base (props) {
   function completeLoading() {
     console.log("loading complete")
 
+    // appear animation
     if(appearTween) appearTween.kill()
     appearTween = gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})
 
     const elements = []
     children(wrapper.current, (el)=>elements.push(el))
 
+    // moveIn animation
     if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
     for(const i in elements){
       const dur = Math.random()*3 + 5
@@ -67,7 +69,7 @@ export default function _Base (props) {
       const DOM = parentDOM.children[i]
       if(!(DOM instanceof HTMLElement)) continue
 
-      // 子要素を持っていればさらに再起関数にかける
+      // さらに子要素を持っていれば末端ではないので再起関数にかける
       if(DOM.children.length >= 1) {
         children(DOM, callback)
       }else{  // 持っていなければ末端に達したということなのでcallbackで下の配列にpushする
