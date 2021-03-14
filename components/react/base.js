@@ -39,8 +39,6 @@ export default function _Base (props) {
 
   // DOM要素はローディングを待ってからふわっと登場
   function completeLoading() {
-    const el = document.querySelector(".transition__container")
-    el.style.opacity = 1
     console.log("loading complete")
 
     if(appearTween) appearTween.kill()
