@@ -6,4 +6,4 @@ $ npm install
 $ npm run dev
 ```
 
-[website](scary.aualrxse.com)
+[website](https://scary.aualrxse.com)
