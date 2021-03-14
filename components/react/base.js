@@ -7,6 +7,8 @@ import gsap from 'gsap'
 export default function _Base (props) {
 
   const wrapper = createRef(null)
+  let appearTween = null
+  let moveInTweens = []
 
   useEffect(() => {
     console.log("useEffect")
@@ -40,13 +42,19 @@ export default function _Base (props) {
     const el = document.querySelector(".transition__container")
     el.style.opacity = 1
     console.log("loading complete")
-    gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})
+
+    if(appearTween) appearTween.kill()
+    appearTween = gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})
+
     const elements = []
     children(wrapper.current, (el)=>elements.push(el))
+
+    if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
     for(const i in elements){
       const dur = Math.random()*3 + 5
-      const x = (Math.random()-0.5) * 20 + ""
-      gsap.fromTo(elements[i], {x: x, y: "20px"}, {x: 0, y: 0, duration: dur, delay: 0, ease: "elastic.out(5)"})
+      const x = (Math.random()-0.5) * 20 + "px"
+      const y = (Math.random()-1.3) * 30 + "px"
+      moveInTweens[i] = gsap.fromTo(elements[i], {x: x, y: y}, {x: 0, y: 0, duration: dur, delay: 0, ease: "elastic.out(5)"})
     }
   }
 
