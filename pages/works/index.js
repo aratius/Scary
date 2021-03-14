@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Base from '../../components/react/base'
 import _Works from '../../components/react/works'
 import { getWorks } from '../../components/api/works'
+import baseStyles from '../../styles/modules/common/base.module.scss'
 import styles from '../../styles/modules/works/index.module.scss'
 import { STYLES_WORKS } from '../../components/utils/config'
 
@@ -15,7 +16,8 @@ export default function Works (props) {
       circlePos={{x: 100, y: 0}}
       title="WORKS"
     >
-      <div className={styles.main__container}>
+      <div className={baseStyles.main__container}>
+        <h1>WORKS</h1>
         <_Works data={worksData} styles={STYLES_WORKS.WORKS}/>
       </div>
     </Base>

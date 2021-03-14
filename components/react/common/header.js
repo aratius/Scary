@@ -11,13 +11,13 @@ export default class Header extends React.Component {
           <Link href="/"><img src="./assets/images/new-logo.png"/></Link>
           <ul>
             <li><Link href="/works">works</Link></li>
-            <li><Link href="">about</Link></li>
+            <li><Link href="/about">about</Link></li>
             <li><Link href="">contact</Link></li>
             <li><Link href="">blog</Link></li>
           </ul>
         </div>
-      </>     
+      </>
     )
   }
-  
+
 }
