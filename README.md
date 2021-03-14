@@ -5,3 +5,5 @@ setup
 $ npm install
 $ npm run dev
 ```
+
+[website](https://scary.aualrxse.com)
