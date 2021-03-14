@@ -33,11 +33,11 @@ export default function _Base (props) {
       }))
     }
     await Promise.all(tasks)
-    completeLoading()
+    handleLoadingComplete()
   }
 
   // DOM要素はローディングを待ってからふわっと登場
-  function completeLoading() {
+  function handleLoadingComplete() {
     console.log("loading complete")
 
     // appear animation
