@@ -6,31 +6,20 @@ import { getWorks } from '../../components/api/works'
 import styles from '../../styles/modules/works/index.module.scss'
 import { STYLES_WORKS } from '../../components/utils/config'
 
-export default class Works extends Base {
+export default function Works (props) {
 
-  //ページタイトル
-  get title () {
-    return 'WORKS'
-  }
+  const worksData = props.works
 
-  //背景のサークルの座標 
-  get circlePos() {
-    return {x: 100, y: 500}
-  }
-
-  componentDidMount() {
-  }
-
-  renderChild = () => {
-    const data = this.props.works
-    return (
-      <>
-        <div className={styles.main__container}>
-          <_Works data={data} styles={STYLES_WORKS.WORKS}/>
-        </div>
-      </>
-    )
-  }
+  return (
+    <Base
+      circlePos={{x: 100, y: 0}}
+      title="WORKS"
+    >
+      <div className={styles.main__container}>
+        <_Works data={worksData} styles={STYLES_WORKS.WORKS}/>
+      </div>
+    </Base>
+  )
 }
 
 //getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
