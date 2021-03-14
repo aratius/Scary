@@ -1,8 +1,8 @@
 import { API } from '../utils/config'
 
-export async function getWorks() {
+export async function getAbout() {
 
-  const data = await fetch(API.WORKS.GET, {
+  const data = await fetch(API.ABOUT.GET, {
     headers: new Headers({
       "X-API-KEY": API.KEY
     })

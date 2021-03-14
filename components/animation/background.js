@@ -14,7 +14,6 @@ export default class Background extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("Background#componentDidUpdate");
     const { position } = this.props;
     this.updatePosition(position);
   }
@@ -28,7 +27,7 @@ export default class Background extends React.Component {
       ease: "elastic.out"
     })
   }
-  
+
   render () {
     return (
       <div className={styles.background}>

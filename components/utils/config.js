@@ -1,7 +1,10 @@
 export const API = {
+  KEY: process.env.API_KEY,
   WORKS: {
-    GET: process.env.API_ENDPOINT,
-    KEY: process.env.API_KEY
+    GET: process.env.API_ENDPOINT + "works",
+  },
+  ABOUT: {
+    GET: process.env.API_ENDPOINT + "about"
   }
 }
 

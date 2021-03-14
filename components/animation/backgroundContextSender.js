@@ -7,7 +7,6 @@ export default function BackgroundContextSender(props){
   const { position } = props;
   const { updatePosition } = React.useContext(BackgroundContext);
   React.useEffect(() => {
-    console.log(position)
     updatePosition(position)
   });
 

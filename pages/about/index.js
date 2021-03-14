@@ -1,19 +1,30 @@
 import React from 'react'
 import Link from 'next/link'
 import Base from '../../components/react/base'
-import _Works from '../../components/react/works'
+import _About from '../../components/react/about'
 import baseStyles from '../../styles/modules/common/base.module.scss'
+import { getAbout } from '../../components/api/about'
 
-export default function About () {
+export default function About (props) {
+
+  const aboutData = props.data
 
   return (
     <Base
-      circlePos={{x: 100, y: 0}}
+      circlePos={{x: 500, y: 300}}
       title="WORKS"
     >
       <div className={baseStyles.main__container}>
         <h1>ABOUT</h1>
+        <_About data={aboutData}/>
       </div>
     </Base>
   )
+}
+
+export async function getStaticProps() {
+
+  const data = await getAbout()
+  return {props: {data}}
+
 }
