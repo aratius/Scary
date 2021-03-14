@@ -44,11 +44,13 @@ export default function _Base (props) {
   }
 
   return (
-    <div className="container transition__container" ref={wrapper}>
+    <div className="container">
       <_Head title={`Cocoon | ${props.title}`}/>
       <BackgroundContextSender position={(props.circlePos)}/>
       <Header/>
-      {props.children}
+      <div className="transition__container" ref={wrapper}>
+        {props.children}
+      </div>
     </div>
   )
 
