@@ -10,6 +10,11 @@ body {
   font-size: 18px;
 }
 
+// スクロールバーあるなしのトランジション見栄えダウンを防ぐ
+html {
+  overflow-y: scroll;
+}
+
 * {
   box-sizing: border-box;
   color: $base-f-col;
