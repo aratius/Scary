@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import TransitionLink from './common/link'
 import Masonry from 'react-masonry-css'
 import stylesTop from '../../styles/modules/components/works-top.module.scss'
 import stylesWorks from '../../styles/modules/components/works-works.module.scss'
@@ -33,9 +33,9 @@ export default class _Works extends React.Component {
             {works != null && works.map((work, key) => {
               return (
                 <li  key={key} className={styles.masonry__item}>
-                  <Link href={`/works/${work.id}`}>
+                  <TransitionLink href={`/works/${work.id}`}>
                     <img src={work.image.url}/>
-                  </Link>
+                  </TransitionLink>
                 </li>
               )
             })}
