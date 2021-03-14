@@ -15,11 +15,15 @@
   }
   @media (min-width: ($pc)) {
   }
-  img {
-    margin-left: $m-6;
+  >a{
+    display: inline-block;
     height: 40%;
+    margin-left: $m-6;
     @media (max-width: ($sp)) {
       margin-left: $m-2;
+    }
+    img {
+      height: 100%;
     }
   }
   ul {

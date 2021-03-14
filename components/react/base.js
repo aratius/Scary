@@ -37,12 +37,14 @@ export default function _Base (props) {
 
   // DOM要素はローディングを待ってからふわっと登場
   function completeLoading() {
+    const el = document.querySelector(".transition__container")
+    el.style.opacity = 1
     console.log("loading complete")
     gsap.fromTo(wrapper.current, {opacity: 0, y: "10px"}, {opacity: 1, y: 0, duration: 0.5, delay: 0.3})
   }
 
   return (
-    <div className="container" ref={wrapper}>
+    <div className="container transition__container" ref={wrapper}>
       <_Head title={`Cocoon | ${props.title}`}/>
       <BackgroundContextSender position={(props.circlePos)}/>
       <Header/>
