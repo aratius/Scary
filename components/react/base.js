@@ -6,8 +6,6 @@ import Header from './common/header'
 
 export default function _Base (props) {
 
-  console.log("base",props)
-
   return (
     <div className="container">
       <_Head title={props._title}/>
