@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     return (
       <>
         <div className={styles.container}>
-          <Link href="/"><img src="./assets/images/new-logo.png"/></Link>
+          <Link href="/"><img src="/assets/images/new-logo.png"/></Link>
           <ul>
             <li><Link href="/works">works</Link></li>
             <li><Link href="/about">about</Link></li>

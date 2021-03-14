@@ -38,12 +38,12 @@ export default function _Base (props) {
   // DOM要素はローディングを待ってからふわっと登場
   function completeLoading() {
     console.log("loading complete")
-    gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 1, delay: 0.3})
+    gsap.fromTo(wrapper.current, {opacity: 0, y: "10px"}, {opacity: 1, y: 0, duration: 0.5, delay: 0.3})
   }
 
   return (
-    <div className="container" ref={wrapper} style={{opacity: 0}}>
-      <_Head title={props._title}/>
+    <div className="container" ref={wrapper}>
+      <_Head title={`Cocoon | ${props.title}`}/>
       <BackgroundContextSender position={(props.circlePos)}/>
       <Header/>
       {props.children}

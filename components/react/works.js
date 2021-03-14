@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import Masonry from 'react-masonry-css'
 import stylesTop from '../../styles/modules/components/works-top.module.scss'
 import stylesWorks from '../../styles/modules/components/works-works.module.scss'
@@ -12,15 +13,15 @@ export default class _Works extends React.Component {
   constructor(props) {
     super(props)
   }
-  
+
   render() {
     const works = this.props.data.contents
     const isTop = this.props.styles == STYLES_WORKS.TOP
     //適用するスタイルを分岐
     const styles = isTop ? stylesTop : stylesWorks
-    
+
     const breakpointColumnsObj = isTop ? STYLES_WORKS.BREAKPOINTS.TOP : STYLES_WORKS.BREAKPOINTS.WORKS
-    
+
     return (
       <>
         <ul>
@@ -31,8 +32,10 @@ export default class _Works extends React.Component {
           >
             {works != null && works.map((work, key) => {
               return (
-                <li key={key} className={styles.masonry__item}>
-                  <img src={work.image.url}/>
+                <li  key={key} className={styles.masonry__item}>
+                  <Link href={`/works/${work.id}`}>
+                    <img src={work.image.url}/>
+                  </Link>
                 </li>
               )
             })}

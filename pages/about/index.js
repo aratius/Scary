@@ -12,7 +12,7 @@ export default function About (props) {
   return (
     <Base
       circlePos={{x: 500, y: 300}}
-      title="WORKS"
+      title="ABOUT"
     >
       <div className={baseStyles.main__container}>
         <h1>ABOUT</h1>
