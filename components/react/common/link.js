@@ -8,7 +8,6 @@ import gsap from 'gsap'
 export default function TransitionLink (props) {
 
   const router = useRouter()
-  console.log(router)
 
   const handleClick = (e) => {
     if(e) e.preventDefault()
@@ -24,7 +23,6 @@ export default function TransitionLink (props) {
     }})
   }
 
-  console.log(props.children)
   return (
     <>
       <a onClick={handleClick}>{props.children}</a>
