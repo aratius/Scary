@@ -17,7 +17,7 @@ export default function _Base (props) {
 
   const loadImages = async () => {
     const images = wrapper.current.getElementsByTagName('img')
-    if(!images.length) completeLoading()
+    if(!images.length) handleLoadingComplete()
     const tasks = []
     for(const i in images) {
       const el = images[i]
