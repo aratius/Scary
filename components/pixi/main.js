@@ -6,7 +6,9 @@ import RotateText from './components/text'
 export default function Pure () {
 
   return (
-    <Stage>
+    <Stage
+        options={{ backgroundAlpha: 0 }}
+    >
       <RotateText/>
     </Stage>
   )
