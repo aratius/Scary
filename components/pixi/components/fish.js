@@ -2,51 +2,30 @@ import { useEffect, useState } from 'react'
 import { AnimatedSprite, Sprite, useTick } from '@inlet/react-pixi'
 import * as PIXI from 'pixi.js';
 import { Loader, Texture } from 'pixi.js'
-import { baseImagePath } from '../config'
+import Vector2 from '../common/vector2'
+import { baseImagePath } from '../common/config'
 
-const loader = new Loader()  // or Loader.shared
-const spritesheet = baseImagePath + "fishImages.json"
-
-export default function Fish() {
+export default function Fish(props) {
   const [rotation, setRotation] = useState(0)
-  const [fishFrames, setFrames] = useState([])
-
-  /**
-   * マウント後最初に実行
-   * スプライトシートのローディング・Texture配列の作成
-   */
-  useEffect(() => {
-    console.log(fishFrames[0])
-    if(fishFrames[0] instanceof Texture) return  // すでにローディングしていればもういい
-    if(loader.loading) return
-    loader.add(spritesheet).load(( _ , resource) => {
-      console.log(resource[spritesheet].data.frames)
-      setFrames(
-        Object.keys(resource[spritesheet].data.frames).map(frame => Texture.from(frame))
-      )
-    })
-  },[])
 
   // アップデート処理
   useTick(delta => {
     setRotation(rotation + 0.01)
   })
 
-
   return (
     <>
-    {fishFrames.length > 0 &&
       <AnimatedSprite
-        textures={fishFrames}
-        position={[300, 300]}
+        textures={props.frames}
+        position={props.position}
         isPlaying={true}
         initialFrame={0}
         animationSpeed={0.1}
         anchor={0.5}
-        scale={[0.2, 0.2]}
+        width={props.size}
+        height={props.size}
         tint={0x000000}
       />
-    }
     </>
   )
 }
