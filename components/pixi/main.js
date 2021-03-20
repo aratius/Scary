@@ -9,16 +9,15 @@ export default function Pure() {
 
   useEffect(() => {
     if(mounted) return
+    setMounted(true)
 
     const app = new Application({
       width: window.innerWidth,
       height: document.documentElement.scrollHeight,
-      // backgroundAlpha: 0,
-      // backgroundColor: 0xf00000
+      backgroundAlpha: 0.3,
+      backgroundColor: 0xf0a000
     })
     stage.current.appendChild(app.view)
-
-    setMounted(true)
   }, [])
 
   return (
