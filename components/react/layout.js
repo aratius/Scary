@@ -1,7 +1,11 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Background from '../animation/background'
 import BackgroundContext from '../context/backgroundContext'
 
+const Pure = dynamic(() => import('../pixi/main'), {
+  ssr: false
+})
 export default class Layout extends React.Component {
 
   constructor(props) {
@@ -29,6 +33,7 @@ export default class Layout extends React.Component {
 
     return (
       <>
+        <Pure/>
         {/* updateごとにここにpositionをセットしたい */}
         <Background position={this.state.position}/>
         <BackgroundContext.Provider value={backgroundContext}>
