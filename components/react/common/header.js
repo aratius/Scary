@@ -17,8 +17,8 @@ export default class Header extends React.Component {
             <li><Link href=""><img src="/assets/images/logos/blog.svg"/></Link></li> */}
             <li><TransitionLink href="/works">link</TransitionLink></li>
             <li><TransitionLink href="/about">link</TransitionLink></li>
-            <li><Link href="">link</Link></li>
-            <li><Link href="">link</Link></li>
+            <li><Link href="/">link</Link></li>
+            <li><Link href="/">link</Link></li>
           </ul>
         </div>
       </>

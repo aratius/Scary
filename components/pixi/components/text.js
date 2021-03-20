@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Sprite, useTick } from '@inlet/react-pixi'
 import { Texture } from 'pixi.js';
+
 export default function RotatingText() {
     const [rotation, setRotation] = useState(0)
     useTick(delta => {
