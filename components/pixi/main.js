@@ -1,7 +1,9 @@
 import { createRef, useEffect, useState } from "react"
 import * as PIXI from 'pixi.js'
 import { Application } from 'pixi.js'
+import App from './app'
 import myContainer from './container'
+
 
 export default function Pure() {
 
@@ -12,13 +14,7 @@ export default function Pure() {
     if(mounted) return
     setMounted(true)
 
-    const app = new Application({
-      width: window.innerWidth,
-      height: document.documentElement.scrollHeight,
-      backgroundAlpha: 0.3,
-      backgroundColor: 0xf0a000
-    })
-    targetDOM.current.appendChild(app.view)
+    targetDOM.current.appendChild(App.view)
 
     const container = new myContainer()
     container.Init()
@@ -27,11 +23,11 @@ export default function Pure() {
       container.Update()
     }
     update()
-    app.stage.addChild(container)
+    App.stage.addChild(container)
   }, [])
 
   return (
-    <div id="pure" ref={targetDOM}></div>
+    <div id="pure" ref={targetDOM} style={{position: "absolute", top: 0}}></div>
   )
 
 }
