@@ -7,7 +7,7 @@ class _App extends Application {
       width: window.innerWidth,
       height: document.documentElement.scrollHeight,
       backgroundAlpha: 0.3,
-      backgroundColor: 0xf0a000
+      backgroundColor: 0xf0f000
     })
   }
 

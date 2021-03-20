@@ -33,6 +33,7 @@ export default class myContainer extends Container {
       sprite.animationSpeed = 0.2
       sprite.width = sprite.height = 60
       sprite.alpha = 0
+      sprite.tint = i==0?0xff0000:0x000000
       sprite.play()
       this.addChild(sprite)
       this.fishes.push(sprite)
@@ -45,10 +46,9 @@ export default class myContainer extends Container {
 
   Update() {
     for(const i in this.fishes) {
-      this.fishes[i].Update()
-      if(i == 0) {
-        this.fishes[i].tint = 0xff0000
-      }
+      const others = Array.from(this.fishes)
+      others.splice(i, 1)
+      this.fishes[i].Update(others, i)
     }
   }
 
