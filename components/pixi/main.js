@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Stage } from '@inlet/react-pixi'
-import RotateText from './components/text'
+import Fish from './components/fish'
 
 
 export default function Pure () {
@@ -9,7 +9,7 @@ export default function Pure () {
     <Stage
         options={{ backgroundAlpha: 0 }}
     >
-      <RotateText/>
+      <Fish/>
     </Stage>
   )
 

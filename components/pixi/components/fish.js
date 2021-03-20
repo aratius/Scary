@@ -4,10 +4,10 @@ import * as PIXI from 'pixi.js';
 import { Loader, Texture } from 'pixi.js'
 import { baseImagePath } from '../config'
 
-const loader = PIXI.Loader.shared
+const loader = new Loader()  // or Loader.shared
 const spritesheet = baseImagePath + "fishImages.json"
 
-export default function RotatingText() {
+export default function Fish() {
   const [rotation, setRotation] = useState(0)
   const [fishFrames, setFrames] = useState([])
 
@@ -16,6 +16,7 @@ export default function RotatingText() {
    * スプライトシートのローディング・Texture配列の作成
    */
   useEffect(() => {
+    console.log(fishFrames[0])
     if(fishFrames[0] instanceof Texture) return  // すでにローディングしていればもういい
     if(loader.loading) return
     loader.add(spritesheet).load(( _ , resource) => {
