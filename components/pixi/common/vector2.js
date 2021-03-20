@@ -21,6 +21,11 @@ export default class Vector2 extends Point {
     return new Vector2(x, y)
   }
 
+  static getHyPotenuse(vec2) {
+    if(vec2.x == 0 || vec2.y == 0) return new Vector2(0, 0)
+    return Math.sqrt(Math.pow(vec2.x,2) + Math.pow(vec2.y, 2))
+  }
+
   /**
    * 向きベクトルを足し算
    * 向きなので0~1に正規化
@@ -102,22 +107,30 @@ export default class Vector2 extends Point {
     return newPos
   }
 
+
+  static Mode = {
+    Gravity: "hoge",
+    Repulsive: "bar"
+  }
   /**
    * distThrよりちかい他のスプライトに対する位置関係ベクトルの平均（距離近いほど影響は大きい）
    * @param {Fish} me
    * @param {Fish[]} other
    * @param {float} distThr
    */
-  static getVectorAverage(me, others, distThr, _i) {
+  static getVectorAverage(me, others, distThr, mode) {
     let powerDir = new Vector2(0, 0)
     let power = 0
     for(const i in others) {
       const o = others[i]
       const dist = this.getDist(me, o)
+      let addPower
+      if(mode == this.Mode.Gravity) addPower = dist
+      else if(mode == this.Mode.Repulsive) addPower = distThr - dist
       if(dist < distThr) {
-        powerDir.x += this.getDir(o, me).x * (distThr-dist)
-        powerDir.y += this.getDir(o, me).y * (distThr-dist)
-        power += (distThr-dist)
+        powerDir.x += this.getDir(o, me).x * addPower
+        powerDir.y += this.getDir(o, me).y * addPower
+        power += addPower
       }
     }
 

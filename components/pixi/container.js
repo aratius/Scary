@@ -33,6 +33,7 @@ export default class myContainer extends Container {
       sprite.animationSpeed = 0.2
       sprite.width = sprite.height = 60
       sprite.alpha = 0
+      sprite.anchor.set(0.5)
       sprite.tint = i==0?0xff0000:0x000000
       sprite.play()
       this.addChild(sprite)
