@@ -10,13 +10,14 @@ export default class myContainer extends Container {
   constructor(){
     super()
     this.load()
+    this.num = 0
     this.fishes = []
+    this.fishTextures = []
     this.enemies = []
 
     this.mouse = null
     this.fingers = []
 
-    this.fishTextures = []
 
     this.screen = App.renderer.screen
 
@@ -84,7 +85,7 @@ export default class myContainer extends Container {
     this.num = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
     this.fishes = []
     for(let i = 0; i < this.num; i++) {
-      this.fishInit()
+      // this.fishInit()
     }
   }
 
@@ -113,9 +114,8 @@ export default class myContainer extends Container {
 
     // リサイズなどで急激に数が減った時はこれで補完する
     if(this.fishes.length < this.num) {
-      // 無限ループ注意
-      while(this.fishes.length < this.num) {
-        console.log("hokan")
+    //   // 無限ループ注意
+      for(let i = 0; i < this.num - this.fishes.length; i++) {
         this.fishInit()
       }
     }
