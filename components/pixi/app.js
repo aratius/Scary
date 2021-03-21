@@ -4,10 +4,11 @@ class _App extends Application {
 
   constructor(){
     const el = document.querySelector('.js__pixi__height')
-    console.log(el)
+
+    const height = el.clientHeight > window.innerHeight ? el.clientHeight : window.innerHeight  //最低でもwindow.innerHeihgtは担保
     super({
       width: document.documentElement.clientWidth,
-      height: el.clientHeight,
+      height: height,
       backgroundAlpha: 0.,
       backgroundColor: 0x000000
     })
@@ -19,7 +20,8 @@ class _App extends Application {
 
   onResize = (e) => {
     const el = document.querySelector('.js__pixi__height')
-    this.renderer.resize(document.documentElement.clientWidth, el.clientHeight)
+    const height = el.clientHeight > window.innerHeight ? el.clientHeight : window.innerHeight  //最低でもwindow.innerHeihgtは担保
+    this.renderer.resize(document.documentElement.clientWidth, height)
   }
 
 }
