@@ -108,6 +108,8 @@ export default class Vector2 extends Point {
   }
 
 
+
+
   static Mode = {
     Gravity: "hoge",
     Repulsive: "bar"

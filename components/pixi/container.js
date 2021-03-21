@@ -16,6 +16,8 @@ export default class myContainer extends Container {
     this.mouse = null
     this.fingers = []
 
+    this.fishTextures = []
+
     this.screen = App.renderer.screen
 
     this.isClicking = false
@@ -30,7 +32,6 @@ export default class myContainer extends Container {
   onClickStart = (e) =>{
     this.isClicking = true
     let enemy
-    console.log(e)
     if(e.touches) {
       for(const i in e.touches) {
         if(!(e.touches[i] instanceof Touch)) continue
@@ -73,32 +74,33 @@ export default class myContainer extends Container {
   load() {
     const url = "/assets/images/pixi/fishImages.json"
     new Loader().add(url).load((loader, resources) => {
-      const textures = []
-      for(const key in resources[url].textures) textures.push(resources[url].textures[key])
-      this.loadComplete(textures)
+      this.fishTextures = []
+      for(const key in resources[url].textures) this.fishTextures.push(resources[url].textures[key])
+      this.loadComplete()
     })
   }
 
-  loadComplete(textures) {
-    const num = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+  loadComplete() {
+    this.num = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
     this.fishes = []
-    for(let i = 0; i < num; i++) {
-      const sprite = new Fish(textures)
-      sprite.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
-      sprite.tint = 0x000000
-      sprite.animationSpeed = 0.2
-      sprite.width = sprite.height = (Math.random()*20) + 50
-      sprite.alpha = 0
-      sprite.anchor.set(0.5)
-      sprite.tint = i==0?0xff0000:0x000000
-      sprite.play()
-      this.addChild(sprite)
-      this.fishes.push(sprite)
+    for(let i = 0; i < this.num; i++) {
+      this.fishInit()
     }
   }
 
-  Init() {
-
+  fishInit() {
+    if(this.fishTextures.length == 0) return false
+    const sprite = new Fish(this.fishTextures)
+    sprite.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
+    sprite.tint = 0x000000
+    sprite.animationSpeed = 0.2
+    sprite.width = sprite.height = (Math.random()*20) + 50
+    sprite.alpha = 0
+    sprite.anchor.set(0.5)
+    // sprite.tint = i==0?0xff0000:0x000000
+    sprite.play()
+    this.addChild(sprite)
+    this.fishes.push(sprite)
   }
 
   Update() {
@@ -107,6 +109,31 @@ export default class myContainer extends Container {
       others.splice(i, 1)
 
       this.fishes[i].Update(others, this.enemies, i)
+    }
+
+    // リサイズなどで急激に数が減った時はこれで補完する
+    if(this.fishes.length < this.num) {
+      while(this.fishes.length < this.num) {
+        console.log("hokan")
+        this.fishInit()
+      }
+    }
+  }
+
+  onResize =()=> {
+    const scr = App.renderer.screen
+    this.num = scr.width * scr.height / (200*200)  // あるべき密度を更新
+
+    // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
+    for(const i in this.fishes) {
+      const fish = this.fishes[i]
+      const pos = fish.position
+      const offset = 100
+      if(pos.x < -offset || pos.x > scr.width+offset || pos.y < -offset || pos.y > scr.height+offset) {
+        console.log("delete")
+        this.removeChild(fish)
+        this.fishes.splice(i, 1)
+      }
     }
   }
 

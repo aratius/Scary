@@ -12,7 +12,6 @@ export default function _Base (props) {
   let moveInTweens = []
 
   useEffect(() => {
-    console.log("useEffect")
     loadImages()
   },[]);
 
@@ -39,7 +38,6 @@ export default function _Base (props) {
 
   // DOM要素はローディングを待ってからふわっと登場
   function handleLoadingComplete() {
-    console.log("loading complete")
 
     // appear animation
     if(appearTween) appearTween.kill()
@@ -74,7 +72,6 @@ export default function _Base (props) {
       if(DOM.children.length >= 1) {
         children(DOM, callback)
       }else{  // 持っていなければ末端に達したということなのでcallbackで下の配列にpushする
-        console.log('push------');
         callback(DOM)
       }
     }

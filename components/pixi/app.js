@@ -18,9 +18,7 @@ class _App extends Application {
   }
 
   onResize = (e) => {
-    console.log("resize")
     const el = document.querySelector('.js__pixi__height')
-    console.log(el)
     this.renderer.resize(document.documentElement.clientWidth, el.clientHeight)
   }
 
