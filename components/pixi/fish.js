@@ -62,7 +62,7 @@ export default class Fish extends PIXI.AnimatedSprite {
     const targetRotation = Math.atan2(this.speed.x, -this.speed.y)
     this.rotation = targetRotation
 
-    this.animationSpeed = Math.sqrt(Math.pow(this.speed.x,2) * Math.pow(this.speed.y,2)) * 0.02 + 0.1
+    this.animationSpeed = Math.sqrt(Math.pow(this.speed.x,2) * Math.pow(this.speed.y,2)) * 0.05 + 0.08
 
     this.position = Vector2.outOfScreen(this.position, this.width+100, App.renderer.screen)
   }
