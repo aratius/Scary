@@ -113,6 +113,7 @@ export default class myContainer extends Container {
 
     // リサイズなどで急激に数が減った時はこれで補完する
     if(this.fishes.length < this.num) {
+      // 無限ループ注意
       while(this.fishes.length < this.num) {
         console.log("hokan")
         this.fishInit()
