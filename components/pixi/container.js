@@ -30,8 +30,10 @@ export default class myContainer extends Container {
   onClickStart = (e) =>{
     this.isClicking = true
     let enemy
+    console.log(e)
     if(e.touches) {
       for(const i in e.touches) {
+        if(!(e.touches[i] instanceof Touch)) continue
         enemy = new Enemy(e.touches[i].pageX, e.touches[i].pageY, 1)
         this.fingers.push(enemy)
         this.enemies.push(enemy)
@@ -50,6 +52,7 @@ export default class myContainer extends Container {
    */
   onClickMove = (e) => {
     if(!this.isClicking) return
+    if(e.touches) return
     this.mouse.x = e.pageX
     this.mouse.y = e.pageY
   }
@@ -58,8 +61,9 @@ export default class myContainer extends Container {
     this.isClicking = false
     for(const i in this.enemies) {
       for(const j in this.fingers) {
-        if(this.enemies[i] == this.mouse || this.fingers[j]) this.enemies.splice(i, 1)
+        if(this.enemies[i] == this.fingers[j]) this.enemies.splice(i, 1)
       }
+      if(this.enemies[i] == this.mouse) this.enemies.splice(i, 1)
     }
     this.mouse = null
     this.fingers = []
