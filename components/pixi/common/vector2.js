@@ -135,6 +135,7 @@ export default class Vector2 extends Point {
     }
 
     power/=others.length
+    if(isNaN(power)) power = 0
 
     return {dir: this.normalization(powerDir.x, powerDir.y), power: power}
   }
@@ -160,6 +161,7 @@ export default class Vector2 extends Point {
     }
 
     power/=others.length
+    if(isNaN(power)) power = 0
 
     return {dir: this.normalization(powerDir.x, powerDir.y), power: power}
   }

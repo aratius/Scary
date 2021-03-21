@@ -8,6 +8,7 @@ export default function _Base (props) {
 
   const wrapper = createRef(null)
   let appearTween = null
+  let fallTweens = []
   let moveInTweens = []
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function _Base (props) {
 
     // moveIn animation
     if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
+    if(fallTweens.length) for(const i in fallTweens) fallTweens[i].kill()
     for(const i in elements){
       const dur = Math.random()*10 + 5
       const x = (Math.random()-0.5) * 20 + "px"

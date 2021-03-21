@@ -22,7 +22,7 @@ export default class Fish extends PIXI.AnimatedSprite {
     gsap.to(this, {alpha: 1, duration: 3})
   }
 
-  Update(others, i) {
+  Update(others, enemies, i) {
     // 引力
     const gravity = Vector2.getVectorAverage(this, others, 200, Vector2.Mode.Gravity)
     const v1 = 0.002
@@ -37,12 +37,18 @@ export default class Fish extends PIXI.AnimatedSprite {
     speed2 = Vector2.multiSpeed(speed2, -v2 * repulsive.power)
     this.speed = Vector2.addSpeed(this.speed, speed2)
 
+    const enemy = Vector2.getVectorAverage(this, enemies, 200, Vector2.Mode.Repulsive)
+    const v3 = 0.003
+    let speed3 = enemy.dir
+    speed3 = Vector2.multiSpeed(speed3, -v3 * enemy.power)
+    this.speed = Vector2.addSpeed(this.speed, speed3)
+
     // 向力
     const direction = Vector2.getDirectionAverage(this, others, 250)
-    const v3 = 0.002
-    let speed3 = direction.dir
-    speed3 = Vector2.multiSpeed(speed3, v3 * direction.power)
-    this.speed = Vector2.addSpeed(this.speed, speed3)
+    const v4 = 0.002
+    let speed4 = direction.dir
+    speed4 = Vector2.multiSpeed(speed4, v4 * direction.power)
+    this.speed = Vector2.addSpeed(this.speed, speed4)
 
     // 一定の減衰 遅すぎる時はしない
     if(Vector2.getHyPotenuse(this.speed) > 1) {
@@ -58,7 +64,7 @@ export default class Fish extends PIXI.AnimatedSprite {
 
     this.animationSpeed = Math.sqrt(Math.pow(this.speed.x,2) * Math.pow(this.speed.y,2)) * 0.02 + 0.1
 
-    this.position = Vector2.outOfScreen(this.position, this.width+100, App.renderer.screen, )
+    this.position = Vector2.outOfScreen(this.position, this.width+100, App.renderer.screen)
   }
 
 }
