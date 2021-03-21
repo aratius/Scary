@@ -3,12 +3,25 @@ import { Application } from 'pixi.js'
 class _App extends Application {
 
   constructor(){
+    const el = document.querySelector('.js__pixi__height')
+    console.log(el)
     super({
-      width: window.innerWidth,
-      height: document.documentElement.scrollHeight,
-      backgroundAlpha: 0.3,
-      backgroundColor: 0xf0f000
+      width: document.documentElement.clientWidth,
+      height: el.clientHeight,
+      backgroundAlpha: 0.,
+      backgroundColor: 0x000000
     })
+    this.renderer.autoResize = true
+
+    window.addEventListener('resize', this.onResize)
+
+  }
+
+  onResize = (e) => {
+    console.log("resize")
+    const el = document.querySelector('.js__pixi__height')
+    console.log(el)
+    this.renderer.resize(document.documentElement.clientWidth, el.clientHeight)
   }
 
 }

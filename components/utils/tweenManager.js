@@ -5,13 +5,13 @@ export default class TweenManager {
 
   static popUp(element, duration=0.3, delay=0, ease="elastic.out") {
     if(!element) return
-    element.style.zIndex = 100;
+    // element.style.zIndex = 200;
     gsap.timeline().fromTo(element,{scale: 1}, {scale: 1.2, duration: duration, delay: delay, ease: ease})
   }
 
   static popDown(element, duration=0.3, delay=0, ease="elastic.out") {
       if(!element) return
-      element.style.zIndex = 1
+      // element.style.zIndex = 1
       gsap.timeline().to(element, {scale: 1, duration: duration, delay: delay, ease: ease})
   }
 

@@ -37,6 +37,7 @@ export default class Fish extends PIXI.AnimatedSprite {
     speed2 = Vector2.multiSpeed(speed2, -v2 * repulsive.power)
     this.speed = Vector2.addSpeed(this.speed, speed2)
 
+    // ユーザが意図的に配置した敵をenemiesに格納する マウスクリックとか
     const enemy = Vector2.getVectorAverage(this, enemies, 200, Vector2.Mode.Repulsive)
     const v3 = 0.003
     let speed3 = enemy.dir
@@ -62,7 +63,7 @@ export default class Fish extends PIXI.AnimatedSprite {
     const targetRotation = Math.atan2(this.speed.x, -this.speed.y)
     this.rotation = targetRotation
 
-    this.animationSpeed = Math.sqrt(Math.pow(this.speed.x,2) * Math.pow(this.speed.y,2)) * 0.05 + 0.08
+    this.animationSpeed = Math.sqrt(Math.pow(this.speed.x,2) + Math.pow(this.speed.y,2)) * 0.05 + 0.08
 
     this.position = Vector2.outOfScreen(this.position, this.width+100, App.renderer.screen)
   }

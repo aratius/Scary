@@ -27,7 +27,7 @@ export default function Pure() {
   }, [])
 
   return (
-    <div id="pure" ref={targetDOM} style={{position: "absolute", top: 0}}></div>
+    <div id="pure" ref={targetDOM} style={{position: "absolute", top: 0, zIndex: 100, pointerEvents: "none"}}></div>
   )
 
 }

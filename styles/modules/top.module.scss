@@ -9,9 +9,6 @@ $lead-height: 95vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
   img {
     width: 70%;
     max-width: 700px;
@@ -20,14 +17,11 @@ $lead-height: 95vh;
 
 .main__container {
   width: $main-content-width;
-  position: absolute;
-  top: 0;
-  left: 10%;
-  margin-top: $lead-height;
+  margin-left: calc((100% - 80%) / 2);
 
   .about__container {
     width: 100%;
-    margin: $m-20 0;
+    padding: $m-20 0;
     position: relative;
 
     img {

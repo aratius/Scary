@@ -82,7 +82,7 @@ export default function _Base (props) {
   }
 
   return (
-    <div className="container">
+    <div className="container js__pixi__height">
       <_Head title={`Cocoon | ${props.title}`}/>
       <BackgroundContextSender position={(props.circlePos)}/>
       <Header/>
