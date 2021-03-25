@@ -9,7 +9,7 @@ import { STYLES_WORKS } from '../components/utils/config'
 export default function Home (props) {
 
   const data = props.works
-
+  console.log(props);
   return (
     <Base
       circlePos={{x: 100, y: 500}}
@@ -35,9 +35,15 @@ export default function Home (props) {
   )
 }
 
-//getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
-export async function getStaticProps(context) {
+// SSR
+// Home.getInitialProps = async function (context) {
+//   const works = await getWorks()
+//   return {works}
+// }
 
+// SSG WorksはSSGでよい
+// getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
+export async function getStaticProps(context) {
   const works = await getWorks()
   return {props: {works}}
 }
