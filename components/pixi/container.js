@@ -1,9 +1,8 @@
-import * as PIXI from 'pixi.js'
 import { Container, Sprite, Texture, Loader } from 'pixi.js'
-import Vector2 from './common/vector2'
 import Fish from './fish'
 import Enemy from './enemy'
 import App from './app'
+import Vector2 from './common/vector2'
 
 export default class myContainer extends Container {
 
@@ -18,7 +17,6 @@ export default class myContainer extends Container {
     this.mouse = null
     this.fingers = []
 
-
     this.screen = App.renderer.screen
 
     this.isClicking = false
@@ -28,6 +26,7 @@ export default class myContainer extends Container {
     window.addEventListener('touchstart', this.onClickStart)
     window.addEventListener('touchmove', this.onClickMove)
     window.addEventListener('touchend', this.onClickEnd)
+
   }
 
   onClickStart = (e) =>{
@@ -45,6 +44,7 @@ export default class myContainer extends Container {
       this.mouse = enemy
       this.enemies.push(enemy)
     }
+
   }
 
   /**
@@ -91,14 +91,13 @@ export default class myContainer extends Container {
 
   fishInit() {
     if(this.fishTextures.length == 0) return false
-    const sprite = new Fish(this.fishTextures)
+    const size = Math.random() > 0.05 ? (Math.random()*20) + 50 : (Math.random()*50) + 150
+    const sprite = new Fish(this.fishTextures, size)
     sprite.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
     sprite.tint = 0x000000
     sprite.animationSpeed = 0.2
-    sprite.width = sprite.height = (Math.random()*20) + 50
     sprite.alpha = 0
     sprite.anchor.set(0.5)
-    // sprite.tint = i==0?0xff0000:0x000000
     sprite.play()
     this.addChild(sprite)
     this.fishes.push(sprite)
