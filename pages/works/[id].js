@@ -20,6 +20,15 @@ export default function Work (props) {
     >
       <div className={baseStyles.main__container}>
         <h1>{works.title}</h1>
+        <div className={WorkDetailStyles.utils__container}>
+          {works.utils && works.utils.map((util, key) => {
+            return(
+              <span className={WorkDetailStyles.utils__detail} key={key}>
+                {util}
+              </span>
+            )
+          })}
+        </div>
         <img src={works.main_image.url}></img>
         <hr/>
         <p>{works.description}</p>
