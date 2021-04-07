@@ -3,6 +3,7 @@ import _Head from './common/head'
 import BackgroundContextSender from '../animation/backgroundContextSender'
 import Header from './common/header'
 import gsap from 'gsap'
+import Footer from './common/footer'
 
 export default function _Base (props) {
 
@@ -86,6 +87,7 @@ export default function _Base (props) {
       <div className="transition__container" ref={wrapper}>
         {props.children}
       </div>
+      <Footer/>
     </div>
   )
 
