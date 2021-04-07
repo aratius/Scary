@@ -9,5 +9,9 @@
   .masonry__item {
     object-fit: cover;
     margin-bottom: 60px;
+    position: relative;
+    img {
+      position: relative;  // zIndexを効かせるため
+    }
   }
 }

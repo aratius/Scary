@@ -12,6 +12,7 @@ import TweenManager from '../utils/tweenManager'
 export default function _Works (props) {
 
   const handleMouseOver = (e) => {
+    console.log(e.target)
     TweenManager.popUp(e.target)
   }
 

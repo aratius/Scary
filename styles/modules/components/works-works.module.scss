@@ -15,7 +15,7 @@
     img {
       height: 100%;
       object-fit: cover;
-      position: absolute;
+      position: absolute;  //zIndexを効かせるため
       top: 0;
     }
   }
