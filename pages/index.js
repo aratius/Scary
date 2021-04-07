@@ -17,7 +17,7 @@ export default function Home (props) {
     >
       <div className={styles.lead__container}>
         {/* <img src="/assets/images/logos/cocoon.svg"/> */}
-        <h1>title</h1>
+        <h1>制作中のポートフォリオサイト</h1>
       </div>
       <div className={styles.main__container}>
         <_Works data={data} styles={STYLES_WORKS.TOP}/>
