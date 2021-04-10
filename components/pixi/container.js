@@ -68,7 +68,7 @@ export default class myContainer extends Container {
     this.mouse.x = e.pageX
     this.mouse.y = e.pageY
 
-    if(Math.random() > 0.3) return  //全フレームwaveを発生させると多すぎるのでちょっと減らす
+    if(Math.random() > 0.1) return  //全フレームwaveを発生させると多すぎるのでちょっと減らす
     // RO means 'RandomOffset'
     const RO = new Vector2((Math.random()-0.5) * 50, (Math.random()-0.5) * 50)
     this.waveInit(e.pageX + RO.x, e.pageY+RO.y)
@@ -130,17 +130,18 @@ export default class myContainer extends Container {
     }
 
     App.renderer.render(this.waveTextureContainer, this.waveTexture)  //レンダーテクスチャをレンダリング
+    App.renderer.render(this, this.containerTexture)  //レンダーテクスチャをレンダリング
+    if(this.fishCirveFilter) this.fishCirveFilter.uniforms.u_animTime += 0.01
   }
 
   onResize =()=> {
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
-
     this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // あるべき密度を更新
 
-      // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
-      // その後どうせ自動で補完されるから
+    // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
+    // その後どうせ自動で補完されるから
     for(const i in this.fishes) {
       const fish = this.fishes[i]
       const pos = fish.position
@@ -155,13 +156,19 @@ export default class myContainer extends Container {
       width: this.screen.width,
       height: this.screen.height
     })
-    this.filters = [new FishCirveFilter(this.waveTexture)]
 
-    this.textureSpriteForView = Sprite.from(this.waveTexture)  //wavetexture表示用スプライト （本番時は隠す）
-    this.textureSpriteForView.x = 0
-    this.textureSpriteForView.y = 0
-    // this.addChild(this.textureSpriteForView)
+    this.containerTexture = RenderTexture.create({
+      width: this.screen.width,
+      height: this.screen.height
+    })
 
+    this.fishCirveFilter = new FishCirveFilter(this.containerTexture, this.waveTexture)
+    App.stage.filters = [this.fishCirveFilter]
+
+    this.insteadOfAddChildToThisContainer = Sprite.from(this.containerTexture)  //wavetexture表示用スプライト （本番時は隠す）
+    this.insteadOfAddChildToThisContainer.x = 0
+    this.insteadOfAddChildToThisContainer.y = 0
+    App.stage.addChild(this.insteadOfAddChildToThisContainer)
 
   }
 

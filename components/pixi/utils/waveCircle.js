@@ -17,9 +17,9 @@ export default class WaveCircle extends Sprite {
   }
 
   async spread() {
-    if(this.spreadTween) this.spreadTween.kill()
-    this.spreadTween = gsap.to(this.scale, { x: 5, y: 5, duration: 1 })
-    this.alphaTween = gsap.to(this, {alpha: 0, duration: 1})
+    const duration = 2
+    this.spreadTween = gsap.to(this.scale, { x: 8, y: 8, duration: duration })
+    this.alphaTween = gsap.to(this, {alpha: 0, duration: duration})
 
     try{
       await Promise.all([this.spreadTween, this.alphaTween])
