@@ -4,6 +4,7 @@ uniform sampler2D uSampler;
 
 uniform sampler2D waveTexture;
 uniform float u_animTime;
+uniform vec2 u_resolution;
 
 const int oct = 8;
 const float per = 0.5;
@@ -56,23 +57,25 @@ float noise_(vec2 uv)
 
 void main(void){
   // TODO: スクリーンとテクスチャコードのずれ問題を理解したい
-  vec2 pos = vScreenCoord;
   vec2 cord = vTextureCoord;
 
-  vec4 waveMap = texture2D(waveTexture, pos);  //こっちはpos
+	vec2 r = u_resolution / min(u_resolution.x, u_resolution.y);
+	vec2 pos = cord * r;
+
+  vec4 waveMap = texture2D(waveTexture, cord);  //こっちはpos
 
 	// noise----------
-  vec2 t = cord.xy;
-  float noiseAmplitudeAmount = waveMap.a;
+  vec2 t = pos.xy;
   float n = noise_(t*6.);
   float noise = (n * 2.) - 1.0;  // -1 ~ 1
   float noiseAmount = waveMap.x * 0.1 + 0.005;
-  vec2 noiseCord = vec2(noise*noiseAmount + cord.x, noise*noiseAmount + cord.y);
+  vec2 noiseCord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
 	// noise----------
 
+	noiseCord /= r;
   vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
 
-  // color = vec4(vec3(noise), 1.);
+  // color = vec4(vec3(pos.x / r.x), 1.);
 
   gl_FragColor=color;
 

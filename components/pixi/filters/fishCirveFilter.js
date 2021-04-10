@@ -9,7 +9,8 @@ export default class FishCirveFilter extends Filter {
       fragGLSL,
       {
         waveTexture: waveTexture,
-        u_animTime: 0
+        u_animTime: 0,
+        u_resolution: null
       }
     )
   }

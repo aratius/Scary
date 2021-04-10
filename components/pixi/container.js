@@ -157,6 +157,7 @@ export default class myContainer extends Container {
     })
 
     this.fishCirveFilter = new FishCirveFilter(this.waveTexture)
+    this.fishCirveFilter.uniforms.u_resolution = {x: this.screen.width, y: this.screen.height}
     this.filters = [this.fishCirveFilter]  //画面外の魚はそもそもapp.screenによって考慮されない
 
     // 背景いっぱいに広がるbackground
