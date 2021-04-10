@@ -126,15 +126,14 @@ export default class myContainer extends Container {
   }
 
   onResize =()=> {
-    const scr = App.renderer.screen
-    this.requireFishNum = scr.width * scr.height / (200*200)  // あるべき密度を更新
+    this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // あるべき密度を更新
 
     // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
     for(const i in this.fishes) {
       const fish = this.fishes[i]
       const pos = fish.position
       const offset = 100
-      if(pos.x < -offset || pos.x > scr.width+offset || pos.y < -offset || pos.y > scr.height+offset) {
+      if(pos.x < -offset || pos.x > this.screen.width+offset || pos.y < -offset || pos.y > scr.height+offset) {
         this.removeChild(fish)
         this.fishes.splice(i, 1)
       }
