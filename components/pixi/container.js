@@ -1,10 +1,11 @@
 import { Container, Sprite, Texture, Loader } from 'pixi.js'
-import Fish from './fish'
-import Enemy from './enemy'
+import Fish from './utils/fish'
+import Enemy from './utils/enemy'
 import App from './app'
 import Vector2 from './common/vector2'
 
 import FishCirveFilter from './filters/fishCirveFilter'
+import WaveCircle from './utils/waveCircle'
 
 export default class myContainer extends Container {
 
@@ -41,13 +42,17 @@ export default class myContainer extends Container {
         enemy = new Enemy(e.touches[i].pageX, e.touches[i].pageY, 1)
         this.fingers.push(enemy)
         this.enemies.push(enemy)
+
+        this.waveInit(e.touches[i].pageX, e.touches[i].pageY);
       }
     }else {
       enemy = new Enemy(e.pageX, e.pageY, 1)
       this.mouse = enemy
       this.enemies.push(enemy)
-    }
 
+      this.waveInit(e.pageX, e.pageY);
+
+    }
   }
 
   /**
@@ -60,6 +65,11 @@ export default class myContainer extends Container {
     if(e.touches) return
     this.mouse.x = e.pageX
     this.mouse.y = e.pageY
+
+    if(Math.random() > 0.3) return  //全フレームwaveを発生させると多すぎるのでちょっと減らす
+    // RO means 'RandomOffset'
+    const RO = new Vector2((Math.random()-0.5) * 50, (Math.random()-0.5) * 50)
+    this.waveInit(e.pageX + RO.x, e.pageY+RO.y)
   }
 
   onClickEnd = (e) => {
@@ -73,7 +83,6 @@ export default class myContainer extends Container {
     this.mouse = null
     this.fingers = []
   }
-
 
   load() {
     const url = "/assets/images/pixi/fishImages.json"
@@ -106,6 +115,12 @@ export default class myContainer extends Container {
     this.fishes.push(sprite)
   }
 
+  waveInit(x, y) {
+    const wave = new WaveCircle(x, y);
+    this.addChild(wave)
+    wave.spread().then(()=>this.removeChild(wave))  //終わったら削除
+  }
+
   Update() {
     for(const i in this.fishes) {
       let others = Array.from(this.fishes)
@@ -133,7 +148,6 @@ export default class myContainer extends Container {
       const pos = fish.position
       const offset = 100
       if(pos.x < -offset || pos.x > scr.width+offset || pos.y < -offset || pos.y > scr.height+offset) {
-        console.log("delete")
         this.removeChild(fish)
         this.fishes.splice(i, 1)
       }
