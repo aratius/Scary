@@ -130,7 +130,6 @@ export default class myContainer extends Container {
     }
 
     App.renderer.render(this.waveTextureContainer, this.waveTexture)  //レンダーテクスチャをレンダリング
-    App.renderer.render(this, this.containerTexture)  //レンダーテクスチャをレンダリング
     if(this.fishCirveFilter) this.fishCirveFilter.uniforms.u_animTime += 0.01
   }
 
@@ -157,18 +156,9 @@ export default class myContainer extends Container {
       height: this.screen.height
     })
 
-    this.containerTexture = RenderTexture.create({
-      width: this.screen.width,
-      height: this.screen.height
-    })
-
-    this.fishCirveFilter = new FishCirveFilter(this.containerTexture, this.waveTexture)
+    this.fishCirveFilter = new FishCirveFilter(this.waveTexture)
     App.stage.filters = [this.fishCirveFilter]
 
-    this.insteadOfAddChildToThisContainer = Sprite.from(this.containerTexture)  //wavetexture表示用スプライト （本番時は隠す）
-    this.insteadOfAddChildToThisContainer.x = 0
-    this.insteadOfAddChildToThisContainer.y = 0
-    App.stage.addChild(this.insteadOfAddChildToThisContainer)
 
   }
 

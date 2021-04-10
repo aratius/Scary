@@ -3,7 +3,6 @@ varying vec2 vScreenCoord;
 uniform sampler2D uSampler;
 
 uniform sampler2D waveTexture;
-uniform sampler2D containerTexture;
 uniform float u_animTime;
 
 const int oct = 8;

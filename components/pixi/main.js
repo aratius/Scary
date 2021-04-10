@@ -26,7 +26,7 @@ export default function Pure() {
       _container.Update()
     }
     update()
-    // App.stage.addChild(_container)
+    App.stage.addChild(_container)
   }, [])
 
   useEffect(() => {
