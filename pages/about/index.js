@@ -15,7 +15,7 @@ export default function About (props) {
       title="ABOUT"
     >
       <div className={baseStyles.main__container}>
-        <img src="/assets/images/logos/about.svg" className={baseStyles.title}/>
+        <h1>ABOUT</h1>
         <_About data={aboutData}/>
       </div>
     </Base>

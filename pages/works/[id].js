@@ -19,7 +19,7 @@ export default function Work (props) {
       title="WORKS"
     >
       <div className={baseStyles.main__container}>
-        <h1>{works.title}</h1>
+        <h2>{works.title}</h2>
         <div className={WorkDetailStyles.utils__container}>
           {works.utils && works.utils.map((util, key) => {
             return(
