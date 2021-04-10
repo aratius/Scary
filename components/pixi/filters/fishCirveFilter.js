@@ -10,7 +10,7 @@ export default class FishCirveFilter extends Filter {
       {
         waveTexture: waveTexture,
         u_animTime: 0,
-        u_resolution: null
+        u_resolution: null,
       }
     )
   }

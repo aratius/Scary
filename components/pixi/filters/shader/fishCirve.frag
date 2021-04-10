@@ -9,6 +9,7 @@ uniform vec2 u_resolution;
 const int oct = 8;
 const float per = 0.5;
 const float PI = 3.14159265;
+const float amplitude = 50.;
 
 //---------------perlinNoise---------------
 float random(vec2 v)
@@ -42,8 +43,8 @@ float interpolation(float f)
 
 float noise_(vec2 uv)
 {
-	vec2 i_uv = floor(uv * 5.0);
-	vec2 f_uv = fract(uv * 5.0);
+	vec2 i_uv = floor(uv * amplitude);
+	vec2 f_uv = fract(uv * amplitude);
 	vec2 v1 = animation2(random2(i_uv + vec2(0.0, 0.0))) * 2.0 - 1.0;
 	vec2 v2 = animation2(random2(i_uv + vec2(1.0, 0.0))) * 2.0 - 1.0;
 	vec2 v3 = animation2(random2(i_uv + vec2(0.0, 1.0))) * 2.0 - 1.0;
@@ -60,19 +61,19 @@ void main(void){
   vec2 cord = vTextureCoord;
 
 	vec2 r = u_resolution / min(u_resolution.x, u_resolution.y);
-	vec2 pos = cord * r;
+	vec2 pos = cord * r;  // オレオレ正規化 0, 0 は依然右上です
 
   vec4 waveMap = texture2D(waveTexture, cord);  //こっちはpos
 
 	// noise----------
   vec2 t = pos.xy;
-  float n = noise_(t*6.);
+  float n = noise_(t);
   float noise = (n * 2.) - 1.0;  // -1 ~ 1
-  float noiseAmount = waveMap.x * 0.1 + 0.005;
+  float noiseAmount = waveMap.x * 0.1 + 0.01;
   vec2 noiseCord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
 	// noise----------
 
-	noiseCord /= r;
+	noiseCord /= r;  //正規化した座標を戻す
   vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
 
   // color = vec4(vec3(pos.x / r.x), 1.);
