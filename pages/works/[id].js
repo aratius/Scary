@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import React from 'react'
 import { getWorks } from '../../components/api/works'
 import Base from '../../components/react/base'
 import baseStyles from '../../styles/modules/common/base.module.scss'
@@ -31,7 +32,16 @@ export default function Work (props) {
         </div>
         <img src={works.main_image.url}></img>
         <hr/>
-        <p>{works.description}</p>
+        <p className={WorkDetailStyles.description__wrapper}>
+          {works.description.split('\n').map((data, key) => {
+            return (
+              <React.Fragment key={key}>
+                <span className={WorkDetailStyles.description__detail}>{data}</span>
+                <br/>
+              </React.Fragment>
+            )
+          })}
+        </p>
         <hr/>
         <div className={WorkDetailStyles.subimage_container}>
           {works.subimages && works.subimages.map((img ,key) => {
