@@ -20,6 +20,8 @@
     "vercel": "^21.2.3"
   },
   "devDependencies": {
-    "gsap": "^3.6.0"
+    "glslify-loader": "^2.0.0",
+    "gsap": "^3.6.0",
+    "raw-loader": "^4.0.2"
   }
 }

@@ -4,6 +4,8 @@ import Enemy from './enemy'
 import App from './app'
 import Vector2 from './common/vector2'
 
+import FishCirveFilter from './filters/fishCirveFilter'
+
 export default class myContainer extends Container {
 
   constructor(){
@@ -27,6 +29,7 @@ export default class myContainer extends Container {
     window.addEventListener('touchmove', this.onClickMove)
     window.addEventListener('touchend', this.onClickEnd)
 
+    // this.filters = [new FishCirveFilter()]
   }
 
   onClickStart = (e) =>{
