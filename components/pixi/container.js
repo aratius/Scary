@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture, Loader, RenderTexture } from 'pixi.js'
+import { Container, Sprite, Texture, Loader, RenderTexture, Graphics } from 'pixi.js'
 import Fish from './utils/fish'
 import Enemy from './utils/enemy'
 import App from './app'
@@ -157,8 +157,12 @@ export default class myContainer extends Container {
     })
 
     this.fishCirveFilter = new FishCirveFilter(this.waveTexture)
-    App.stage.filters = [this.fishCirveFilter]
+    this.filters = [this.fishCirveFilter]  //画面外の魚はそもそもapp.screenによって考慮されない
 
+    // 背景いっぱいに広がるbackground
+    this.background = new Graphics().beginFill(0x000000).drawRect(0, 0, this.screen.width, this.screen.height).endFill()
+    this.background.alpha = 0
+    this.addChild(this.background)
 
   }
 
