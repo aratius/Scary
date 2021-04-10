@@ -10,12 +10,22 @@ export default class Fish extends PIXI.AnimatedSprite {
   constructor(textures, size) {
     super(textures)
 
+    this.screen = App.renderer.screen
+
+    this.width = this.height = size;
+    this.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
+    this.tint = 0x000000
+    this.animationSpeed = 0.2
+    this.alpha = 0
+    this.anchor.set(0.5)
+
+
     // 最初のランダムな初速度と角度
     this.rotation = getRadian(Math.random()*360)
     this.speed = new Vector2(Math.cos(this.rotation + getRadian(-90)), Math.sin(this.rotation + getRadian(-90)))
 
-    this.width = this.height = size;
 
+    // サイズに応じてスピードバリュー変更
     this.speedDevide = 1
     if(size > 100) {
       this.speedDevide = 0.3;

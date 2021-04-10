@@ -6,13 +6,14 @@ import Vector2 from './common/vector2'
 
 import FishCirveFilter from './filters/fishCirveFilter'
 import WaveCircle from './utils/waveCircle'
+import { loadTextures } from './common/utils'
 
 export default class myContainer extends Container {
 
   constructor(){
     super()
-    this.load()
-    this.num = 0
+    this.loadTextures()
+    this.requireFishNum = 0  // 魚密度 このパラメータ更新したら自動で魚追加される
     this.fishes = []
     this.fishTextures = []
     this.enemies = []
@@ -84,32 +85,18 @@ export default class myContainer extends Container {
     this.fingers = []
   }
 
-  load() {
+  async loadTextures() {
     const url = "/assets/images/pixi/fishImages.json"
-    new Loader().add(url).load((loader, resources) => {
-      this.fishTextures = []
-      for(const key in resources[url].textures) this.fishTextures.push(resources[url].textures[key])
-      this.loadComplete()
-    })
-  }
-
-  loadComplete() {
-    this.num = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
-    this.fishes = []
-    for(let i = 0; i < this.num; i++) {
-      // this.fishInit()
-    }
+    const textures = await loadTextures(url)
+    this.fishTextures = textures
+    // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
+    this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
   }
 
   fishInit() {
     if(this.fishTextures.length == 0) return false
     const size = Math.random() > 0.05 ? (Math.random()*20) + 50 : (Math.random()*50) + 150
     const sprite = new Fish(this.fishTextures, size)
-    sprite.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
-    sprite.tint = 0x000000
-    sprite.animationSpeed = 0.2
-    sprite.alpha = 0
-    sprite.anchor.set(0.5)
     sprite.play()
     this.addChild(sprite)
     this.fishes.push(sprite)
@@ -130,9 +117,9 @@ export default class myContainer extends Container {
     }
 
     // リサイズなどで急激に数が減った時はこれで補完する
-    if(this.fishes.length < this.num) {
+    if(this.fishes.length < this.requireFishNum) {
     //   // 無限ループ注意
-      for(let i = 0; i < this.num - this.fishes.length; i++) {
+      for(let i = 0; i < this.requireFishNum - this.fishes.length; i++) {
         this.fishInit()
       }
     }
@@ -140,7 +127,7 @@ export default class myContainer extends Container {
 
   onResize =()=> {
     const scr = App.renderer.screen
-    this.num = scr.width * scr.height / (200*200)  // あるべき密度を更新
+    this.requireFishNum = scr.width * scr.height / (200*200)  // あるべき密度を更新
 
     // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
     for(const i in this.fishes) {
