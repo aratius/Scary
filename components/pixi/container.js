@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture, Loader } from 'pixi.js'
+import { Container, Sprite, Texture, Loader, RenderTexture } from 'pixi.js'
 import Fish from './utils/fish'
 import Enemy from './utils/enemy'
 import App from './app'
@@ -12,14 +12,13 @@ export default class myContainer extends Container {
 
   constructor(){
     super()
-    this.loadTextures()
     this.requireFishNum = 0  // 魚密度 このパラメータ更新したら自動で魚追加される
     this.fishes = []
     this.fishTextures = []
     this.enemies = []
 
-    this.mouse = null
-    this.fingers = []
+    this.mouse = null  // クリック時のマウス情報を格納
+    this.fingers = []  // タップ時の指座標とか格納
 
     this.screen = App.renderer.screen
 
@@ -31,7 +30,9 @@ export default class myContainer extends Container {
     window.addEventListener('touchmove', this.onClickMove)
     window.addEventListener('touchend', this.onClickEnd)
 
-    // this.filters = [new FishCirveFilter()]
+    this.waveTextureContainer = new Container()  //waveTexture用のコンテナ 直接はレンダリングしなくてよい
+
+    this.loadTextures()
   }
 
   onClickStart = (e) =>{
@@ -87,10 +88,14 @@ export default class myContainer extends Container {
 
   async loadTextures() {
     const url = "/assets/images/pixi/fishImages.json"
-    const textures = await loadTextures(url)
-    this.fishTextures = textures
-    // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
-    this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+    try {
+      const textures = await loadTextures(url)
+      this.fishTextures = textures
+      // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
+      this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   fishInit() {
@@ -104,8 +109,8 @@ export default class myContainer extends Container {
 
   waveInit(x, y) {
     const wave = new WaveCircle(x, y);
-    this.addChild(wave)
-    wave.spread().then(()=>this.removeChild(wave))  //終わったら削除
+    this.waveTextureContainer.addChild(wave)
+    wave.spread().then(()=>this.waveTextureContainer.removeChild(wave))  //終わったら削除
   }
 
   Update() {
@@ -118,26 +123,46 @@ export default class myContainer extends Container {
 
     // リサイズなどで急激に数が減った時はこれで補完する
     if(this.fishes.length < this.requireFishNum) {
-    //   // 無限ループ注意
+      // 無限ループ注意
       for(let i = 0; i < this.requireFishNum - this.fishes.length; i++) {
         this.fishInit()
       }
     }
+
+    App.renderer.render(this.waveTextureContainer, this.waveTexture)  //レンダーテクスチャをレンダリング
   }
 
   onResize =()=> {
+    // 魚Textureののローディングが完了しているかどうか
+    if(!this.fishTextures.length) return
+
+
     this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // あるべき密度を更新
 
-    // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
+      // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
+      // その後どうせ自動で補完されるから
     for(const i in this.fishes) {
       const fish = this.fishes[i]
       const pos = fish.position
       const offset = 100
-      if(pos.x < -offset || pos.x > this.screen.width+offset || pos.y < -offset || pos.y > scr.height+offset) {
+      if(pos.x < -offset || pos.x > this.screen.width+offset || pos.y < -offset || pos.y > this.screen.height+offset) {
         this.removeChild(fish)
         this.fishes.splice(i, 1)
       }
     }
+
+    this.waveTexture = RenderTexture.create({
+      width: this.screen.width,
+      height: this.screen.height
+    })
+    this.filters = [new FishCirveFilter(this.waveTexture)]
+
+    this.textureSpriteForView = Sprite.from(this.waveTexture)  //wavetexture表示用スプライト （本番時は隠す）
+    this.textureSpriteForView.x = 0
+    this.textureSpriteForView.y = 0
+    // this.addChild(this.textureSpriteForView)
+
+
   }
 
 }
