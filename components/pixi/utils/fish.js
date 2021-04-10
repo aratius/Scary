@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js'
 import { AnimatedSprite } from 'pixi.js'
 import gsap from 'gsap'
-import Vector2 from './common/vector2'
-import { getRadian } from './common/utils'
-import App from './app'
+import Vector2 from '../common/vector2'
+import { getRadian } from '../common/utils'
+import App from '../app'
 
 export default class Fish extends PIXI.AnimatedSprite {
 

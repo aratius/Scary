@@ -1,4 +1,4 @@
-import Vector2 from './common/vector2'
+import Vector2 from '../common/vector2'
 
 export default class Enemy extends Vector2 {
 
