@@ -14,7 +14,7 @@ export default class Fish extends PIXI.AnimatedSprite {
 
     this.width = this.height = size;
     this.position.set(Math.random()*this.screen.width, Math.random()*this.screen.height)
-    this.tint = 0x000000
+    this.tint = 0x333333
     this.animationSpeed = 0.2
     this.alpha = 0
     this.anchor.set(0.5)
