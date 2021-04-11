@@ -44,8 +44,12 @@ export default class myContainer extends Container {
         enemy = new Enemy(e.touches[i].pageX, e.touches[i].pageY, 1)
         this.fingers.push(enemy)
         this.enemies.push(enemy)
-
-        this.waveInit(e.touches[i].pageX, e.touches[i].pageY);
+        // 一個じゃ物足りないので何個か作成
+        for(let j = 0; j < 5; j++) {
+          const RO = new Vector2((Math.random()-0.5) * 150, (Math.random()-0.5) * 150)
+          const duration = j * 100
+          setTimeout(()=>this.waveInit(e.touches[i].pageX + RO.x, e.touches[i].pageY+RO.y), duration)
+        }
       }
     }else {
       enemy = new Enemy(e.pageX, e.pageY, 1)
@@ -114,6 +118,7 @@ export default class myContainer extends Container {
   }
 
   Update() {
+    // fishのアップデート
     for(const i in this.fishes) {
       let others = Array.from(this.fishes)
       others.splice(i, 1)
@@ -164,6 +169,12 @@ export default class myContainer extends Container {
     this.background = new Graphics().beginFill(0x000000).drawRect(0, 0, this.screen.width, this.screen.height).endFill()
     this.background.alpha = 0
     this.addChild(this.background)
+
+    this.specialSprite = Sprite.from(this.waveTexture)
+    this.specialSprite.x = 0
+    this.specialSprite.y = 0
+    this.specialSprite.alpha = 0.1  //うっすら見えるようにしてみる
+    this.addChild(this.specialSprite)
 
   }
 
