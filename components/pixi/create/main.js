@@ -44,10 +44,13 @@ export default function Pure() {
     position: "relative",
     top: 100,
     width: "100%",
+    height: 0,
+    paddingBottom: "100%",
     left: "50%",
     transform: "translateX(-50%)",
     zIndex: 100,
-    pointerEvents: "none"
+    pointerEvents: "none",
+    backgroundColor: "gray"
   }
 
   return (

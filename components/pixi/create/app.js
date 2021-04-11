@@ -5,9 +5,8 @@ class _App extends Application {
   constructor(){
     super({
       backgroundColor: 0xaaaaaa,
-      backgroundAlpha: 0.9
+      backgroundAlpha: 0.
     })
-
   }
 
   // ラッパーのdivと同じ幅にする

@@ -9,7 +9,6 @@ export default function Work (props) {
 
   const router = useRouter()
   const works = props.works
-  console.log(works);
 
   const randomPos = {x: Math.random() * 700, y: Math.random() * 700}
 

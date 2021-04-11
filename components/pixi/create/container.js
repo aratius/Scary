@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture } from 'pixi.js'
+import { Container, Graphics, Sprite, Texture } from 'pixi.js'
 import { fishSVG } from '../config'
 import FishPoint from './fishPoint'
 import App from './app'
@@ -10,6 +10,7 @@ export default class myContainer extends Container {
     super()
 
     this.circles = []
+    this.fillGraphic = null
     this.initCircles()
 
     this.mousePosition = null
@@ -22,6 +23,8 @@ export default class myContainer extends Container {
     window.addEventListener('touchstart', this.onClickStart)
     window.addEventListener('touchmove', this.onClickMove)
     window.addEventListener('touchend', this.onClickEnd)
+
+    this.sortableChildren = true;
   }
 
   onClickStart = (e) =>{
@@ -56,13 +59,16 @@ export default class myContainer extends Container {
     if(e.touches) return
     this.mousePosition = App.renderer.plugins.interaction.mouse.getLocalPosition(this)
 
-    if(this.grabbingCircle) this.grabbingCircle.position = this.mousePosition
+    if(this.grabbingCircle) {
+      this.grabbingCircle.position = this.mousePosition
+      this.updatePath()
+    }
 
   }
 
   onClickEnd = (e) => {
     this.isClicking = false
-    this.mouse = null
+    this.grabbingCircle = null
   }
 
 
@@ -93,6 +99,8 @@ export default class myContainer extends Container {
       this.addChild(sprite)
       this.circles.push(sprite)
     }
+
+    this.updatePath()
   }
 
   fixCircles(){
@@ -106,6 +114,24 @@ export default class myContainer extends Container {
       this.circles[i].x *= scaler
       this.circles[i].y *= scaler
     }
+
+    this.updatePath()
+  }
+
+  updatePath() {
+
+    if(this.fillGraphic) this.fillGraphic.clear()
+    const g = new Graphics().beginFill(0x333333, 1).lineStyle(2, 0x333333).moveTo(this.circles[0].x, this.circles[0].y)
+    g.zIndex = -1
+
+    for(const i in this.circles) {
+      const next = i == this.circles.length-1 ? 0 : Number(i)+1
+      g.lineTo(this.circles[next].x, this.circles[next].y)
+
+    }
+
+    this.addChild(g)
+    this.fillGraphic = g
   }
 
 }
