@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
 <defs>
-<style>.cls-1{fill:none;}</style>
+<style>.cls-1{fill:none;}.cls-2{fill:red;}</style>
 </defs>
 <g id="レイヤー_2" data-name="レイヤー 2">
-<g id="レイヤー_1-2" data-name="レイヤー 1">
+<g id="レイヤー_2-2" data-name="レイヤー 2">
 <circle cx="144.5" cy="37.5" r="1.5"/>
 <circle cx="104.16" cy="65.26" r="1.5"/>
 <circle cx="88.16" cy="101.26" r="1.5"/>
@@ -25,6 +25,9 @@
 <circle cx="208.16" cy="97.26" r="1.5"/>
 <circle cx="182.16" cy="65.26" r="1.5"/>
 <rect class="cls-1" width="300" height="300"/>
+<circle class="cls-2" cx="147.5" cy="57.5" r="1.5"/>
+<circle class="cls-2" cx="149.5" cy="217.5" r="1.5"/>
+<circle class="cls-2" cx="147.5" cy="252.5" r="1.5"/>
 </g>
 </g>
 </svg>

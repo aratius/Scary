@@ -2,6 +2,7 @@ import { createRef, useEffect, useState } from "react"
 import myContainer from './container'
 import App from './app'
 import gsap from 'gsap'
+import createStyles from '../../../styles/modules/create/index.module.scss'
 
 export default function Pure() {
 
@@ -47,11 +48,14 @@ export default function Pure() {
 
   }
 
+  function getImageData(){
+    console.log("getIMagedaa");
+    const url = App.renderer.view.toDataURL("image/jpg")
+  }
+
   const styles = {
     position: "relative",
-    top: 100,
     width: "100%",
-    maxWidth: "400px",
     left: "50%",
     transform: "translateX(-50%)",
     zIndex: 100,
@@ -63,7 +67,7 @@ export default function Pure() {
   return (
     <>
       <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
-      <button>edit</button>
+      <a className={createStyles.button__done} onClick={getImageData}>DONE</a>
     </>
   )
 

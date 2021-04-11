@@ -8,6 +8,7 @@ class _App extends Application {
       backgroundColor: 0xaaaaaa,
       backgroundAlpha: 0.
     })
+    this.renderer.preserveDrawingBuffer = true
   }
 
   // ラッパーのdivと同じ幅にする
