@@ -14,8 +14,6 @@ class _App extends Application {
     })
     this.renderer.autoResize = true
 
-    window.addEventListener('resize', this.onResize)
-
   }
 
   onResize = (e) => {

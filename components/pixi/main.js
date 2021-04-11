@@ -30,12 +30,16 @@ export default function Pure() {
   }, [])
 
   useEffect(() => {
-    console.log(container)
     // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
     setTimeout(()=>{
       App.onResize()
       if(container) container.onResize()
     }, 200)
+
+    window.addEventListener("resize", ()=> {
+      App.onResize()
+      if(container) container.onResize()
+    })
   })
 
   return (
