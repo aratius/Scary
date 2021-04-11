@@ -9,7 +9,6 @@ uniform vec2 u_resolution;
 const int oct = 8;
 const float per = 0.5;
 const float PI = 3.14159265;
-const float amplitude = 50.;
 
 //---------------perlinNoise---------------
 float random(vec2 v)
@@ -43,6 +42,8 @@ float interpolation(float f)
 
 float noise_(vec2 uv)
 {
+	float amplitude = u_resolution.x / 20.;  //ノイズの細かさ
+
 	vec2 i_uv = floor(uv * amplitude);
 	vec2 f_uv = fract(uv * amplitude);
 	vec2 v1 = animation2(random2(i_uv + vec2(0.0, 0.0))) * 2.0 - 1.0;
