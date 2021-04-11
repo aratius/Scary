@@ -21,6 +21,7 @@ class Bone extends Sprite {
   constructor(texture, point) {
     super(texture)
     this.position = point
+    this.defaultPosition = point
     this.anchor.set(0.5)
     this.width = this.height = 10
     this.tint = 0xff3333

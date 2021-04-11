@@ -22,6 +22,7 @@ export default class myContainer extends Container {
     this.initCircles()
 
     this.startTime = new Date().getTime()
+    this.fishShouldAnimate = false
 
     window.addEventListener('mousedown', this.onClickStart)
     window.addEventListener('mousemove', this.onClickMove)
@@ -34,6 +35,8 @@ export default class myContainer extends Container {
   }
 
   onClickStart = (e) =>{
+    if(this.fishShouldAnimate) return
+
     this.isClicking = true
     let enemy
     if(e.touches) {
@@ -55,16 +58,18 @@ export default class myContainer extends Container {
       if(mostNearDist < 20) {
         this.grabbingCircle = mostNear
         this.grabbingCircle.position = this.mousePosition
+        if(this.grabbingCircle.defaultPosition) this.grabbingCircle.defaultPosition = this.mousePosition
       }
     }
   }
 
   onClickMove = (e) =>{
-    if(!this.isClicking) return
-    if(e.touches) return
+    if(!this.isClicking || e.touches || this.fishShouldAnimate) return
 
     if(this.grabbingCircle) {
       this.grabbingCircle.position = this.mousePosition
+      if(this.grabbingCircle.defaultPosition) this.grabbingCircle.defaultPosition = this.mousePosition
+
       this.updatePath()
     }
 
@@ -79,9 +84,9 @@ export default class myContainer extends Container {
   Update(){
     this.mousePosition = App.renderer.plugins.interaction.mouse.getLocalPosition(this)
 
-    // 中にいるときだけcircle表示
+    // マウスが中にいる かつ notアニメーション中 のときだけcircle表示
     const isInside = this.mousePosition.x > 0 && this.mousePosition.x < App.renderer.screen.width && this.mousePosition.y > 0 && this.mousePosition.y < App.renderer.screen.height
-    this.wantsToHiddenContainer.alpha = isInside ? 1 : 0
+    this.wantsToHiddenContainer.alpha = isInside && !this.fishShouldAnimate ? 1 : 0
 
     this.fishAnimation()
   }
@@ -175,9 +180,10 @@ export default class myContainer extends Container {
   }
 
   fishAnimation(){
-    const time = (new Date().getTime() - this.startTime)/500
-    for(const i in this.fishCircles) {
-      const c = this.fishCircles[i]
+    let time = (new Date().getTime() - this.startTime)/500
+    if(!this.fishShouldAnimate) time = 0
+    for(const i in this.circles) {
+      const c = this.circles[i]
       const m = this.bones.middle
       const radian = Math.atan2(c.defaultPosition.x - m.position.x, c.defaultPosition.y - m.position.y)
       const dist = Math.sqrt(Math.pow(c.defaultPosition.x - m.position.x, 2) + Math.pow(c.defaultPosition.y - m.position.y, 2))
@@ -191,7 +197,7 @@ export default class myContainer extends Container {
       const y = Math.cos(radian + offset) * dist
       const x = Math.sin(radian + offset) * dist
       const position = new Vector2(x + m.x, y + m.y)
-      this.fishCircles[i].position = position
+      this.circles[i].position = position
     }
     // console.log(this.fishCircles[0].position);
     this.updatePath()

@@ -51,6 +51,7 @@ export default function Pure() {
   function getImageData(){
     console.log("getIMagedaa");
     const url = App.renderer.view.toDataURL("image/jpg")
+    container.fishShouldAnimate = !container.fishShouldAnimate
   }
 
   const styles = {
