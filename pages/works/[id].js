@@ -30,10 +30,10 @@ export default function Work (props) {
             )
           })}
         </div>
-        <img src={works.main_image.url}></img>
+        <img src={works.main_image.url} className={WorkDetailStyles.main__image}></img>
         <hr/>
         <p className={WorkDetailStyles.description__wrapper}>
-          {works.description.split('\n').map((data, key) => {
+          {works.description && works.description.split('\n').map((data, key) => {
             return (
               <React.Fragment key={key}>
                 <span className={WorkDetailStyles.description__detail}>{data}</span>

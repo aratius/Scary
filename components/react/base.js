@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useCallback } from 'react'
+import React, { useEffect, createRef, useState } from 'react'
 import _Head from './common/head'
 import BackgroundContextSender from '../animation/backgroundContextSender'
 import Header from './common/header'
@@ -11,11 +11,21 @@ export default function _Base (props) {
   let appearTween = null
   let fallTweens = []
   let moveInTweens = []
+  let elements
+  let scrollPos = 0
 
   useEffect(() => {
     loadImages()
+
+    scrollPos = window.pageYOffset
+
+    window.addEventListener("scroll", handleScroll)
+    return()=>{
+      window.removeEventListener("scroll", handleScroll)
+    }
   },[]);
 
+  // 全ての画像のローディング
   const loadImages = async () => {
     const images = wrapper.current.getElementsByTagName('img')
     if(!images.length) handleLoadingComplete()
@@ -44,18 +54,10 @@ export default function _Base (props) {
     if(appearTween) appearTween.kill()
     appearTween = gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})
 
-    const elements = []
+    elements = []
     children(wrapper.current, (el)=>elements.push(el))
 
-    // moveIn animation
-    if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
-    if(fallTweens.length) for(const i in fallTweens) fallTweens[i].kill()
-    for(const i in elements){
-      const dur = Math.random()*10 + 5
-      const x = (Math.random()-0.5) * 20 + "px"
-      const y = (Math.random()-1.3) * 30 + "px"
-      moveInTweens[i] = gsap.fromTo(elements[i], {x: x, y: y}, {x: 0, y: 0, duration: dur, delay: 0, ease: "elastic.out(5)"})
-    }
+    floatTween(elements, 10)
   }
 
   /**
@@ -64,7 +66,7 @@ export default function _Base (props) {
    * @param {fn} callback
    */
   function children (parentDOM, callback) {
-    const elements = []
+    const _elements = []
     for(const i in parentDOM.children) {
       const DOM = parentDOM.children[i]
       if(!(DOM instanceof HTMLElement)) continue
@@ -76,7 +78,31 @@ export default function _Base (props) {
         callback(DOM)
       }
     }
-    return elements
+    return _elements
+  }
+
+  // 水面をふわふわ浮かんでいるようなtween
+  function floatTween(elements, range) {
+    // moveIn animation
+    if(moveInTweens.length) for(const i in moveInTweens) moveInTweens[i].kill()
+    if(fallTweens.length) for(const i in fallTweens) fallTweens[i].kill()
+    for(const i in elements){
+      const dur = Math.random()*10 + 5
+      const x = (Math.random()-0.5) * 2 * range + "px"
+      const y = (Math.random()-1.3) * 3 * range + "px"
+      moveInTweens[i] = gsap.fromTo(elements[i], {x: x, y: y}, {x: 0, y: 0, duration: dur, delay: 0, ease: "elastic.out(5)"})
+    }
+  }
+
+  // スクローススピード早ければフロート
+  function handleScroll() {
+    const currentPos = window.pageYOffset
+    const scrollSpeed = Math.abs(currentPos - scrollPos)
+    if(scrollSpeed > 500) {
+      floatTween(elements, scrollSpeed / 300)
+    }
+
+    scrollPos = currentPos
   }
 
   return (
