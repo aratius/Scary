@@ -64,7 +64,8 @@ export default class myContainer extends Container {
   }
 
   onClickMove = (e) =>{
-    if(!this.isClicking || e.touches || this.fishShouldAnimate) return
+    e.preventDefault()
+    if(!this.isClicking || this.fishShouldAnimate) return
 
     if(this.grabbingCircle) {
       this.grabbingCircle.position = this.mousePosition

@@ -9,14 +9,19 @@
   left: 50%;
   transform: translateX(-50%);
 
-  .button__done {
-    text-decoration: none;
-    color: #333333;
-    display: inline-block;
-    margin-top: $m-4;
-    padding: $m-1 $m-2;
-    border: 1px solid black;
-    border-radius: 10px;
-    text-align: right;
+  .button__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    .button__done {
+      text-decoration: none;
+      color: #333333;
+      display: inline-block;
+      margin-top: $m-4;
+      padding: $m-1 $m-2;
+      border: 1px solid black;
+      border-radius: 10px;
+      text-align: right;
+    }
   }
 }

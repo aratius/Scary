@@ -48,11 +48,13 @@ export default function Pure() {
 
   }
 
-  function getImageData(){
+  function animationStart(){
     console.log("getIMagedaa");
     const url = App.renderer.view.toDataURL("image/jpg")
     container.fishShouldAnimate = !container.fishShouldAnimate
   }
+
+  function getImageData(){}
 
   const styles = {
     position: "relative",
@@ -68,7 +70,10 @@ export default function Pure() {
   return (
     <>
       <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
-      <a className={createStyles.button__done} onClick={getImageData}>DONE</a>
+      <div className={createStyles.button__wrapper}>
+        <a className={createStyles.button__done} onClick={animationStart}>ANIMATE</a>
+        <a className={createStyles.button__done} onClick={getImageData}>DONE</a>
+      </div>
     </>
   )
 
