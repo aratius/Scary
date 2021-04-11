@@ -73,11 +73,9 @@ export default class myContainer extends Container {
 
 
   Update(){
-
   }
 
   onResize(){
-
     this.fixCircles()
   }
 

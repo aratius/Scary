@@ -57,7 +57,6 @@ export default class myContainer extends Container {
       this.enemies.push(enemy)
 
       this.waveInit(e.pageX, e.pageY);
-
     }
   }
 
@@ -93,10 +92,17 @@ export default class myContainer extends Container {
   async loadTextures() {
     const url = "/assets/images/pixi/fishImages.json"
     try {
-      const textures = await loadTextures(url)
-      this.fishTextures = textures
-      // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
-      this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+      new Loader().add(url).load((_, resources) => {
+
+        const texObj = resources[url].textures
+        const textures = Object.keys(texObj).map((key) => texObj[key])
+
+        this.fishTextures = textures
+        // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
+        this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+        console.log("loadconmplete", this.fishTextures, this.fishTextures.length);
+        this.onResize()
+      })
     } catch(err) {
       console.log(err)
     }
@@ -139,6 +145,7 @@ export default class myContainer extends Container {
   }
 
   onResize =()=> {
+    console.log(this.fishTextures.length);
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 

@@ -20,7 +20,6 @@ export default function Pure() {
 
     const _container = new myContainer()
     setContainer(_container)
-    console.log(_container)
     const update = () => {
       requestAnimationFrame(update)
       _container.Update()
@@ -34,7 +33,7 @@ export default function Pure() {
     setTimeout(()=>{
       App.onResize()
       if(container) container.onResize()
-    }, 200)
+    }, 0)
 
     window.addEventListener("resize", ()=> {
       App.onResize()

@@ -1,6 +1,7 @@
 import { createRef, useEffect, useState } from "react"
 import myContainer from './container'
 import App from './app'
+import gsap from 'gsap'
 
 export default function Pure() {
 
@@ -9,6 +10,7 @@ export default function Pure() {
 
   const [container, setContainer] = useState(null)
 
+  // 最初に一回
   useEffect(() => {
     if(mounted) return
     setMounted(true)
@@ -28,33 +30,41 @@ export default function Pure() {
   useEffect(() => {
     // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
     setTimeout(()=>{
-      App.onResize()
-      if(container) container.onResize()
-    }, 200)
+      resize()
 
-    window.addEventListener("resize", ()=> {
-      if(targetDOM.current) {
-        App.onResize()
-      }
-      if(container) container.onResize()
-    })
+      gsap.to(targetDOM.current, {alpha: 1, duration: 0.5})
+    }, 1000)
+
+    window.addEventListener("resize", resize)
   })
+
+  function resize() {
+    console.log("resize");
+    if(targetDOM.current) {
+      App.onResize()
+    }
+    if(container) container.onResize()
+
+  }
 
   const styles = {
     position: "relative",
     top: 100,
     width: "100%",
-    height: 0,
-    paddingBottom: "100%",
+    maxWidth: "400px",
     left: "50%",
     transform: "translateX(-50%)",
     zIndex: 100,
     pointerEvents: "none",
-    backgroundColor: "gray"
+    backgroundColor: "gray",
+    opacity: 0
   }
 
   return (
-    <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
+    <>
+      <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
+      <button>edit</button>
+    </>
   )
 
 }

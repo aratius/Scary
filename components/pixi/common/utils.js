@@ -5,9 +5,8 @@ export function getRadian(degree) {
 }
 
 export async function loadTextures (jsonUrl) {
-  const textures = []
-  await new Loader().add(jsonUrl).load((loader, resources) => {
-    for(const key in resources[jsonUrl].textures) textures.push(resources[jsonUrl].textures[key])
-  })
-  return textures
+  const _textures = []
+  console.log("hello");
+  return new Loader().add(jsonUrl).load()
+
 }

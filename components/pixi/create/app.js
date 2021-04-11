@@ -1,4 +1,5 @@
 import { Application } from 'pixi.js'
+import gsap from 'gsap'
 
 class _App extends Application {
 
