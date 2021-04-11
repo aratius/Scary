@@ -9,6 +9,8 @@ uniform vec2 u_resolution;
 const int oct = 8;
 const float per = 0.5;
 const float PI = 3.14159265;
+const float power = 0.1;
+const float defaultPower = 0.007;
 
 //---------------perlinNoise---------------
 float random(vec2 v)
@@ -70,7 +72,7 @@ void main(void){
   vec2 t = pos.xy;
   float n = noise_(t);
   float noise = (n * 2.) - 1.0;  // -1 ~ 1
-  float noiseAmount = waveMap.x * 0.1 + 0.01;
+  float noiseAmount = waveMap.x * power + defaultPower;
   vec2 noiseCord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
 	// noise----------
 

@@ -145,7 +145,6 @@ export default class myContainer extends Container {
   }
 
   onResize =()=> {
-    console.log(this.fishTextures.length);
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
