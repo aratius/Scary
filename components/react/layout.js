@@ -33,6 +33,7 @@ export default class Layout extends React.Component {
 
     return (
       <>
+        {/* 背景アニメーション */}
         <Pure/>
         {/* updateごとにここにpositionをセットしたい */}
         <Background position={this.state.position}/>
