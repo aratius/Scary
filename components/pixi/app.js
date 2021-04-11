@@ -4,7 +4,6 @@ class _App extends Application {
 
   constructor(){
     const el = document.querySelector('.js__pixi__height')
-
     const height = el.clientHeight > window.innerHeight ? el.clientHeight : window.innerHeight  //最低でもwindow.innerHeihgtは担保
     super({
       width: document.documentElement.clientWidth,
@@ -12,6 +11,7 @@ class _App extends Application {
       backgroundAlpha: 0.,
       backgroundColor: 0x000000
     })
+    this.stage.interactive = true;
     this.renderer.autoResize = true
 
   }
