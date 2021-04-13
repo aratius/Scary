@@ -15,11 +15,12 @@ export default function TransitionLink (props) {
     // 現在のパスは無効
     if(router.pathname == props.href) return
 
+    const duration = 0.2
 
-    TweenManager.scrollToTop(0.2)
+    TweenManager.scrollToTop(duration)
 
     const el = document.querySelector('.transition__container')
-    gsap.fromTo(el, {opacity: 1}, {opacity: 0, duration: 0.2, delay: 0, onComplete: () => {
+    gsap.fromTo(el, {opacity: 1}, {opacity: 0, duration: duration, onComplete: () => {
       router.push({
         pathname: props.href
       })
