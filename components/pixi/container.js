@@ -120,7 +120,11 @@ export default class myContainer extends Container {
   waveInit(x, y) {
     const wave = new WaveCircle(x, y);
     this.waveTextureContainer.addChild(wave)
-    wave.spread().then(()=>this.waveTextureContainer.removeChild(wave))  //終わったら削除
+    wave.spread().then(()=>{
+      console.log("wave end");
+      wave.alpha = 0
+      this.waveTextureContainer.removeChild(wave)
+    })  //終わったら削除
   }
 
   Update() {
