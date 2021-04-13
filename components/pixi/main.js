@@ -13,6 +13,7 @@ export default function Pure() {
   const [container, setContainer] = useState(null)
 
   useEffect(() => {
+    console.log("hello ininh");
     if(mounted) return
     setMounted(true)
 
@@ -26,6 +27,11 @@ export default function Pure() {
     }
     update()
     App.stage.addChild(_container)
+
+    window.addEventListener("resize", ()=> {
+      App.onResize()
+      if(container) container.onResize()
+    })
   }, [])
 
   useEffect(() => {
@@ -33,12 +39,7 @@ export default function Pure() {
     setTimeout(()=>{
       App.onResize()
       if(container) container.onResize()
-    }, 0)
-
-    window.addEventListener("resize", ()=> {
-      App.onResize()
-      if(container) container.onResize()
-    })
+    }, 100)
   })
 
   return (

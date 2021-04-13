@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import gsap from 'gsap'
-
+import TweenManager from '../../utils/tweenManager'
 
 // 消えるときにトランジションする用の自前Linkタグ
 export default function TransitionLink (props) {
@@ -14,6 +14,9 @@ export default function TransitionLink (props) {
 
     // 現在のパスは無効
     if(router.pathname == props.href) return
+
+
+    TweenManager.scrollToTop(0.2)
 
     const el = document.querySelector('.transition__container')
     gsap.fromTo(el, {opacity: 1}, {opacity: 0, duration: 0.2, delay: 0, onComplete: () => {

@@ -1,7 +1,11 @@
 import gsap from "gsap"
 
-export default class TweenManager {
+// SSRモード（サーバー上）では使えないためこの条件分岐
+const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
+process.browser && gsap.registerPlugin(ScrollToPlugin)
 
+
+export default class TweenManager {
 
   static popUp(element, duration=0.3, delay=0, ease="elastic.out") {
     if(!element) return
@@ -14,6 +18,12 @@ export default class TweenManager {
       if(!element) return
       element.style.zIndex = 1
       gsap.timeline().to(element, {scale: 1, duration: duration, delay: delay, ease: ease})
+  }
+
+  static scrollToTop(duration){
+    if(process.browser) {
+      gsap.to(window, {scrollTo: {y : 0}, duration: duration})
+    }
   }
 
 }
