@@ -4,7 +4,6 @@ import { Application } from 'pixi.js'
 import App from './app'
 import myContainer from './container'
 
-
 export default function Pure() {
 
   const targetDOM = createRef(null)
@@ -12,8 +11,8 @@ export default function Pure() {
 
   const [container, setContainer] = useState(null)
 
+
   useEffect(() => {
-    console.log("hello ininh");
     if(mounted) return
     setMounted(true)
 
@@ -22,8 +21,8 @@ export default function Pure() {
     const _container = new myContainer()
     setContainer(_container)
     const update = () => {
-      requestAnimationFrame(update)
       _container.Update()
+      requestAnimationFrame(update)
     }
     update()
     App.stage.addChild(_container)

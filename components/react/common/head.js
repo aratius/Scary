@@ -6,6 +6,7 @@ const _Head = (props) => {
     <Head>
       <title>{props.title}</title>
       <link rel="icon" href="/favicon.ico" />
+
     </Head>
   )
 }
