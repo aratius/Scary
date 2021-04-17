@@ -36,8 +36,8 @@ export default class myContainer extends Container {
     this.loadTextures()
 
 
-    this.stats = new Stats()
-    this.stats.showPanel(0)
+    // this.stats = new Stats()
+    // this.stats.showPanel(0)
     // document.body.appendChild(this.stats.dom)
   }
 
