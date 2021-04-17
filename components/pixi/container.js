@@ -7,6 +7,7 @@ import Vector2 from './common/vector2'
 import FishCirveFilter from './filters/fishCirveFilter'
 import WaveCircle from './utils/waveCircle'
 import { loadTextures } from './common/utils'
+import Stats from 'stats.js'
 
 export default class myContainer extends Container {
 
@@ -34,6 +35,10 @@ export default class myContainer extends Container {
 
     this.loadTextures()
 
+
+    this.stats = new Stats()
+    this.stats.showPanel(0)
+    document.body.appendChild(this.stats.dom)
   }
 
   onClickStart = (e) =>{
@@ -129,6 +134,7 @@ export default class myContainer extends Container {
   }
 
   Update() {
+    this.stats.update()
 
     // fishのアップデート
     for(const i in this.fishes) {
