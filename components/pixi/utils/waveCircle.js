@@ -23,9 +23,11 @@ export default class WaveCircle extends Sprite {
 
     try{
       await Promise.all([this.spreadTween, this.alphaTween])
+      this.alpha = 0
       return
     }catch(err) {
       console.log(err)
+      this.alpha = 0
     }
   }
 }
