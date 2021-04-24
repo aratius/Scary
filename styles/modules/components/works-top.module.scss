@@ -11,6 +11,7 @@
     margin-bottom: 60px;
     position: relative;
     img {
+      border-radius: 5px;
       position: relative;  // zIndexを効かせるため
     }
   }
