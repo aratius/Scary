@@ -9,8 +9,7 @@ export default function Pure() {
   const targetDOM = createRef(null)
   const [mounted, setMounted] = useState(false)
 
-  const [container, setContainer] = useState(null)
-
+  let container = null;  // こいつの変更を監視する必要はないのでただの変数に
 
   useEffect(() => {
     if(mounted) return
@@ -19,7 +18,7 @@ export default function Pure() {
     targetDOM.current.appendChild(App.view)
 
     const _container = new myContainer()
-    setContainer(_container)
+    container = _container
     const update = () => {
       _container.Update()
       requestAnimationFrame(update)

@@ -181,6 +181,7 @@ export default class myContainer extends Container {
     this.background.alpha = 0
     this.addChild(this.background)
 
+    console.log("resize");
   }
 
 }
