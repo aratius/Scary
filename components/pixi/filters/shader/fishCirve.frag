@@ -9,8 +9,8 @@ uniform vec2 u_resolution;
 const int oct = 8;
 const float per = 0.5;
 const float PI = 3.14159265;
-const float power = 0.1;
-const float defaultPower = 0.007;
+const float power = 0.2;
+const float defaultPower = 0.01;
 
 //---------------perlinNoise---------------
 float random(vec2 v)
@@ -44,7 +44,7 @@ float interpolation(float f)
 
 float noise_(vec2 uv)
 {
-	float amplitude = u_resolution.x / 20.;  //ノイズの細かさ
+	float amplitude = u_resolution.x / 40.;  //ノイズの細かさ
 
 	vec2 i_uv = floor(uv * amplitude);
 	vec2 f_uv = fract(uv * amplitude);
@@ -79,8 +79,9 @@ void main(void){
 	noiseCord /= r;  //正規化した座標を戻す
   vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
 
-  // color = vec4(vec3(pos.x / r.x), 1.);
+	vec4 noiseColor = vec4(vec3(noise), 1.);
+	vec4 blend = vec4(noiseColor * (waveMap.a)*0.1 + color * 0.9);
 
-  gl_FragColor=color;
+  gl_FragColor=blend;
 
 }

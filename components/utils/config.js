@@ -22,10 +22,10 @@ export const STYLES_WORKS = {
         576: 1,
     },
     WORKS: {
-      default: 4*2,
-      1350: 3*2,
-      1048: 2*2,
-      576: 1*2,
+      default: 3,
+      1350: 3,
+      1048: 3,
+      576: 2,
     }
   }
 }

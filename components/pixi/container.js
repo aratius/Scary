@@ -122,8 +122,6 @@ export default class myContainer extends Container {
     const wave = new WaveCircle(x, y);
     this.waveTextureContainer.addChild(wave)
     wave.spread().then(()=>{
-      console.log("wave end");
-      wave.alpha = 0
       this.waveTextureContainer.removeChild(wave)
     })  //終わったら削除
   }
@@ -147,14 +145,15 @@ export default class myContainer extends Container {
     }
 
     App.renderer.render(this.waveTextureContainer, this.waveTexture)  //レンダーテクスチャをレンダリング
-    if(this.fishCirveFilter) this.fishCirveFilter.uniforms.u_animTime += 0.01
+    if(this.fishCirveFilter) this.fishCirveFilter.uniforms.u_animTime += 0.03
   }
 
   onResize =()=> {
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
-    this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // あるべき密度を更新
+    const sw = this.screen.width > 600 ? 600 : this.screen.width
+    this.requireFishNum = sw * this.screen.height / (200*200)  // あるべき密度を更新
 
     // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
     // その後どうせ自動で補完されるから
@@ -182,12 +181,7 @@ export default class myContainer extends Container {
     this.background.alpha = 0
     this.addChild(this.background)
 
-    this.specialSprite = Sprite.from(this.waveTexture)
-    this.specialSprite.x = 0
-    this.specialSprite.y = 0
-    this.specialSprite.alpha = 0.1  //うっすら見えるようにしてみる
-    this.addChild(this.specialSprite)
-
+    console.log("resize");
   }
 
 }
