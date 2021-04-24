@@ -9,7 +9,7 @@ uniform vec2 u_mouse;
 
 const int oct = 3;
 const float per = 0.5;
-const float PI = 3.14159265;
+const float PI = 3.14159265359;
 const float power = 0.2;
 const float defaultPower = 0.02;
 
@@ -17,13 +17,13 @@ const float defaultPower = 0.02;
 float random(vec2 v)
 {
 	// 0.0..1.0の乱数を返す
-	return fract(sin(dot(v, vec2(12.9898, 78.233))) * 43758.5453);
+	return fract(sin(dot(v, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
 float animation(float f)
 {
 	//0.0..1.0をsin波の周期で繰り返す
-	return sin(f * 6.283 + u_animTime * 2.0) * 0.5 + 0.5;
+	return sin(f * 6.283 + u_animTime * 1.0) * 0.5 + 0.5;
 }
 
 vec2 random2(vec2 v)
@@ -65,6 +65,7 @@ float fbm (vec2 uv) {
 	float amplitude = 0.5;
 	float frequency = 0.0;
 
+	// 重ねる
 	for(int i = 0; i < oct; i++) {
 		value += amplitude * noise_(uv);
 		uv *= 1.2;
@@ -73,13 +74,9 @@ float fbm (vec2 uv) {
 	return value;
 }
 
-float atan2(float y, float x){
-    return x == 0.0 ? sin(y)*PI/2. : atan(y, x);
-}
-
 float myNoise(vec2 t) {
 	vec2 q = vec2(0.);
-	q.x = fbm( t + 0.01*u_animTime);
+	q.x = fbm( t + 0.03*u_animTime);
 	q.y = fbm( t + vec2(1.0));
 	float n = fbm(t + q);
 
@@ -114,6 +111,6 @@ void main(void){
 
 	vec4 blend = vec4(noiseColor * (waveMap.a+0.3)*0.1 + color * 0.9);  // ノイズとブレンドする
 
-  gl_FragColor=blend;
+  gl_FragColor = blend;
 
 }
