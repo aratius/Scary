@@ -2,7 +2,6 @@ import React from 'react'
 import TransitionLink from './common/link'
 import Masonry from 'react-masonry-css'
 import stylesTop from '../../styles/modules/components/works-top.module.scss'
-import stylesWorks from '../../styles/modules/components/works-works.module.scss'
 import { STYLES_WORKS } from '../utils/config'
 import TweenManager from '../utils/tweenManager'
 
@@ -21,11 +20,10 @@ export default function _Works (props) {
   }
 
   const works = props.data.contents
-  const isTop = props.styles == STYLES_WORKS.TOP
   //適用するスタイルを分岐
-  const styles = isTop ? stylesTop : stylesWorks
+  const styles = stylesTop
 
-  const breakpointColumnsObj = isTop ? STYLES_WORKS.BREAKPOINTS.TOP : STYLES_WORKS.BREAKPOINTS.WORKS
+  const breakpointColumnsObj = STYLES_WORKS.BREAKPOINTS.TOP
 
   return (
     <>
