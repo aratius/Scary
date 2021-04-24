@@ -81,6 +81,7 @@ export default class myContainer extends Container {
     // RO means 'RandomOffset'
     const RO = new Vector2((Math.random()-0.5) * 50, (Math.random()-0.5) * 50)
     this.waveInit(e.pageX + RO.x, e.pageY+RO.y)
+
   }
 
   onClickEnd = (e) => {
@@ -106,7 +107,6 @@ export default class myContainer extends Container {
         this.fishTextures = textures
         // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
         this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
-        console.log("loadconmplete", this.fishTextures, this.fishTextures.length);
         this.onResize()
       })
     } catch(err) {
@@ -151,7 +151,9 @@ export default class myContainer extends Container {
     }
 
     App.renderer.render(this.waveTextureContainer, this.waveTexture)  //レンダーテクスチャをレンダリング
-    if(this.fishCirveFilter) this.fishCirveFilter.uniforms.u_animTime += 0.03
+    if(this.fishCirveFilter) {
+      this.fishCirveFilter.uniforms.u_animTime += 0.03
+    }
   }
 
   onResize =()=> {

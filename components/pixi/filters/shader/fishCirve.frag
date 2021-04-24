@@ -5,6 +5,7 @@ uniform sampler2D uSampler;
 uniform sampler2D waveTexture;
 uniform float u_animTime;
 uniform vec2 u_resolution;
+uniform vec2 u_mouse;
 
 const int oct = 3;
 const float per = 0.5;
@@ -72,31 +73,42 @@ float fbm (vec2 uv) {
 	return value;
 }
 
+float atan2(float y, float x){
+    return x == 0.0 ? sin(y)*PI/2. : atan(y, x);
+}
+
+float myNoise(vec2 t) {
+	vec2 q = vec2(0.);
+	q.x = fbm( t + 0.01*u_animTime);
+	q.y = fbm( t + vec2(1.0));
+	float n = fbm(t + q);
+
+  return (n * 2.) - 1.0;  // -1 ~ 1
+}
+
 void main(void){
   // TODO: スクリーンとテクスチャコードのずれ問題を理解したい
   vec2 cord = vTextureCoord;
+	// モノクロのwaveテクスチャ これの alphaが > 0 のところをフィルターの対象にする
+  vec4 waveMap = texture2D(waveTexture, cord);
 
+	// 右上基準で正規化した座標
 	vec2 r = u_resolution / min(u_resolution.x, u_resolution.y);
-	vec2 pos = cord * r;  // オレオレ正規化 0, 0 は依然右上です
-
-  vec4 waveMap = texture2D(waveTexture, cord);  //こっちはpos
+	// オレオレ正規化
+	vec2 pos = cord * r;
 
 	// noise----------
   vec2 t = pos.xy;
 
-	vec2 q = vec2(0.);
-	q.x = fbm( t + 0.01*u_animTime);
-	q.y = fbm( t + vec2(1.0));
-
-	float n = fbm(t + q);
-
-  float noise = (n * 2.) - 1.0;  // -1 ~ 1
+  float noise = myNoise(t);  // -1 ~ 1
   float noiseAmount = waveMap.x * power + defaultPower;
-  vec2 noiseCord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
+  vec2 noiseCoord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
 	// noise----------
 
-	noiseCord /= r;  //正規化した座標を戻す
-  vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
+	//正規化した座標を戻す
+	noiseCoord /= r;
+
+  vec4 color = texture2D(uSampler, noiseCoord);  //こっちはcord
 
 	vec4 noiseColor = vec4(vec3(noise), 1.);
 
