@@ -6,11 +6,11 @@ uniform sampler2D waveTexture;
 uniform float u_animTime;
 uniform vec2 u_resolution;
 
-const int oct = 8;
+const int oct = 3;
 const float per = 0.5;
 const float PI = 3.14159265;
 const float power = 0.2;
-const float defaultPower = 0.01;
+const float defaultPower = 0.02;
 
 //---------------perlinNoise---------------
 float random(vec2 v)
@@ -44,7 +44,7 @@ float interpolation(float f)
 
 float noise_(vec2 uv)
 {
-	float amplitude = u_resolution.x / 40.;  //ノイズの細かさ
+	float amplitude = u_resolution.x / 100.;  //ノイズの細かさ
 
 	vec2 i_uv = floor(uv * amplitude);
 	vec2 f_uv = fract(uv * amplitude);
@@ -59,6 +59,19 @@ float noise_(vec2 uv)
 	return o;
 }
 
+float fbm (vec2 uv) {
+	float value = 0.0;
+	float amplitude = 0.5;
+	float frequency = 0.0;
+
+	for(int i = 0; i < oct; i++) {
+		value += amplitude * noise_(uv);
+		uv *= 1.2;
+		amplitude *= 0.6;
+	}
+	return value;
+}
+
 void main(void){
   // TODO: スクリーンとテクスチャコードのずれ問題を理解したい
   vec2 cord = vTextureCoord;
@@ -70,7 +83,13 @@ void main(void){
 
 	// noise----------
   vec2 t = pos.xy;
-  float n = noise_(t);
+
+	vec2 q = vec2(0.);
+	q.x = fbm( t + 0.01*u_animTime);
+	q.y = fbm( t + vec2(1.0));
+
+	float n = fbm(t + q);
+
   float noise = (n * 2.) - 1.0;  // -1 ~ 1
   float noiseAmount = waveMap.x * power + defaultPower;
   vec2 noiseCord = vec2(noise*noiseAmount + pos.x, noise*noiseAmount + pos.y);
@@ -80,7 +99,8 @@ void main(void){
   vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
 
 	vec4 noiseColor = vec4(vec3(noise), 1.);
-	vec4 blend = vec4(noiseColor * (waveMap.a+0.3)*0.1 + color * 0.9);
+
+	vec4 blend = vec4(noiseColor * (waveMap.a+0.3)*0.1 + color * 0.9);  // ノイズとブレンドする
 
   gl_FragColor=blend;
 
