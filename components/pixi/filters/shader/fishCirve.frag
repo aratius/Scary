@@ -80,7 +80,7 @@ void main(void){
   vec4 color = texture2D(uSampler, noiseCord);  //こっちはcord
 
 	vec4 noiseColor = vec4(vec3(noise), 1.);
-	vec4 blend = vec4(noiseColor * (waveMap.a+0.3)*0.1 + color * 0.9);
+	vec4 blend = vec4(noiseColor * (waveMap.a)*0.1 + color * 0.9);
 
   gl_FragColor=blend;
 
