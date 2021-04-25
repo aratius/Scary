@@ -29,15 +29,12 @@ export default function Pure() {
 
     window.addEventListener("resize", handleResize)
     handleResize();
-  }, [])
 
-  useEffect(() => {
-    // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
-    setTimeout(() => {
+    // 実際のDOMのonload取るの大変だからsetIntervalで一定時間ごとにちゃんとできているか確認する
+    setInterval(() => {
       handleResize();
-    }, 500)
-
-  })
+    }, 1000);
+  }, [])
 
   return (
     <div id="pure" ref={targetDOM} style={{position: "absolute", top: 0, zIndex: 100, pointerEvents: "none"}}></div>
