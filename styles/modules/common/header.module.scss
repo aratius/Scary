@@ -33,11 +33,10 @@
     align-items: center;
     justify-content: flex-end;
     list-style: none;
-    margin-right: $m-6;
     // ! (スマホ)のとき
     @media not all and (max-width: ($sp)) {
-      transform-origin: right;  // 右中心で
-      transform: rotateZ(-90deg);  // 回転させる
+      transform-origin: top right;  // 右中心で
+      transform: rotateZ(-90deg) translateY(calc(-#{$m-10} - #{$m-5})) translateX(-$m-3);  // 回転させる
     }
     @media (max-width: ($sp)) {
       margin-right: $m-2;
