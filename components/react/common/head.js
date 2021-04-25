@@ -6,7 +6,7 @@ const _Head = (props) => {
     <Head>
       <title>{props.title}</title>
       <link rel="icon" href="/favicon.ico" />
-
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
     </Head>
   )
 }

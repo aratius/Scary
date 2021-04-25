@@ -33,14 +33,18 @@
     align-items: center;
     justify-content: flex-end;
     list-style: none;
-    margin-right: $m-6;
+    // ! (スマホ)のとき
+    @media not all and (max-width: ($sp)) {
+      transform-origin: top right;  // 右中心で
+      transform: rotateZ(-90deg) translateY(calc(-#{$m-10} - #{$m-5})) translateX(-$m-3);  // 回転させる
+    }
     @media (max-width: ($sp)) {
       margin-right: $m-2;
     }
     li {
       text-align: center;
       margin: 0 $m-2;
-      width: 20%;
+      // width: 20%;  文字の長さ関係なく幅固定になる
       @media (max-width: ($sp)) {
         margin: 0 $m-1;
         font-size: small;

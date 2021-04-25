@@ -17,7 +17,6 @@ class _App extends Application {
   }
 
   onResize = (e) => {
-    console.log("hello");
     const el = document.querySelector('.js__pixi__height')
     const height = el.clientHeight > window.innerHeight ? el.clientHeight : window.innerHeight  //最低でもwindow.innerHeihgtは担保
     this.renderer.resize(document.documentElement.clientWidth, height)

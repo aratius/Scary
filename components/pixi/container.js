@@ -8,7 +8,8 @@ import FishCirveFilter from './filters/fishCirveFilter'
 import WaveCircle from './utils/waveCircle'
 import { loadTextures } from './common/utils'
 
-export default class myContainer extends Container {
+
+class _myContainer extends Container {
 
   constructor(){
     super()
@@ -101,7 +102,6 @@ export default class myContainer extends Container {
         this.fishTextures = textures
         // ローディングが完了したら魚の必要数を設定することでupdateないで自動的に生成される
         this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
-        console.log("loadconmplete", this.fishTextures, this.fishTextures.length);
         this.onResize()
       })
     } catch(err) {
@@ -149,6 +149,7 @@ export default class myContainer extends Container {
   }
 
   onResize =()=> {
+    console.log("container : ", this.screen.width, this.screen.height)
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
@@ -177,11 +178,13 @@ export default class myContainer extends Container {
     this.filters = [this.fishCirveFilter]  //画面外の魚はそもそもapp.screenによって考慮されない
 
     // 背景いっぱいに広がるbackground
+    if(this.background) this.background.clear()
     this.background = new Graphics().beginFill(0x000000).drawRect(0, 0, this.screen.width, this.screen.height).endFill()
     this.background.alpha = 0
     this.addChild(this.background)
-
-    console.log("resize");
   }
 
 }
+
+const myContainer = new _myContainer()
+export default myContainer

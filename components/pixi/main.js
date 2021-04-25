@@ -9,7 +9,10 @@ export default function Pure() {
   const targetDOM = createRef(null)
   const [mounted, setMounted] = useState(false)
 
-  let container = null;  // こいつの変更を監視する必要はないのでただの変数に
+  function handleResize() {
+    App.onResize()
+    if(myContainer) myContainer.onResize()
+  }
 
   useEffect(() => {
     if(mounted) return
@@ -17,27 +20,23 @@ export default function Pure() {
 
     targetDOM.current.appendChild(App.view)
 
-    const _container = new myContainer()
-    container = _container
     const update = () => {
-      _container.Update()
+      myContainer.Update()
       requestAnimationFrame(update)
     }
     update()
-    App.stage.addChild(_container)
+    App.stage.addChild(myContainer)
 
-    window.addEventListener("resize", ()=> {
-      App.onResize()
-      if(container) container.onResize()
-    })
+    window.addEventListener("resize", handleResize)
+    handleResize();
   }, [])
 
   useEffect(() => {
     // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
-    setTimeout(()=>{
-      App.onResize()
-      if(container) container.onResize()
+    setTimeout(() => {
+      handleResize();
     }, 100)
+
   })
 
   return (
