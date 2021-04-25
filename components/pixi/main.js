@@ -35,7 +35,7 @@ export default function Pure() {
     // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
     setTimeout(() => {
       handleResize();
-    }, 100)
+    }, 500)
 
   })
 
