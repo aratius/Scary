@@ -20,6 +20,7 @@ export default function _Works (props) {
   }
 
   const works = props.data.contents
+
   //適用するスタイルを分岐
   const styles = stylesTop
 
@@ -33,7 +34,7 @@ export default function _Works (props) {
           className={styles.masonry__grid}
           columnClassName={styles.masonry__grid__column}
         >
-          {works != null && works.map((work, key) => {
+          {works.length > 0 && works.map((work, key) => {
             return (
               <li  key={key} className={styles.masonry__item}>
                 <TransitionLink href={`/works/${work.id}`}>
