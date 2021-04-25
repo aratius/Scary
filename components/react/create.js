@@ -19,7 +19,6 @@ export default function Create () {
   function handleDecide (e) {
     if(e) e.preventDefault()
     const canvas = document.querySelector(".js__pixi__create").children[0]
-    console.log(canvas);
   }
 
   return (

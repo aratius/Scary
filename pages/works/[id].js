@@ -60,10 +60,10 @@ export default function Work (props) {
         */}
         <div className={WorkDetailStyles.subimage__container}>
           {works.subimages && works.subimages.map((img ,i) => {
-            const subimageStyle = i == 1 ? WorkDetailStyles.img_normal : WorkDetailStyles.img__small;
+            const subimageStyle = i == 1 ? WorkDetailStyles.img__normal : WorkDetailStyles.img__small;
             return (
               <>
-                <img src={img.subimage.url} className={subimageStyle} key={i} />
+                <img src={img.subimage.url} className={`${subimageStyle} ${WorkDetailStyles.img__common}`} key={i} />
                 {i==0 && works.sub_description_1 &&
                   <>
                     <hr/>
