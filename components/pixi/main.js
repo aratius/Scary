@@ -19,12 +19,7 @@ export default function Pure() {
     update()
 
     window.addEventListener("resize", handleResize)
-    // 実際のDOMのonload取るの大変だからsetIntervalで一定時間ごとにちゃんとできているか確認する
-    // setInterval(() => {
-    //   handleResize();
-    // }, 1000);
     handleResize();
-
   }, [])
 
   const handleResize = () => {

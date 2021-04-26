@@ -27,8 +27,6 @@ export default function Work (props) {
     )
   }
 
-  console.log(works);
-
   return (
     <>
     <Base
@@ -62,8 +60,8 @@ export default function Work (props) {
           {works.subimages && works.subimages.map((img ,i) => {
             const subimageStyle = i == 1 ? WorkDetailStyles.img__normal : WorkDetailStyles.img__small;
             return (
-              <>
-                <img src={img.subimage.url} className={`${subimageStyle} ${WorkDetailStyles.img__common}`} key={i} />
+              <React.Fragment key={i} >
+                <img src={img.subimage.url} className={`${subimageStyle} ${WorkDetailStyles.img__common}`}/>
                 {i==0 && works.sub_description_1 &&
                   <>
                     <hr/>
@@ -80,7 +78,7 @@ export default function Work (props) {
                 }
                 {i == 1 && <hr/>}
 
-              </>
+              </React.Fragment>
             )
           })}
         </div>

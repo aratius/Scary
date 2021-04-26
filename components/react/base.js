@@ -49,7 +49,6 @@ export default function _Base (props) {
 
   // DOM要素はローディングを待ってからふわっと登場
   function handleLoadingComplete() {
-
     // appear animation
     if(appearTween) appearTween.kill()
     appearTween = gsap.fromTo(wrapper.current, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})

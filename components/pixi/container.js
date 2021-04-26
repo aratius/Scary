@@ -92,6 +92,12 @@ class _myContainer extends Container {
   }
 
   async loadTextures() {
+    // テクスチャがキャッシュ上にあるとき
+    if(this.fishTextures.length) {
+      this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
+      this.onResize()
+      return
+    }
     const url = "/assets/images/pixi/fishImages.json"
     try {
       new Loader().add(url).load((_, resources) => {
@@ -149,7 +155,6 @@ class _myContainer extends Container {
   }
 
   onResize =()=> {
-    console.log("container : ", this.screen.width, this.screen.height)
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
