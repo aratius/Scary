@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js'
 import { Application } from 'pixi.js'
 import App from './app'
 import myContainer from './container'
+import EventManager, { Events } from '../common/events'
 
 export default function Pure() {
 
@@ -20,7 +21,15 @@ export default function Pure() {
 
     window.addEventListener("resize", handleResize)
     handleResize();
+
+    EventManager.on(Events.OnImgLoad, () => {
+      setTimeout(handleResize, 100)
+    })
   }, [])
+
+  // useEffect(() => {
+  //   handleResize();
+  // })
 
   const handleResize = () => {
     App.onResize()

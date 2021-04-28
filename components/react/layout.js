@@ -32,15 +32,15 @@ export default class Layout extends React.Component {
     }
 
     return (
-      <>
-        {/* 背景アニメーション */}
+      <div className="js__pixi__height">
         <Pure/>
+        {/* 背景アニメーション */}
         {/* updateごとにここにpositionをセットしたい */}
-        <Background position={this.state.position}/>
+        {/* <Background position={this.state.position}/> */}
         <BackgroundContext.Provider value={backgroundContext}>
           {this.props.children}
         </BackgroundContext.Provider>
-      </>
+      </div>
     )
   }
 

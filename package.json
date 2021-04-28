@@ -9,6 +9,7 @@
     "test": "exit 0"
   },
   "dependencies": {
+    "EventEmitter": "^1.0.0",
     "bootstrap": "^4.6.0",
     "next": "^10.0.0",
     "node-sass": "^5.0.0",

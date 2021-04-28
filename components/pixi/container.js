@@ -38,6 +38,7 @@ class _myContainer extends Container {
   }
 
   onClickStart = (e) =>{
+    // if(e && e.cancelable) return  // リンクならやめる
     this.isClicking = true
     let enemy
     if(e.touches) {
@@ -92,7 +93,6 @@ class _myContainer extends Container {
   }
 
   async loadTextures() {
-    // テクスチャがキャッシュ上にあるとき
     if(this.fishTextures.length) {
       this.requireFishNum = this.screen.width * this.screen.height / (200*200)  // 200x200に一匹の密度
       this.onResize()
@@ -155,6 +155,7 @@ class _myContainer extends Container {
   }
 
   onResize =()=> {
+    console.log("container : ", this.screen.width, this.screen.height)
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
