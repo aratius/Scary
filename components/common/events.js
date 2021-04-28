@@ -4,6 +4,10 @@ export class Events {
   static OnImgLoad = "onimgload"
 }
 
+/**
+ * 離れたコンポーネント同士のやり取りは直接参照を持つのではなくて
+ * EventEmitterを介しておこなう
+ */
 class EventManager extends EventEmitter {
 
   /**
