@@ -1,9 +1,6 @@
 import React, { DOMElement } from 'react'
 import _Head from './common/head'
-import BackgroundContextSender from '../animation/backgroundContextSender'
-import Header from './common/header'
 import gsap from 'gsap'
-import Footer from './common/footer'
 import EventManager, { Events } from '../common/events'
 
 interface Props {
@@ -70,9 +67,6 @@ class _Base extends React.Component<Props> {
 
   // DOM要素はローディングを待ってからふわっと登場
   handleLoadingComplete() {
-    // appear animation
-    if(this.appearTween) this.appearTween.kill()
-    this.appearTween = gsap.fromTo(this.wrapper, {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.3})
 
     const elements = []
     this.children(this.wrapper, (el)=>elements.push(el))
@@ -133,12 +127,9 @@ class _Base extends React.Component<Props> {
     return (
       <div className="container">
         <_Head title={`Cocoon | ${this.props.title}`}/>
-        <BackgroundContextSender position={(this.props.circlePos)}/>
-        <Header/>
         <div className="transition__container" ref={this.onDOMReady}>
           {this.props.children}
         </div>
-        <Footer/>
       </div>
     )
   }

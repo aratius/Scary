@@ -7,10 +7,19 @@ import styles from '../styles/modules/top.module.scss'
 import { STYLES_WORKS } from '../components/utils/config'
 
 interface Props {
-  works: {}
+  works: {
+    contents: Array<{
+      main_image: {
+        url: string
+      },
+      id: string
+    }>
+  }
 }
 
 const Home: React.FC<Props> = ({works}) => {
+
+  console.log(works.contents);
 
   return (
     <Base

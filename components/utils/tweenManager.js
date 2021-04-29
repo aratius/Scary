@@ -27,4 +27,13 @@ export default class TweenManager {
     }
   }
 
+  static async fadeOut(element, duration) {
+    if(!element) return
+    await gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.5})
+  }
+
+  static async fadeIn(element, duration) {
+    if(!element) return
+    await gsap.fromTo(element, {opacity: 0}, {opacity: 1, duration: 0.5})
+  }
 }

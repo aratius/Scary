@@ -1,45 +1,47 @@
 import React from 'react'
+import Footer from './common/footer'
+import Header from './common/header'
 import dynamic from 'next/dynamic'
-import Background from '../animation/background'
-import BackgroundContext from '../context/backgroundContext'
+import TweenManager from '../utils/tweenManager'
+import EventMananer, { Events } from '../common/events'
 
 const Pure = dynamic(() => import('../pixi/main'), {
   ssr: false
 })
 export default class Layout extends React.Component {
 
+  transitionContainer: HTMLElement
+
   constructor(props) {
     super(props)
+  }
 
-    const updatePosition=(position)=>{
-      if(!((this.state.position.x==position.x) && (this.state.position.y==position.y))){
-        this.setState({
-          position,
-        })
-      }
-    }
+  onReadyTransitionContainer = (node) =>{
+    this.transitionContainer = node
+    EventMananer.removeListener(Events.OnImgLoad, this.show)
+    EventMananer.removeListener(Events.OnClickLink, this.hide)
+    EventMananer.on(Events.OnImgLoad, this.show)
+    EventMananer.on(Events.OnClickLink, this.hide)
+  }
 
-    this.state={
-      position:{x:null,y:null},
-      updatePosition,
-    }
+  show = (callback) => {
+    TweenManager.fadeIn(this.transitionContainer, 0.5).then(callback)
+  }
+
+  hide = (callback) => {
+    TweenManager.fadeOut(this.transitionContainer, 0.5).then(callback)
   }
 
   render() {
-    const backgroundContext={
-      position:this.state.position,
-      updatePosition:this.state.updatePosition,
-    }
 
     return (
       <div className="js__pixi__height">
         <Pure/>
-        {/* 背景アニメーション */}
-        {/* updateごとにここにpositionをセットしたい */}
-        {/* <Background position={this.state.position}/> */}
-        <BackgroundContext.Provider value={backgroundContext}>
+        <Header/>
+        <div ref={this.onReadyTransitionContainer}>
           {this.props.children}
-        </BackgroundContext.Provider>
+        </div>
+        <Footer/>
       </div>
     )
   }

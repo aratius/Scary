@@ -15,7 +15,8 @@ interface Props {
       },
       id: string
     }>
-  }
+  },
+  styles: any
 }
 
 /**
