@@ -113,7 +113,7 @@ class _Base extends React.Component<Props> {
   handleScroll = () => {
     const currentPos = window.pageYOffset
     const scrollSpeed = Math.abs(currentPos - this.scrollPos)
-    if(scrollSpeed > 500) {
+    if(scrollSpeed > 300) {
       this.floatTween(this.elements, scrollSpeed / 300)
     }
 

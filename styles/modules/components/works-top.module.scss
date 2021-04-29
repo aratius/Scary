@@ -1,19 +1,35 @@
+@import "../../config.scss";
+$margin-grid-between: 100px;
+$margin-grid-between--sp: 30px;
+
 .masonry__grid {
   display: flex;
-  margin-left: -100px; /* 項目間の余白のサイズ */
+  margin-left: -$margin-grid-between; /* 項目間の余白のサイズ */
   width: auto;
 }
 .masonry__grid__column {
-  padding-left: 100px; /* 項目間の余白のサイズ */
+  padding-left: $margin-grid-between; /* 項目間の余白のサイズ */
   background-clip: padding-box;
   .masonry__item {
     object-fit: cover;
-    margin-bottom: 100px;
+    margin-bottom: $margin-grid-between;
     position: relative;
     img {
       width: 100%;
       border-radius: 2px;
       position: relative;  // zIndexを効かせるため
+    }
+  }
+}
+
+@media screen and (max-width: ($sp)) {
+  .masonry__grid {
+    margin-left: -$margin-grid-between--sp; /* 項目間の余白のサイズ */
+  }
+  .masonry__grid__column {
+    padding-left: $margin-grid-between--sp; /* 項目間の余白のサイズ */
+    .masonry__item {
+      margin-bottom: $margin-grid-between--sp;
     }
   }
 }

@@ -9,13 +9,14 @@ export default class Header extends React.Component {
     return (
       <>
         <div className={styles.container}>
-          <TransitionLink href="/"><img src="/assets/images/logo.svg"/></TransitionLink>
           <ul>
             <li><TransitionLink href="/about">about</TransitionLink></li>
             <span>-</span>
             <li><Link href="/">link</Link></li>
             <span>-</span>
             <li><Link href="/">link</Link></li>
+            {/* <span>-</span> */}
+            <li><TransitionLink href="/"><img src="/assets/images/logo.svg"/></TransitionLink></li>
           </ul>
         </div>
       </>

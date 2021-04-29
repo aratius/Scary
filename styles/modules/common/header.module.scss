@@ -4,7 +4,7 @@
   width: 100%;
   height: $header-height;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   position: fixed;
   top: 0;
@@ -31,7 +31,6 @@
     margin: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     list-style: none;
     // ! (スマホ)のとき
     @media not all and (max-width: ($sp)) {
@@ -51,8 +50,8 @@
       }
       img {
         display: inline-block;
-        width: 100%;
-        height: 100%;
+        width: 30px;
+        height: 30px;
       }
       a {
         text-decoration: none;
