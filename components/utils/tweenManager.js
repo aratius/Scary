@@ -20,6 +20,7 @@ export default class TweenManager {
       gsap.timeline().to(element, {scale: 1, duration: duration, delay: delay, ease: ease})
   }
 
+
   static scrollToTop(duration){
     if(process.browser) {
       gsap.to(window, {scrollTo: {y : 0}, duration: duration})

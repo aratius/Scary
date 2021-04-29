@@ -11,11 +11,11 @@ import TweenManager from '../utils/tweenManager'
 export default function _Works (props) {
 
   const handleMouseOver = (e) => {
-    TweenManager.popUp(e.target)
+
   }
 
   const handleMouseOut = (e) => {
-    TweenManager.popDown(e.target)
+
   }
 
   const works = props.data.contents

@@ -9,26 +9,14 @@ import { STYLES_WORKS } from '../components/utils/config'
 export default function Home (props) {
 
   const data = props.works
-  console.log(props);
   return (
     <Base
       circlePos={{x: 100, y: 500}}
       title="TOP"
     >
-      <div className={styles.lead__container}>
-        <img src="/assets/images/logo.svg"/>
-      </div>
       <div className={styles.main__container}>
         <_Works data={data} styles={STYLES_WORKS.TOP}/>
-        <div className={styles.about__container}>
-          <img src="./assets/images/600x400.png"/>
-          <div className={styles.about__content}>
-            <p>ダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストですこれはダミーテキストです</p>
-            <div className={styles.about__btn__container}>
-              <Link href="/about">about</Link>
-            </div>
-          </div>
-        </div>
+        自分の主要情報
       </div>
     </Base>
   )
