@@ -4,11 +4,24 @@ import Masonry from 'react-masonry-css'
 import stylesTop from '../../styles/modules/components/works-top.module.scss'
 import { STYLES_WORKS } from '../utils/config'
 import TweenManager from '../utils/tweenManager'
+import { Interface } from 'node:readline'
+
+// propsの内容（流石に使うものだけでよいか）を定義
+interface Props {
+  data: {
+    contents: Array<{
+      main_image: {
+        url: string
+      },
+      id: string
+    }>
+  }
+}
 
 /**
  * WORKSを綺麗に揃える
  */
-export default function _Works (props) {
+const _Works:React.FC<Props> = ({data}) => {
 
   const handleMouseOver = (e) => {
 
@@ -17,8 +30,10 @@ export default function _Works (props) {
   const handleMouseOut = (e) => {
 
   }
+  console.log(data);
 
-  const works = props.data.contents
+
+  const works = data.contents
 
   //適用するスタイルを分岐
   const styles = stylesTop
@@ -32,7 +47,7 @@ export default function _Works (props) {
           breakpointCols={breakpointColumnsObj}
           className={styles.masonry__grid}
           columnClassName={styles.masonry__grid__column}
-        >
+          >
           {works.length > 0 && works.map((work, key) => {
             return (
               <li  key={key} className={styles.masonry__item}>
@@ -47,3 +62,5 @@ export default function _Works (props) {
     </>
   )
 }
+
+export default _Works
