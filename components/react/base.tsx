@@ -74,7 +74,7 @@ class _Base extends React.Component<Props> {
 
     this.floatTween(this.elements, 10)
 
-    EventManager.EmitEvent(Events.OnImgLoad)
+    EventManager.emit(Events.OnImgLoad)
   }
 
   /**
@@ -127,7 +127,7 @@ class _Base extends React.Component<Props> {
     return (
       <div className="container">
         <_Head title={`Cocoon | ${this.props.title}`}/>
-        <div className="transition__container" ref={this.onDOMReady}>
+        <div ref={this.onDOMReady}>
           {this.props.children}
         </div>
       </div>

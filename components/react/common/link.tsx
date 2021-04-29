@@ -19,7 +19,7 @@ export default function TransitionLink (props) {
     const duration = 0.2
     TweenManager.scrollToTop(duration)
 
-    EventManager.EmitEvent(Events.OnClickLink, ()=>{
+    EventManager.emit(Events.OnClickLink, ()=>{
       router.push({
         pathname: props.href
       })

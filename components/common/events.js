@@ -12,14 +12,6 @@ export class Events {
  */
 class EventManager extends EventEmitter {
 
-  /**
-   *
-   * @param {string} key
-   */
-  EmitEvent(key, callback=()=>{console.log("hello cb")}) {
-    this.emit(key, callback)
-  }
-
 }
 
 const _EventManager = new EventManager()
