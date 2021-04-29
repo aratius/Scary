@@ -30,8 +30,6 @@ const _Works:React.FC<Props> = ({data}) => {
   const handleMouseOut = (e) => {
 
   }
-  console.log(data);
-
 
   const works = data.contents
 

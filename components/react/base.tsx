@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DOMElement } from 'react'
 import _Head from './common/head'
 import BackgroundContextSender from '../animation/backgroundContextSender'
 import Header from './common/header'
@@ -6,9 +6,24 @@ import gsap from 'gsap'
 import Footer from './common/footer'
 import EventManager, { Events } from '../common/events'
 
-export default class _Base extends React.Component {
+interface Props {
+  circlePos: {
+    x: number,
+    y: number
+  },
+  title: string
+}
 
-  constructor(props) {
+class _Base extends React.Component<Props> {
+
+  private appearTween: any
+  private fallTweens: any[]
+  private moveInTweens: any[]
+  private elements: HTMLElement[]
+  private scrollPos: number
+  private wrapper: HTMLElement
+
+  constructor(props: any) {
     super(props)
     this.appearTween = null
     this.fallTweens = []
@@ -37,13 +52,15 @@ export default class _Base extends React.Component {
     for(const i in images) {
       const el = images[i]
       if(!(el instanceof HTMLElement)) continue
-      tasks.push(new Promise((res, rej) => {
+      tasks.push(new Promise<void>((res, rej) => {
         if(el.naturalWidth > 0 && el.complete){
           res()
         }
         else {
-          el.onload = res()
-          el.onerror = rej()
+          // NOTE: イベントはvoidを期待できない？
+          // https://stackoverflow.com/questions/51977823/type-void-is-not-assignable-to-type-event-mouseeventhtmlinputelement
+          el.onload = () => {res()}
+          el.onerror = () => {rej()}
         }
       }))
     }
@@ -68,10 +85,8 @@ export default class _Base extends React.Component {
 
   /**
    * 末端の子要素を見つけてcallbackの引数に渡す
-   * @param {DOM} parentDOM
-   * @param {fn} callback
    */
-  children (parentDOM, callback) {
+  children (parentDOM: HTMLElement, callback: (DOM: HTMLElement) => void) {
     const _elements = []
     for(const i in parentDOM.children) {
       const DOM = parentDOM.children[i]
@@ -88,10 +103,12 @@ export default class _Base extends React.Component {
   }
 
   // 水面をふわふわ浮かんでいるようなtween
-  floatTween = (elements, range)=> {
+  floatTween = (elements: HTMLElement[], range: number)=> {
     // moveIn animation
     if(this.moveInTweens.length) for(const i in this.moveInTweens) this.moveInTweens[i].kill()
     if(this.fallTweens.length) for(const i in this.fallTweens) this.fallTweens[i].kill()
+    console.log(typeof(this.fallTweens[0]));
+
     for(const i in elements){
       const dur = Math.random()*10 + 5
       const x = (Math.random()-0.5) * 2 * range + "px"
@@ -127,3 +144,5 @@ export default class _Base extends React.Component {
   }
 
 }
+
+export default _Base

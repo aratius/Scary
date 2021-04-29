@@ -6,21 +6,26 @@ import { getWorks } from '../components/api/works'
 import styles from '../styles/modules/top.module.scss'
 import { STYLES_WORKS } from '../components/utils/config'
 
-export default function Home (props) {
+interface Props {
+  works: {}
+}
 
-  const data = props.works
+const Home: React.FC<Props> = ({works}) => {
+
   return (
     <Base
       circlePos={{x: 100, y: 500}}
       title="TOP"
     >
       <div className={styles.main__container}>
-        <_Works data={data} styles={STYLES_WORKS.TOP}/>
+        <_Works data={works} styles={STYLES_WORKS.TOP}/>
         自分の主要情報
       </div>
     </Base>
   )
 }
+
+export default Home
 
 // SSR
 // Home.getInitialProps = async function (context) {
