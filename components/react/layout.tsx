@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
 
   transitionContainer: HTMLElement
 
-  constructor(props) {
+  constructor(props: any) {
     super(props)
   }
 

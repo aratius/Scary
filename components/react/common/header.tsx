@@ -10,12 +10,7 @@ export default class Header extends React.Component {
       <>
         <div className={styles.container}>
           <TransitionLink href="/"><img src="/assets/images/logo.svg"/></TransitionLink>
-          {/* <TransitionLink href="/">title</TransitionLink> */}
           <ul>
-            {/* <li><TransitionLink href="/works"><img src="/assets/images/logos/works.svg"/></TransitionLink></li>
-            <li><TransitionLink href="/about"><img src="/assets/images/logos/about.svg"/></TransitionLink></li>
-            <li><Link href=""><img src="/assets/images/logos/contact.svg"/></Link></li>
-            <li><Link href=""><img src="/assets/images/logos/blog.svg"/></Link></li> */}
             <li><TransitionLink href="/about">about</TransitionLink></li>
             <span>-</span>
             <li><Link href="/">link</Link></li>

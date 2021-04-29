@@ -7,14 +7,9 @@ const Pure = dynamic(() => import('../pixi/create/main'), {
   ssr: false
 })
 
-class Scenes {
-  static
-}
-
 export default function Create () {
 
   const [scene, setScene] = useState(null)
-  const pure = createRef()
 
   function handleDecide (e) {
     if(e) e.preventDefault()
@@ -23,7 +18,7 @@ export default function Create () {
 
   return (
       <div className={createStyles.create__wrapper}>
-        <Pure ref={pure}/>
+        <Pure/>
       </div>
   )
 

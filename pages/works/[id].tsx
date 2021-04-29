@@ -5,7 +5,25 @@ import Base from '../../components/react/base'
 import baseStyles from '../../styles/modules/common/base.module.scss'
 import WorkDetailStyles from '../../styles/modules/works/detail.module.scss'
 
-export default function Work (props) {
+interface Props {
+  works: {
+    title: string,
+    utils: string[],
+    description: string,
+    main_image: {
+      url: string
+    },
+    subimages: Array<{
+      subimage: {
+        url: string
+      }
+    }>,
+    sub_description_1: string,
+    sub_description_2: string
+  }
+}
+
+const Work: React.FC<Props> = (props) => {
 
   const router = useRouter()
   const works = props.works
@@ -86,8 +104,9 @@ export default function Work (props) {
     </Base>
     </>
   )
-
 }
+
+export default Work
 
 export async function getStaticPaths () {
   const works = await getWorks()

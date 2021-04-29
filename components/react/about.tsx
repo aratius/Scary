@@ -1,8 +1,15 @@
 import baseStyles from '../../styles/modules/common/base.module.scss'
 
-export default function About (props) {
+interface Props {
+  data: {
+    name: string,
+    name_image: {
+      url: string
+    }
+  }
+}
 
-  const data = props.data
+const About: React.FC<Props> = ({data}) => {
 
   return (
       <>
@@ -12,3 +19,5 @@ export default function About (props) {
   )
 
 }
+
+export default About

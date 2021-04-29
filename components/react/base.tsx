@@ -13,7 +13,6 @@ interface Props {
 
 class _Base extends React.Component<Props> {
 
-  private appearTween: any
   private fallTweens: any[]
   private moveInTweens: any[]
   private elements: HTMLElement[]
@@ -22,7 +21,6 @@ class _Base extends React.Component<Props> {
 
   constructor(props: any) {
     super(props)
-    this.appearTween = null
     this.fallTweens = []
     this.moveInTweens = []
     this.elements
