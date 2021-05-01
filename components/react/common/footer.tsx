@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
   return (
     <div className={FooterStyles.footer__container}>
       <hr/>
-      aualrxse.com
+      <span>aualrxse.com</span>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import Header from './common/header'
 import dynamic from 'next/dynamic'
 import TweenManager from '../utils/tweenManager'
 import EventMananer, { Events } from '../common/events'
+import Floating from './common/Floating'
 
 const Pure = dynamic(() => import('../pixi/main'), {
   ssr: false
@@ -41,7 +42,9 @@ export default class Layout extends React.Component {
         <div ref={this.onReadyTransitionContainer}>
           {this.props.children}
         </div>
-        <Footer/>
+        <Floating>
+          <Footer/>
+        </Floating>
       </div>
     )
   }
