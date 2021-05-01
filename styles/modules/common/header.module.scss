@@ -32,6 +32,7 @@
     display: flex;
     align-items: center;
     list-style: none;
+    position: relative;
     // ! (スマホ)のとき
     @media not all and (max-width: ($sp)) {
       transform-origin: top right;  // 右中心で
@@ -41,6 +42,7 @@
       margin-right: $m-2;
     }
     li {
+      display: inline-block;
       text-align: center;
       margin: 0 $m-2;
       // width: 20%;  文字の長さ関係なく幅固定になる
@@ -54,10 +56,20 @@
         height: 30px;
       }
       a {
+        display: inline-block;
+        width: 100%;
         text-decoration: none;
         color: $base-f-col;
-
       }
+    }
+
+    // メニューのスライドする下線
+    .slide_line {
+      position: absolute;
+      bottom: 28px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.8s $easeInOutQuint;
     }
   }
 }

@@ -124,7 +124,7 @@ class _Base extends React.Component<Props> {
 
     return (
       <div className="container">
-        <_Head title={`Cocoon | ${this.props.title}`}/>
+        <_Head title={`aualrxse | ${this.props.title}`}/>
         <div ref={this.onDOMReady}>
           {this.props.children}
         </div>

@@ -27,17 +27,19 @@ const Work: React.FC<Props> = (props) => {
 
   const router = useRouter()
   const works = props.works
+  const descriptions = works.description.split("<hr>")
+  console.log(descriptions);
+
 
   const randomPos = {x: Math.random() * 700, y: Math.random() * 700}
 
   const description = (sentence) => {
     return (
       <p className={WorkDetailStyles.description__wrapper}>
-        {sentence.split('\n').map((data, key) => {
+        {sentence.split('\n').map((data, i) => {
           return (
-            <React.Fragment key={key}>
+            <React.Fragment key={i}>
               <span className={WorkDetailStyles.description__detail}>{data}</span>
-              <br/>
             </React.Fragment>
           )
         })}
@@ -66,7 +68,7 @@ const Work: React.FC<Props> = (props) => {
         {/* でっかいメイン画像 */}
         <img src={works.main_image.url} className={WorkDetailStyles.main__image}></img>
         <hr/>
-        {works.description  && description(works.description)}
+        {descriptions[0]  && description(descriptions[0])}
         <hr/>
 
         {/*
@@ -80,22 +82,15 @@ const Work: React.FC<Props> = (props) => {
             return (
               <React.Fragment key={i} >
                 <img src={img.subimage.url} className={`${subimageStyle} ${WorkDetailStyles.img__common}`}/>
-                {i==0 && works.sub_description_1 &&
+                {descriptions[i+1] ?
                   <>
                     <hr/>
-                      {description(works.sub_description_1)}
+                    {description(descriptions[i+1])}
                     <hr/>
                   </>
+                  :
+                  <br/>
                 }
-                {i==1 && works.sub_description_2 &&
-                  <>
-                    <hr/>
-                      {description(works.sub_description_2)}
-                    <hr/>
-                  </>
-                }
-                {i == 1 && <hr/>}
-
               </React.Fragment>
             )
           })}
