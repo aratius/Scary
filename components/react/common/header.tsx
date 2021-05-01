@@ -110,9 +110,9 @@ export default class Header extends React.Component {
           <ul>
             <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/about">{Pages.about}</TransitionLink></li>
             <span>-</span>
-            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><Link href="/">{Pages.contact}</Link></li>
+            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/">{Pages.contact}</TransitionLink></li>
             <span>-</span>
-            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><Link href="/">{Pages.create}</Link></li>
+            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/">{Pages.create}</TransitionLink></li>
 
             <li onClick={this.handleClick}><TransitionLink href="/"><img src="/assets/images/logo.svg"/></TransitionLink></li>
 
