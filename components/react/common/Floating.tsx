@@ -21,6 +21,7 @@ class Floating extends React.Component<Props> {
     this.moveInTweens = []
     this.elements
     this.scrollPos = 0
+
     EventManager.on(Events.OnImgLoad, this.handleLoadingComplete)
   }
 
@@ -45,6 +46,7 @@ class Floating extends React.Component<Props> {
   }
 
   /**
+   * 再帰関数
    * 末端の子要素を見つけてcallbackの引数に渡す
    */
   searchChildren (parentDOM: HTMLElement, callback: (DOM: HTMLElement) => void) {

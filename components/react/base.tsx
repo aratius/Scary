@@ -1,6 +1,5 @@
-import React, { DOMElement } from 'react'
+import React from 'react'
 import _Head from './common/head'
-import gsap from 'gsap'
 import EventManager, { Events } from '../common/events'
 import Floating from './common/Floating'
 
@@ -14,23 +13,10 @@ interface Props {
 
 class _Base extends React.Component<Props> {
 
-  private fallTweens: any[]
-  private moveInTweens: any[]
-  private elements: HTMLElement[]
-  private scrollPos: number
   private wrapper: HTMLElement
 
   constructor(props: any) {
     super(props)
-    this.fallTweens = []
-    this.moveInTweens = []
-    this.elements
-    this.scrollPos = 0
-  }
-
-  componentDidMount() {
-    this.scrollPos = window.pageYOffset
-
   }
 
   // 全ての画像のローディング
@@ -60,6 +46,7 @@ class _Base extends React.Component<Props> {
   }
 
   handleLoadingComplete = () => {
+    // グローバル空間にイベント発火
     EventManager.emit(Events.OnImgLoad)
   }
 
