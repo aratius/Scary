@@ -1,7 +1,7 @@
 import React from 'react'
 import _Head from './common/head'
 import EventManager, { Events } from '../common/events'
-import Floating from './common/Floating'
+import Floating from './common/floating'
 
 interface Props {
   circlePos: {
