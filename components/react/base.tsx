@@ -16,7 +16,7 @@ class _Base extends React.Component<Props> {
   private wrapper: HTMLElement
 
   // 全ての画像のローディング
-  onDOMReady = async (node) => {
+  handleReadyDOM = async (node) => {
     if(!node) return
     this.wrapper = node
     const images = this.wrapper.getElementsByTagName('img')
@@ -51,7 +51,7 @@ class _Base extends React.Component<Props> {
     return (
       <div className="container">
         <_Head title={`aualrxse | ${this.props.title}`}/>
-        <div ref={this.onDOMReady}>
+        <div ref={this.handleReadyDOM}>
           <Floating>
             {this.props.children}
           </Floating>

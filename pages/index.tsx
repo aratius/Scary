@@ -19,7 +19,6 @@ interface Props {
 
 const Home: React.FC<Props> = ({works}) => {
 
-  console.log(works.contents);
 
   return (
     <Base
