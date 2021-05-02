@@ -36,13 +36,13 @@ const Work: React.FC<Props> = (props) => {
 
     return (
       <p className={WorkDetailStyles.description__wrapper}>
-        {/* {sentence.length && sentence.split('\n').map((data, i) => {
+        {sentence.length && sentence.split('\n').map((data, i) => {
           return (
             <React.Fragment key={i}>
               <span className={WorkDetailStyles.description__detail}>{data}</span>
             </React.Fragment>
           )
-        })} */}
+        })}
         arata
       </p>
     )
@@ -86,7 +86,7 @@ const Work: React.FC<Props> = (props) => {
                 {descriptions[i+1] ?
                   <>
                     <hr/>
-                    {description(descriptions[i+1])}
+                    {descriptions[i+1] && description(descriptions[i+1])}
                     <hr/>
                   </>
                   :
