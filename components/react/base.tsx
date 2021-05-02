@@ -15,10 +15,6 @@ class _Base extends React.Component<Props> {
 
   private wrapper: HTMLElement
 
-  constructor(props: any) {
-    super(props)
-  }
-
   // 全ての画像のローディング
   onDOMReady = async (node) => {
     if(!node) return

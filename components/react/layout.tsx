@@ -13,10 +13,6 @@ export default class Layout extends React.Component {
 
   transitionContainer: HTMLElement
 
-  constructor(props: any) {
-    super(props)
-  }
-
   onReadyTransitionContainer = (node) =>{
     this.transitionContainer = node
     EventMananer.removeListener(Events.OnImgLoad, this.show)
