@@ -28,7 +28,9 @@ const Work: React.FC<Props> = (props) => {
   const works = props.works
   console.log(works.description)
 
-  const descriptions = works.description.split("<hr>")
+  const descriptions = works.description && works.description.split("<hr>")
+  if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
+
 
   const randomPos = {x: Math.random() * 700, y: Math.random() * 700}
 
@@ -43,7 +45,6 @@ const Work: React.FC<Props> = (props) => {
             </React.Fragment>
           )
         })}
-        arata
       </p>
     )
   }
@@ -86,7 +87,7 @@ const Work: React.FC<Props> = (props) => {
                 {descriptions[i+1] ?
                   <>
                     <hr/>
-                    {descriptions[i+1] && description(descriptions[i+1])}
+                    {description(descriptions[i+1])}
                     <hr/>
                   </>
                   :
