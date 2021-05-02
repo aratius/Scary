@@ -20,10 +20,20 @@ export default class TweenManager {
       gsap.timeline().to(element, {scale: 1, duration: duration, delay: delay, ease: ease})
   }
 
+
   static scrollToTop(duration){
     if(process.browser) {
       gsap.to(window, {scrollTo: {y : 0}, duration: duration})
     }
   }
 
+  static async fadeOut(element, duration) {
+    if(!element) return
+    await gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.5})
+  }
+
+  static async fadeIn(element, duration) {
+    if(!element) return
+    await gsap.fromTo(element, {opacity: 0}, {opacity: 1, duration: 0.5})
+  }
 }

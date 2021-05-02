@@ -1,0 +1,24 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+a {
+	-webkit-tap-highlight-color: transparent;
+	&:link,
+	&:visited {
+		text-decoration: none;
+	}
+}
+
+body {
+	font-family: "游ゴシック", YuGothic, Helvetica, Arial, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, verdana, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	color: #222;
+	width: 100%;
+	background: #fff;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+}

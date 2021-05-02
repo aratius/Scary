@@ -7,24 +7,18 @@ const Pure = dynamic(() => import('../pixi/create/main'), {
   ssr: false
 })
 
-class Scenes {
-  static
-}
-
 export default function Create () {
 
   const [scene, setScene] = useState(null)
-  const pure = createRef()
 
   function handleDecide (e) {
     if(e) e.preventDefault()
     const canvas = document.querySelector(".js__pixi__create").children[0]
-    console.log(canvas);
   }
 
   return (
       <div className={createStyles.create__wrapper}>
-        <Pure ref={pure}/>
+        <Pure/>
       </div>
   )
 

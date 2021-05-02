@@ -26,7 +26,7 @@ export default class Fish extends PIXI.AnimatedSprite {
 
 
     // サイズに応じてスピードバリュー変更
-    this.speedDevide = 1
+    this.speedDevide = 0.7
     if(size > 100) {
       this.speedDevide = 0.3;
     }

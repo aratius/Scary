@@ -1,10 +1,14 @@
 import Head from 'next/head'
 
-const _Head = (props) => {
+interface Props {
+  title: string
+}
+
+const _Head: React.FC<Props> = ({title}) => {
 
   return (
     <Head>
-      <title>{props.title}</title>
+      <title>{title}</title>
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
     </Head>

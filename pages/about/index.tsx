@@ -5,9 +5,11 @@ import _About from '../../components/react/about'
 import baseStyles from '../../styles/modules/common/base.module.scss'
 import { getAbout } from '../../components/api/about'
 
-export default function About (props) {
+interface Props {
+  data: any
+}
 
-  const aboutData = props.data
+const About: React.FC<Props> = ({data}) => {
 
   return (
     <Base
@@ -16,11 +18,13 @@ export default function About (props) {
     >
       <div className={baseStyles.main__container}>
         <h1>ABOUT</h1>
-        <_About data={aboutData}/>
+        <_About data={data}/>
       </div>
     </Base>
   )
 }
+
+export default About
 
 export async function getStaticProps() {
 

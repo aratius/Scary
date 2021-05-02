@@ -16,16 +16,10 @@ export const STYLES_WORKS = {
   WORKS: "works",
   BREAKPOINTS: {
     TOP: {
-        default: 4,
-        1350: 3,
-        1048: 2,
+        default: 2,
+        1350: 2,
+        1048: 1,
         576: 1,
     },
-    WORKS: {
-      default: 3,
-      1350: 3,
-      1048: 3,
-      576: 2,
-    }
   }
 }

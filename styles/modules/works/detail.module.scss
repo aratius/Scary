@@ -3,18 +3,27 @@
 .utils__container {
   width: 100%;
   margin: $m-4 0;
-  .utils__detail {
+  @media screen and (max-width: ($sp)) {
+    margin: $m-2 0;
+  }
+    .utils__detail {
     display: inline-block;
     margin-right: $m-2;
-    padding: $m-1 $m-2;
+    padding: ($m-1 / 2) $m-2;
     border: 1px solid black;
     border-radius: 10px;
+    @media screen and (max-width: ($sp)) {
+      font-size: x-small;
+      margin-right: $m-1;
+      padding: 0 $m-1;
+      border-radius: 5px;
+    }
   }
 }
 
 .main__image {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .description__wrapper {
@@ -23,6 +32,9 @@
   }
 }
 .subimage__container {
+  .img__common {
+    border-radius: 5px;
+  }
   .img__normal {
 
   }
