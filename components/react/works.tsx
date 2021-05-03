@@ -22,44 +22,42 @@ interface Props {
 /**
  * WORKSを綺麗に揃える
  */
-const _Works:React.FC<Props> = ({data}) => {
+class _Works extends React.Component<Props> {
 
-  const handleMouseOver = (e) => {
-
+  handleMouseOver = (e) => {
   }
 
-  const handleMouseOut = (e) => {
-
+  handleMouseOut = (e) => {
   }
 
-  const works = data.contents
+  render () {
+    const works = this.props.data.contents
 
-  //適用するスタイルを分岐
-  const styles = stylesTop
-
-  const breakpointColumnsObj = STYLES_WORKS.BREAKPOINTS.TOP
-
-  return (
-    <>
-      <ul>
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className={styles.masonry__grid}
-          columnClassName={styles.masonry__grid__column}
-          >
-          {works.length > 0 && works.map((work, key) => {
-            return (
-              <li  key={key} className={styles.masonry__item}>
-                <TransitionLink href={`/works/${work.id}`}>
-                  <img src={work.main_image.url} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}/>
-                </TransitionLink>
-              </li>
-            )
-          })}
-        </Masonry>
-      </ul>
-    </>
-  )
+    //適用するスタイルを分岐
+    const styles = stylesTop
+    const breakpointColumnsObj = STYLES_WORKS.BREAKPOINTS.TOP
+    return (
+      <>
+        <ul>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className={styles.masonry__grid}
+            columnClassName={styles.masonry__grid__column}
+            >
+            {works.length > 0 && works.map((work, key) => {
+              return (
+                <li key={key} className={styles.masonry__item}>
+                  <TransitionLink href={`/works/${work.id}`}>
+                    <img src={work.main_image.url} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}/>
+                  </TransitionLink>
+                </li>
+              )
+            })}
+          </Masonry>
+        </ul>
+      </>
+    )
+  }
 }
 
 export default _Works

@@ -19,7 +19,6 @@ interface Props {
 
 const Home: React.FC<Props> = ({works}) => {
 
-  console.log(works.contents);
 
   return (
     <Base
@@ -28,7 +27,7 @@ const Home: React.FC<Props> = ({works}) => {
     >
       <div className={styles.main__container}>
         <_Works data={works} styles={STYLES_WORKS.TOP}/>
-        自分の主要情報
+        <h5>mail: <a href="mailto: arata1128matsu@icloud.com">arata1129matsu@icloud.com</a></h5>
       </div>
     </Base>
   )
