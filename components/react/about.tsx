@@ -23,8 +23,8 @@ class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
 
-  constructor({data}) {
-    super({data})
+  constructor(props) {
+    super(props)
 
     this.blocks = []
   }
