@@ -19,12 +19,12 @@ interface Props {
   }
 }
 
-class About extends React.Component {
+class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
 
-  constructor(props) {
-    super(props)
+  constructor({data}) {
+    super({data})
 
     this.blocks = []
   }
