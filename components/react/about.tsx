@@ -39,8 +39,8 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
-    window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
-    window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+    window.removeEventListener("mousewheel", this.handleScroll)
+    window.removeEventListener("touchmove", this.handleScroll)
 
     if(this.blocks.length == 0) return
 
@@ -53,11 +53,11 @@ class About extends React.Component<Props> {
           start: "top bottom",
           onEnter: () => {
             if(this.blocks[i]) {
-              window.addEventListener("mousewheel", this.handleScroll, {passive: false})
-              window.addEventListener("touchmove", this.handleScroll, {passive: false})
+              window.addEventListener("mousewheel", this.handleScroll)
+              window.addEventListener("touchmove", this.handleScroll)
               gsap.to(window, {scrollTo: this.blocks[i], duration: 1.5, ease: "sine.inOut", onComplete: () => {
-                window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
-                window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+                window.removeEventListener("mousewheel", this.handleScroll)
+                window.removeEventListener("touchmove", this.handleScroll)
               }})
             }
           }
@@ -69,8 +69,8 @@ class About extends React.Component<Props> {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
-    window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+    window.removeEventListener("mousewheel", this.handleScroll)
+    window.removeEventListener("touchmove", this.handleScroll)
   }
 
   handleScroll = (e) => {
