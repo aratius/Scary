@@ -31,26 +31,30 @@ class About extends React.Component {
 
   // タイトルが見えたときになんかする
   onReadyTitle (node) {
-    gsap.to(node, {
-      scrollTrigger: node,
+    // gsap.to(node, {
+    //   scrollTrigger: node,
 
-    })
+    // })
   }
 
   componentDidMount() {
     if(this.blocks.length == 0) return
 
-
     for(const i in this.blocks) {
+      console.log(this.blocks[i]);
+      if(!this.blocks[i]) continue
+
       gsap.to(this.blocks[i], {
         scrollTrigger: {
           trigger: this.blocks[i],
           start: "top bottom",
-          markers: true,
+          markers: false,
           onEnter: () => {
-            window.addEventListener("scroll", this.handleScroll, {passive: false})
-            gsap.to(window, {scrollTo: this.blocks[i], duration: 2, ease: "circ.inOut", onComplete: () => {
-              window.removeEventListener("scroll", this.handleScroll)
+            document.addEventListener("mousewheel", this.handleScroll, {passive: false})
+            document.addEventListener("touchmove", this.handleScroll, {passive: false})
+            gsap.to(window, {scrollTo: this.blocks[i], duration: 1.5, ease: "sine.inOut", onComplete: () => {
+              document.removeEventListener("mousewheel", this.handleScroll)
+              document.removeEventListener("touchmove", this.handleScroll)
             }})
           },
           onLeaveBack: () => {
@@ -62,9 +66,7 @@ class About extends React.Component {
 
   }
 
-  handleScroll (e) {
-    console.log("he");
-
+  handleScroll = (e) => {
     e.preventDefault()
   }
 
