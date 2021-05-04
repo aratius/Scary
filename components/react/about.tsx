@@ -22,6 +22,7 @@ interface Props {
 class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
+  mounted: boolean
 
   constructor(props) {
     super(props)
@@ -38,26 +39,27 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
+    window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
+    window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+
     if(this.blocks.length == 0) return
 
     for(const i in this.blocks) {
-      console.log(this.blocks[i]);
-      if(!this.blocks[i]) continue
+      if(!(this.blocks[i] instanceof HTMLElement)) continue
 
       gsap.to(this.blocks[i], {
         scrollTrigger: {
           trigger: this.blocks[i],
           start: "top bottom",
-          markers: false,
           onEnter: () => {
-            document.addEventListener("mousewheel", this.handleScroll, {passive: false})
-            document.addEventListener("touchmove", this.handleScroll, {passive: false})
-            gsap.to(window, {scrollTo: this.blocks[i], duration: 1.5, ease: "sine.inOut", onComplete: () => {
-              document.removeEventListener("mousewheel", this.handleScroll)
-              document.removeEventListener("touchmove", this.handleScroll)
-            }})
-          },
-          onLeaveBack: () => {
+            if(this.blocks[i]) {
+              window.addEventListener("mousewheel", this.handleScroll, {passive: false})
+              window.addEventListener("touchmove", this.handleScroll, {passive: false})
+              gsap.to(window, {scrollTo: this.blocks[i], duration: 1.5, ease: "sine.inOut", onComplete: () => {
+                window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
+                window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+              }})
+            }
           }
         },
       })
@@ -66,15 +68,21 @@ class About extends React.Component<Props> {
 
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("mousewheel", this.handleScroll, {passive: false})
+    window.removeEventListener("touchmove", this.handleScroll, {passive: false})
+  }
+
   handleScroll = (e) => {
-    e.preventDefault()
+    if(e && e.cancelable) {
+      e.preventDefault()
+    }
   }
 
   render() {
 
     return (
       <>
-
         <div className={aboutStyles.info__block} ref={node => this.blocks[0] = node}>
           <h2>arata matsumoto</h2>
           <br/>
