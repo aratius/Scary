@@ -73,6 +73,9 @@ class About extends React.Component<Props> {
     window.removeEventListener("touchmove", this.handleScroll)
   }
 
+
+  // TODO: ここにメイン処理を書くような実装に変える
+  // 参考は自前スクロール
   handleScroll = (e) => {
     if(e && e.cancelable) {
       e.preventDefault()
