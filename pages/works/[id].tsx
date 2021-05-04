@@ -25,18 +25,20 @@ interface Props {
 
 const Work: React.FC<Props> = (props) => {
 
-  const router = useRouter()
   const works = props.works
-  const descriptions = works.description.split("<hr>")
-  console.log(descriptions);
+  console.log(works.description)
+
+  const descriptions = works.description && works.description.split("<hr>")
+  if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
 
 
   const randomPos = {x: Math.random() * 700, y: Math.random() * 700}
 
   const description = (sentence) => {
+
     return (
       <p className={WorkDetailStyles.description__wrapper}>
-        {sentence.split('\n').map((data, i) => {
+        {sentence.length && sentence.split('\n').map((data, i) => {
           return (
             <React.Fragment key={i}>
               <span className={WorkDetailStyles.description__detail}>{data}</span>

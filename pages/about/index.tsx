@@ -17,7 +17,6 @@ const About: React.FC<Props> = ({data}) => {
       title="ABOUT"
     >
       <div className={baseStyles.main__container}>
-        <h1>ABOUT</h1>
         <_About data={data}/>
       </div>
     </Base>
