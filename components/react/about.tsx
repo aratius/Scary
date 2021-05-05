@@ -37,15 +37,12 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
+    console.log("abuot did mount");
 
     if(this.blocks.length == 0) return
     window.addEventListener("mousewheel", this.handleScroll)
     window.addEventListener("touchmove", this.handleScroll)
 
-    for(const i in this.blocks) {
-      if(!(this.blocks[i] instanceof HTMLElement)) continue
-
-    }
   }
 
   componentWillUnmount() {
