@@ -38,11 +38,13 @@ class _myContainer extends Container {
 
 
     EventManager.on(Events.OnTextureLoad, (textures) => {
-      console.log(textures);
       this.fishTextures = textures
-      for(const i in this.fishes) {
-        this.removeChild(this.fishes[i])
-        this.fishes.splice(i, 1)
+      console.log(this.fishes.length);
+      for(let i = 0; i < this.fishes.length/3; i++) {
+        this.fishes[i].disappear(() => {
+          this.removeChild(this.fishes[i])
+          this.fishes.splice(i, 1)
+        })
       }
     })
 

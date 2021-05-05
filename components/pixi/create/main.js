@@ -11,6 +11,10 @@ export default class Pure extends React.Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      isPlaying: false
+    }
+
     this.container = myContainer
     App.stage.addChild(this.container)
     this.update()
@@ -29,7 +33,7 @@ export default class Pure extends React.Component {
   componentDidUpdate () {
     // DOMのonLoadイベント受け取りたいけどめんどくさいからとりあえずsetTimeout
     setTimeout(()=>{
-      resize()
+      this.resize()
       gsap.to(this.targetDOM, {alpha: 1, duration: 0.5})
     }, 1000)
 
@@ -55,6 +59,9 @@ export default class Pure extends React.Component {
 
   animationStart = () => {
     this.container.fishShouldAnimate = !this.container.fishShouldAnimate
+    this.setState({
+      isPlaying: this.container.fishShouldAnimate
+    })
   }
 
   getImageData = () => {
@@ -83,7 +90,7 @@ export default class Pure extends React.Component {
 
   }
 
-  resetShape () {
+  resetShape = () => {
     this.container.initCircles()
   }
 
@@ -103,7 +110,13 @@ export default class Pure extends React.Component {
         <div id="create_pure" className="js__pixi__create" ref={this.onDOMReady} style={styles}></div>
         <div className={createStyles.button__wrapper}>
           <a className={createStyles.button__done} onClick={this.resetShape}>RESET</a>
-          <a className={createStyles.button__done} onClick={this.animationStart}>ANIMATE</a>
+          <a className={createStyles.button__done} onClick={this.animationStart}>
+            {this.state.isPlaying ?
+              <span>STOP</span>
+              :
+              <span>ANIMATION</span>
+            }
+          </a>
           <a className={createStyles.button__done} onClick={this.getImageData}>DONE</a>
         </div>
       </>
