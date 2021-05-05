@@ -22,12 +22,14 @@ interface Props {
 class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
-  mounted: boolean
+  scrollTimeOutTimer: any
+  scrollPos: number  // y方向のスクロールポジション
 
   constructor(props) {
     super(props)
 
     this.blocks = []
+    this.scrollPos = 0
   }
 
   // タイトルが見えたときになんかする
@@ -39,33 +41,15 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
-    window.removeEventListener("mousewheel", this.handleScroll)
-    window.removeEventListener("touchmove", this.handleScroll)
 
     if(this.blocks.length == 0) return
+    window.addEventListener("mousewheel", this.handleScroll, {passive: false})
+    window.addEventListener("touchmove", this.handleScroll, {passive: false})
 
     for(const i in this.blocks) {
       if(!(this.blocks[i] instanceof HTMLElement)) continue
 
-      gsap.to(this.blocks[i], {
-        scrollTrigger: {
-          trigger: this.blocks[i],
-          start: "top bottom",
-          onEnter: () => {
-            if(this.blocks[i]) {
-              window.addEventListener("mousewheel", this.handleScroll)
-              window.addEventListener("touchmove", this.handleScroll)
-              gsap.to(window, {scrollTo: this.blocks[i], duration: 1.5, ease: "sine.inOut", onComplete: () => {
-                window.removeEventListener("mousewheel", this.handleScroll)
-                window.removeEventListener("touchmove", this.handleScroll)
-              }})
-            }
-          }
-        },
-      })
-
     }
-
   }
 
   componentWillUnmount() {
@@ -75,13 +59,41 @@ class About extends React.Component<Props> {
 
 
   // TODO: ここにメイン処理を書くような実装に変える
+  // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e) => {
-    if(e && e.cancelable) {
-      e.preventDefault()
-    }
+    this.scrollPos = window.pageYOffset
+
+    // const element = this.searchNearElement(this.blocks)
+
+    clearTimeout(this.scrollTimeOutTimer)
+    this.scrollTimeOutTimer = setTimeout(this.handleScrollEnd, 100)
   }
 
+  handleScrollEnd = () => {
+    const element = this.searchNearElement(this.blocks)
+    if(element instanceof HTMLElement) {
+      gsap.to(window, {scrollTo: element, duration: 1})
+    }
+
+  }
+
+  searchNearElement(elements: HTMLElement[]) {
+    let near = 9999
+    let nearEl
+    for(const i in elements) {
+      const el = elements[i]
+      const elPos = el.getBoundingClientRect().top
+      const dist = Math.abs(elPos)
+      if(dist < near) {
+        near = dist
+        nearEl = el
+      }
+    }
+    return nearEl
+  }
+
+  // TODO: スクロールバー消す
   render() {
 
     return (
