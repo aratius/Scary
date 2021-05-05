@@ -66,7 +66,7 @@ class About extends React.Component<Props> {
     gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})
 
     if(this.scrollTween) this.scrollTween.kill()
-    this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1})
+    this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1.5, ease: "circ.inOut"})
 
   }
 
