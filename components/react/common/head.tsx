@@ -18,8 +18,8 @@ const _Head: React.FC<Props> = ({title}) => {
       <meta property="og:title" content="aualrxse" />
       <meta property="og:description" content="front end developer" />
       <meta property="og:site_name" content="arata matsumoto" />
-      <meta property="og:image" content="https://scary.aualrxse.com/assets/images/og-image.jpg" />
-      {/* <meta name="twitter:card" content="" /> */}
+      <meta property="og:image" key="ogImage" content="https://scary.aualrxse.com/assets/images/og-image.jpg" />
+      <meta name="twitter:card" key="twitterCard" content="summary_large_image" />
       <meta name="twitter:site" content="@aualrxse" />
     </Head>
   )
