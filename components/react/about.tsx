@@ -22,8 +22,8 @@ interface Props {
 class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
-  scrollTimeOutTimer: any
   scrollPos: number  // y方向のスクロールポジション
+  scrollTween: any
 
   constructor(props) {
     super(props)
@@ -62,19 +62,11 @@ class About extends React.Component<Props> {
   // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e) => {
-    this.scrollPos = window.pageYOffset
-
-    // const element = this.searchNearElement(this.blocks)
-
-    clearTimeout(this.scrollTimeOutTimer)
-    this.scrollTimeOutTimer = setTimeout(this.handleScrollEnd, 100)
-  }
-
-  handleScrollEnd = () => {
     const element = this.searchNearElement(this.blocks)
-    if(element instanceof HTMLElement) {
-      gsap.to(window, {scrollTo: element, duration: 1})
-    }
+    gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})
+
+    if(this.scrollTween) this.scrollTween.kill()
+    this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1})
 
   }
 
@@ -104,7 +96,7 @@ class About extends React.Component<Props> {
         </div>
 
         <div className={aboutStyles.info__block} ref={node => this.blocks[1] = node}>
-          <h3 ref={this.onReadyTitle}>about me</h3>
+          <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>about me</h3>
           <p>・ 2000.11.29 (20), born in Hyogo</p>
           <p>・ front end developer / backpacker</p>
           <p>・ STARRYWORKS inc. ( full time )</p>
@@ -113,7 +105,7 @@ class About extends React.Component<Props> {
         </div>
 
         <div className={aboutStyles.info__block} ref={node => this.blocks[2] = node}>
-          <h3 ref={this.onReadyTitle}>lang</h3>
+          <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>lang</h3>
           <br/>
 
           <h4>javascript</h4>

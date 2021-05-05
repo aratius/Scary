@@ -3,8 +3,6 @@ import TransitionLink from './common/link'
 import Masonry from 'react-masonry-css'
 import stylesTop from '../../styles/modules/components/works-top.module.scss'
 import { STYLES_WORKS } from '../utils/config'
-import TweenManager from '../utils/tweenManager'
-import { Interface } from 'node:readline'
 
 // propsの内容（流石に使うものだけでよいか）を定義
 interface Props {

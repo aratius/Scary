@@ -1,5 +1,9 @@
 .info__block {
   height: 110vh;
-  // background-color: #ff0;
+  margin-bottom: 10px;
   padding-top: 30%;
+
+  .info__title {
+    text-decoration: underline;
+  }
 }
