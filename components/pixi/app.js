@@ -11,7 +11,7 @@ class _App extends Application {
       backgroundAlpha: 0.,
       backgroundColor: 0x000000
     })
-    this.stage.interactive = true;
+    this.stage.interactive = true
     this.renderer.autoResize = true
 
   }
