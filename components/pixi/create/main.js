@@ -77,6 +77,11 @@ export default function Pure() {
 
   }
 
+  function resetShape() {
+    console.log("reset shape");
+    container.initCircles()
+  }
+
   const styles = {
     position: "relative",
     width: "100%",
@@ -92,8 +97,7 @@ export default function Pure() {
     <>
       <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
       <div className={createStyles.button__wrapper}>
-        <a className={createStyles.button__done} onClick={animationStart}>CHANGE</a>
-        <a className={createStyles.button__done} onClick={animationStart}>RESET</a>
+        <a className={createStyles.button__done} onClick={resetShape}>RESET</a>
         <a className={createStyles.button__done} onClick={animationStart}>ANIMATE</a>
         <a className={createStyles.button__done} onClick={getImageData}>DONE</a>
       </div>

@@ -97,6 +97,13 @@ export default class myContainer extends Container {
   }
 
   initCircles(){
+    for(const i in this.circles) {
+      this.wantsToHiddenContainer.removeChild(this.circles[i])
+      console.log("hello");
+    }
+    this.circles = []
+    this.fishCircles = []
+
     const texture = Texture.from("/assets/images/pixi/circle.png")
 
     // svgをパースして魚の初期状態を設定
@@ -200,7 +207,7 @@ export default class myContainer extends Container {
       const position = new Vector2(x + m.x, y + m.y)
       this.circles[i].position = position
     }
-    // console.log(this.fishCircles[0].position);
+
     this.updatePath()
 
   }
