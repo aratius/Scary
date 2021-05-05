@@ -23,7 +23,7 @@ export default class TweenManager {
 
   static scrollToTop(duration){
     if(process.browser) {
-      gsap.to(window, {scrollTo: {y : 0}, duration: duration})
+      gsap.to(window, {scrollTo: {y : 0}, duration: duration, ease: "expo.out"})
     }
   }
 
