@@ -26,6 +26,8 @@ class About extends React.Component<Props> {
 
     this.blocks = []
     this.scrollPos = 0
+    console.log("abuot constructor");
+
   }
 
   // タイトルが見えたときになんかする
