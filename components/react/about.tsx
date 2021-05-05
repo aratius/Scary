@@ -39,8 +39,8 @@ class About extends React.Component<Props> {
   componentDidMount() {
 
     if(this.blocks.length == 0) return
-    window.addEventListener("mousewheel", this.handleScroll, {passive: false})
-    window.addEventListener("touchmove", this.handleScroll, {passive: false})
+    window.addEventListener("mousewheel", this.handleScroll)
+    window.addEventListener("touchmove", this.handleScroll)
 
     for(const i in this.blocks) {
       if(!(this.blocks[i] instanceof HTMLElement)) continue
