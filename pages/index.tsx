@@ -29,6 +29,7 @@ const Home: React.FC<Props> = ({works}) => {
         <_Works data={works} styles={STYLES_WORKS.TOP}/>
         <h5>mail: <a href="mailto: arata1128matsu@icloud.com">arata1129matsu@icloud.com</a></h5>
       </div>
+      <img src="/assets/images/image-og" style={{display: "none"}}/>
     </Base>
   )
 }
