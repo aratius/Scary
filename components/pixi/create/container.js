@@ -32,13 +32,13 @@ export default class myContainer extends Container {
     window.addEventListener('touchend', this.onClickEnd)
 
     this.sortableChildren = true;
+
   }
 
   onClickStart = (e) =>{
     if(this.fishShouldAnimate) return
 
     this.isClicking = true
-    let enemy
     if(e.touches) {
       for(const i in e.touches) {
         if(!(e.touches[i] instanceof Touch)) continue
@@ -160,7 +160,7 @@ export default class myContainer extends Container {
   updatePath() {
 
     if(this.fillGraphic) this.fillGraphic.clear()
-    const gOutline = new Graphics().beginFill(0x333333, 1).lineStyle(0, 0x333333).moveTo(this.fishCircles[0].x, this.fishCircles[0].y)
+    const gOutline = new Graphics().beginFill(0x333333, 1).lineStyle(0, 0x000000).moveTo(this.fishCircles[0].x, this.fishCircles[0].y)
     gOutline.zIndex = -1
 
     for(const i in this.fishCircles) {

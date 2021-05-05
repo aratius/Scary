@@ -7,6 +7,7 @@ import Vector2 from './common/vector2'
 import FishCirveFilter from './filters/fishCirveFilter'
 import WaveCircle from './utils/waveCircle'
 import { loadTextures } from './common/utils'
+import EventManager, { Events } from '../common/events'
 
 
 class _myContainer extends Container {
@@ -34,6 +35,16 @@ class _myContainer extends Container {
     this.waveTextureContainer = new Container()  //waveTexture用のコンテナ 直接はレンダリングしなくてよい
 
     this.loadTextures()
+
+
+    EventManager.on(Events.OnTextureLoad, (textures) => {
+      console.log(textures);
+      this.fishTextures = textures
+      for(const i in this.fishes) {
+        this.removeChild(this.fishes[i])
+        this.fishes.splice(i, 1)
+      }
+    })
 
   }
 

@@ -3,6 +3,8 @@ import myContainer from './container'
 import App from './app'
 import gsap from 'gsap'
 import createStyles from '../../../styles/modules/create/index.module.scss'
+import { Texture } from 'pixi.js'
+import EventManager, { Events } from '../../common/events'
 
 export default function Pure() {
 
@@ -40,7 +42,6 @@ export default function Pure() {
   })
 
   function resize() {
-    console.log("resize");
     if(targetDOM.current) {
       App.onResize()
     }
@@ -49,12 +50,32 @@ export default function Pure() {
   }
 
   function animationStart(){
-    console.log("getIMagedaa");
-    const url = App.renderer.view.toDataURL("image/jpg")
     container.fishShouldAnimate = !container.fishShouldAnimate
   }
 
-  function getImageData(){}
+  function getImageData(){
+    const frameCount = 8
+    container.fishShouldAnimate = true
+    let count = 0
+    let urls = []
+    const timer = setInterval(() => {
+      App.renderer.render(container)
+      const url = App.renderer.view.toDataURL("image/png")
+      urls.push(url)
+      count ++
+      if(count == frameCount) {
+        clearInterval(timer)
+        container.fishShouldAnimate = false
+        let textures = []
+        for(const i in urls) {
+          const texture = new Texture.from(urls[i])
+          textures.push(texture)
+        }
+        EventManager.emit(Events.OnTextureLoad, textures)
+      }
+    }, Math.PI * 1000 / frameCount)
+
+  }
 
   const styles = {
     position: "relative",
@@ -71,6 +92,8 @@ export default function Pure() {
     <>
       <div id="create_pure" className="js__pixi__create" ref={targetDOM} style={styles}></div>
       <div className={createStyles.button__wrapper}>
+        <a className={createStyles.button__done} onClick={animationStart}>CHANGE</a>
+        <a className={createStyles.button__done} onClick={animationStart}>RESET</a>
         <a className={createStyles.button__done} onClick={animationStart}>ANIMATE</a>
         <a className={createStyles.button__done} onClick={getImageData}>DONE</a>
       </div>

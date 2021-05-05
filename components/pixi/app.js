@@ -13,6 +13,7 @@ class _App extends Application {
     })
     this.stage.interactive = true
     this.renderer.autoResize = true
+    this.renderer.preserveDrawingBuffer = true
 
   }
 
