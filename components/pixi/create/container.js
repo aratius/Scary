@@ -5,7 +5,7 @@ import FishBones from './fishBone'
 import App from './app'
 import Vector2 from '../common/vector2'
 
-export default class myContainer extends Container {
+class _myContainer extends Container {
 
   constructor() {
     super()
@@ -96,13 +96,16 @@ export default class myContainer extends Container {
     this.fixCircles()
   }
 
-  initCircles(){
+  reset(){
     for(const i in this.circles) {
       this.wantsToHiddenContainer.removeChild(this.circles[i])
-      console.log("hello");
     }
     this.circles = []
     this.fishCircles = []
+  }
+
+  initCircles(){
+    this.reset()
 
     const texture = Texture.from("/assets/images/pixi/circle.png")
 
@@ -213,3 +216,6 @@ export default class myContainer extends Container {
   }
 
 }
+
+const myContainer = new _myContainer()
+export default myContainer
