@@ -41,12 +41,12 @@ class About extends React.Component<Props> {
   componentDidMount() {
     console.log("abuot did mount");
 
-    window.addEventListener("mousewheel", this.handleScroll)
+    window.addEventListener("wheel", this.handleScroll)
     window.addEventListener("touchmove", this.handleScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mousewheel", this.handleScroll)
+    window.removeEventListener("wheel", this.handleScroll)
     window.removeEventListener("touchmove", this.handleScroll)
   }
 
