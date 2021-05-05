@@ -1,7 +1,15 @@
-.info__block {
+.info__block__wrapper {
   height: 110vh;
-  margin-bottom: 10px;
-  padding-top: 30%;
+  position: relative;
+  // background-color: rgba(100, 100, 0, 0.2);
+}
+
+.info__block {
+  position: absolute;
+  // 中心寄せ (気持ち上めの-60%)
+  top: 50%;
+  transform: translateY(-60%);
+  // background-color: rgba(0, 100, 0, 0.2);
 
   .info__title {
     text-decoration: underline;

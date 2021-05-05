@@ -85,40 +85,46 @@ class About extends React.Component<Props> {
 
     return (
       <>
-        <div className={aboutStyles.info__block} ref={node => this.blocks[0] = node}>
-          <h2>arata matsumoto</h2>
-          <br/>
+        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[0] = node}>
+          <div className={aboutStyles.info__block} >
+            <h2>arata matsumoto</h2>
+            <br/>
+          </div>
         </div>
 
-        <div className={aboutStyles.info__block} ref={node => this.blocks[1] = node}>
-          <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>about me</h3>
-          <p>・ 2000.11.29 (20), born in Hyogo</p>
-          <p>・ front end developer / backpacker</p>
-          <p>・ STARRYWORKS inc. ( full time )</p>
-          <p>・ osaka univercity of arts ( currently attending )</p>
-          <br/>
+        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[1] = node}>
+          <div className={aboutStyles.info__block}>
+            <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>about me</h3>
+            <p>・ 2000.11.29 (20), born in Hyogo</p>
+            <p>・ front end developer / backpacker</p>
+            <p>・ STARRYWORKS inc. ( full time )</p>
+            <p>・ osaka univercity of arts ( currently attending )</p>
+            <br/>
+          </div>
         </div>
 
-        <div className={aboutStyles.info__block} ref={node => this.blocks[2] = node}>
-          <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>lang</h3>
-          <br/>
+        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[2] = node}>
+          <div className={aboutStyles.info__block}>
+            <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>lang</h3>
+            <br/>
 
-          <h4>javascript</h4>
-          <p>・ React.js</p>
-          <p>・ Next.js</p>
-          <p>・ pixi.js</p>
-          <p>・ three.js</p>
-          <br/>
+            <h4>javascript</h4>
+            <p>・ React.js</p>
+            <p>・ Next.js</p>
+            <p>・ pixi.js</p>
+            <p>・ three.js</p>
+            <br/>
 
-          <h4>C++</h4>
-          <p>・ openframeworks</p>
-          <p>・ GLSL</p>
-          <p>・ Arduino</p>
-          <br/>
+            <h4>C++</h4>
+            <p>・ openframeworks</p>
+            <p>・ GLSL</p>
+            <p>・ Arduino</p>
+            <br/>
 
-          <h4>C#</h4>
-          <p>・ Unity</p>
-          <br/>
+            <h4>C#</h4>
+            <p>・ Unity</p>
+            <br/>
+          </div>
         </div>
 
       </>

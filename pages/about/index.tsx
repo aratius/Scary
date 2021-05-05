@@ -16,7 +16,8 @@ const About: React.FC<Props> = ({data}) => {
       circlePos={{x: 500, y: 300}}
       title="ABOUT"
     >
-      <div className={baseStyles.main__container}>
+      {/* PT打ち消し */}
+      <div className={baseStyles.main__container} style={{paddingTop: 0}}>
         <_About data={data}/>
       </div>
     </Base>
