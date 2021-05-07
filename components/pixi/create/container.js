@@ -118,7 +118,7 @@ class _myContainer extends Container {
 
     const circles = doc.querySelectorAll(".fish_body")
     for(const i in circles) {
-      if(circles[i] instanceof Function) break
+      if(!(circles[i] instanceof Object)) break
       const x = parseFloat(circles[i].getAttribute("cx")) * scaler
       const y = parseFloat(circles[i].getAttribute("cy")) * scaler
 
