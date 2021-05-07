@@ -40,7 +40,7 @@ export default class Fish extends PIXI.AnimatedSprite {
   }
 
   disappear(cb){
-    gsap.to(this, {alpha: 0, duration: 3, onComplete: cb})
+    gsap.to(this, {alpha: 0, duration: 1, onComplete: cb})
   }
 
   Update(others, enemies, i) {

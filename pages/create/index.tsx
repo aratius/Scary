@@ -12,7 +12,6 @@ export default function Create () {
       title="CREATE"
     >
       <div className={baseStyles.main__container}>
-        <h1>CREATE</h1>
         <_Create/>
       </div>
     </Base>

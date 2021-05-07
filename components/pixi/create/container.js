@@ -118,7 +118,9 @@ class _myContainer extends Container {
 
     const circles = doc.querySelectorAll(".fish_body")
     for(const i in circles) {
-      if(!(circles[i] instanceof Object)) break
+      if(!(circles[i] instanceof Object)) continue
+      if(circles[i] instanceof Function) continue
+      console.log(circles[i] instanceof Object);
       const x = parseFloat(circles[i].getAttribute("cx")) * scaler
       const y = parseFloat(circles[i].getAttribute("cy")) * scaler
 
@@ -170,7 +172,7 @@ class _myContainer extends Container {
   updatePath() {
 
     if(this.fillGraphic) this.fillGraphic.clear()
-    const gOutline = new Graphics().beginFill(0x333333, 1).lineStyle(0, 0x000000).moveTo(this.fishCircles[0].x, this.fishCircles[0].y)
+    const gOutline = new Graphics().beginFill(0xffffff, 1).lineStyle(0, 0x000000).moveTo(this.fishCircles[0].x, this.fishCircles[0].y)
     gOutline.zIndex = -1
 
     for(const i in this.fishCircles) {

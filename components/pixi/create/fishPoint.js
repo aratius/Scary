@@ -7,6 +7,7 @@ export default class FishPoint extends Sprite {
 
     this.x = x
     this.y = y
+    this.tint = 0x333333
 
     this.defaultPosition = new Vector2(x, y)
 
