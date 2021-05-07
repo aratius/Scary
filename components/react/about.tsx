@@ -26,8 +26,6 @@ class About extends React.Component<Props> {
 
     this.blocks = []
     this.scrollPos = 0
-    console.log("abuot constructor");
-
   }
 
   // タイトルが見えたときになんかする
@@ -39,8 +37,6 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
-    console.log("abuot did mount");
-
     window.addEventListener("wheel", this.handleScroll)
     window.addEventListener("touchmove", this.handleScroll)
   }
