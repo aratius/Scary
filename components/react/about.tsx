@@ -93,7 +93,7 @@ class About extends React.Component<Props> {
             <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>about me</h3>
             <p>・ 2000.11.29 (20), born in Hyogo</p>
             <p>・ front end developer / backpacker</p>
-            <p>・ STARRYWORKS inc. ( full time )</p>
+            <p>・ STARRYWORKS inc.</p>
             <p>・ osaka univercity of arts ( currently attending )</p>
             <br/>
           </div>

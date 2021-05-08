@@ -17,8 +17,8 @@ export const STYLES_WORKS = {
   BREAKPOINTS: {
     TOP: {
         default: 2,
-        1350: 2,
-        1048: 1,
+        1350: 3,
+        1048: 2,
         576: 1,
     },
   }
