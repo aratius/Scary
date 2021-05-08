@@ -104,11 +104,16 @@ class About extends React.Component<Props> {
             <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>lang</h3>
             <br/>
 
+            <h4>HTML/CSS</h4>
+            <p>・ pug (jade)</p>
+            <p>・ sass (scss)</p>
+            <br/>
+
             <h4>javascript</h4>
-            <p>・ React.js</p>
-            <p>・ Next.js</p>
+            <p>・ Next.js (React.js)</p>
             <p>・ pixi.js</p>
             <p>・ three.js</p>
+            <p>・ gulp.js</p>
             <br/>
 
             <h4>C++</h4>

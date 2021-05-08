@@ -46,6 +46,7 @@ img {
 
 p {
   font-size: small;
+  line-height: 1;
   @media (max-width: ($sp)) {
     font-size: x-small;
   }
