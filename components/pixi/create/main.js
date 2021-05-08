@@ -102,7 +102,7 @@ export default class Pure extends React.Component {
       transform: "translateX(-50%)",
       zIndex: 100,
       pointerEvents: "none",
-      backgroundColor: "black",
+      backgroundColor: "#333333",
       borderRadius: "10px",
       opacity: 0
     }

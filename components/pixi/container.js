@@ -39,11 +39,11 @@ class _myContainer extends Container {
 
     EventManager.on(Events.OnTextureLoad, (textures) => {
       this.fishTextures = textures
-      console.log(this.fishes.length);
       for(let i = 0; i < this.fishes.length/3; i++) {
         this.fishes[i].disappear(() => {
           this.removeChild(this.fishes[i])
           this.fishes.splice(i, 1)
+          this.fishInit()
         })
       }
     })
@@ -168,11 +168,10 @@ class _myContainer extends Container {
   }
 
   onResize =()=> {
-    console.log("container : ", this.screen.width, this.screen.height)
     // 魚Textureののローディングが完了しているかどうか
     if(!this.fishTextures.length) return
 
-    const sw = this.screen.width > 600 ? 600 : this.screen.width
+    const sw = this.screen.width > 0 ? 600 : this.screen.width
     this.requireFishNum = sw * this.screen.height / (200*200)  // あるべき密度を更新
 
     // 密度えぐいことなるのでサイズ変わった時に画面外にいるやつは削除する
