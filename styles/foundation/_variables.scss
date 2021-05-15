@@ -1,27 +1,3 @@
-$m-1: 5px;
-$m-2: 10px;
-$m-3: 15px;
-$m-4: 20px;
-$m-5: 25px;
-$m-6: 30px;
-$m-7: 35px;
-$m-8: 40px;
-$m-9: 45px;
-$m-10: 50px;
-$m-20: 100px;
-$m-30: 200px;
-
-$base-f-col: #34323a;
-$white-f-col: rgb(243, 243, 243);
-
-$header-height: 80px;
-$header-height-sp: 60px;
-$main-content-width: 80%;
-
-$pc: 1024px; // PC
-$tab: 680px; // タブレット
-$sp: 480px;  // スマホ
-
 $BREAKPOINT : 767px;
 
 
@@ -58,3 +34,20 @@ $easeInBack :     cubic-bezier(0.6,  -0.28,  0.735, 0.045);
 $easeOutBack :    cubic-bezier(0.175, 0.885, 0.32,  1.275);
 $easeInOutBack :  cubic-bezier(0.68, -0.55,  0.265, 1.55 );
 
+$m-1: 5px;
+$m-2: 10px;
+$m-3: 15px;
+$m-4: 20px;
+$m-5: 25px;
+$m-6: 30px;
+$m-7: 35px;
+$m-8: 40px;
+$m-9: 45px;
+$m-10: 50px;
+$m-20: 100px;
+$m-30: 200px;
+
+
+$pc: 1024px; // PC
+$tab: 680px; // タブレット
+$sp: 480px;  // スマホ

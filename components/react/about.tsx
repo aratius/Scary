@@ -1,5 +1,4 @@
 import React from 'react'
-import baseStyles from '../../styles/modules/common/base.module.scss'
 import aboutStyles from '../../styles/modules/about/index.module.scss'
 import gsap from "gsap"
 // SSRモード（サーバー上）では使えないためこの条件分岐

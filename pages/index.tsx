@@ -1,10 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import Base from '../components/react/base'
-import _Works from '../components/react/works'
 import { getWorks } from '../components/api/works'
-import styles from '../styles/modules/top.module.scss'
-import { STYLES_WORKS } from '../components/utils/config'
 
 interface Props {
   works: {
@@ -19,16 +15,11 @@ interface Props {
 
 const Home: React.FC<Props> = ({works}) => {
 
-
   return (
     <Base
-      circlePos={{x: 100, y: 500}}
       title="TOP"
     >
-      <div className={styles.main__container}>
-        <_Works data={works} styles={STYLES_WORKS.TOP}/>
-      </div>
-      <img src="/assets/images/og-image.jpg" style={{display: "none"}}/>
+      hello
     </Base>
   )
 }

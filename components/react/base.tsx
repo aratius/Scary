@@ -4,10 +4,6 @@ import EventManager, { Events } from '../common/events'
 import Floating from './common/floating'
 
 interface Props {
-  circlePos: {
-    x: number,
-    y: number
-  },
   title: string
 }
 
@@ -15,7 +11,7 @@ class _Base extends React.Component<Props> {
 
   private wrapper: HTMLElement
 
-  // 全ての画像のローディング
+  // 全ての画像のローディング処理 終わればグローバルのeventManagerにイベント発火する
   handleReadyDOM = async (node) => {
     if(!node) return
     this.wrapper = node

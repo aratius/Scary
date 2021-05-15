@@ -1,4 +1,4 @@
-@import './config.scss';
+@import './foundation/variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 
 html,
@@ -19,7 +19,7 @@ html {
 
 * {
   box-sizing: border-box;
-  color: $base-f-col;
+  color: #333333;
 
   font-family: 'Playfair Display', serif;  // セリフ体
 }
@@ -31,7 +31,7 @@ ul {
 }
 
 a {
-  color: $base-f-col;
+  color: #333333;
   text-decoration: none;
 }
 

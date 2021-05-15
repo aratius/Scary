@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import Base from '../../components/react/base'
 import _About from '../../components/react/about'
 import baseStyles from '../../styles/modules/common/base.module.scss'
@@ -13,7 +12,6 @@ const About: React.FC<Props> = ({data}) => {
 
   return (
     <Base
-      circlePos={{x: 500, y: 300}}
       title="ABOUT"
     >
       {/* PT打ち消し */}

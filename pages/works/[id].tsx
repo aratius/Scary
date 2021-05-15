@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import React from 'react'
 import { getWorks } from '../../components/api/works'
 import Base from '../../components/react/base'
@@ -26,13 +25,9 @@ interface Props {
 const Work: React.FC<Props> = (props) => {
 
   const works = props.works
-  console.log(works.description)
 
   const descriptions = works.description && works.description.split("<hr>")
   if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
-
-
-  const randomPos = {x: Math.random() * 700, y: Math.random() * 700}
 
   const description = (sentence) => {
 
@@ -52,7 +47,6 @@ const Work: React.FC<Props> = (props) => {
   return (
     <>
     <Base
-      circlePos={randomPos}
       title="WORKS"
     >
       <div className={baseStyles.main__container}>
