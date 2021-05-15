@@ -42,7 +42,7 @@ class Floating extends React.Component<Props> {
     this.searchChildren(this.wrapper, (el)=>elements.push(el))
     this.elements = elements
 
-    this.floatTween(this.elements, 10)
+    // this.floatTween(this.elements, 10)
   }
 
   /**

@@ -17,6 +17,7 @@ $margin-grid-between--sp: 30px;
     img {
       width: 100%;
       border-radius: 2px;
+      opacity: 0.9;
       position: relative;  // zIndexを効かせるため
     }
   }

@@ -86,7 +86,7 @@ export default class Header extends React.Component {
       slideLine: {
         ...this.state.slideLine,
         width: target.clientWidth,
-        left: 300 - target.getBoundingClientRect().bottom
+        left: 220 - target.getBoundingClientRect().bottom
       }
     })
   }
@@ -109,10 +109,10 @@ export default class Header extends React.Component {
         <div className={styles.container}>
           <ul>
             <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/about">{Pages.about}</TransitionLink></li>
-            <span>-</span>
+            <span>/</span>
             <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/">{Pages.contact}</TransitionLink></li>
-            <span>-</span>
-            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/create">{Pages.create}</TransitionLink></li>
+            {/* <span>-</span>
+            <li onMouseOver={this.handleOver} onMouseOut={this.handleOut} onClick={this.handleClick}><TransitionLink href="/create">{Pages.create}</TransitionLink></li> */}
 
             <li onClick={this.handleClick}><TransitionLink href="/"><img src="/assets/images/logo.svg"/></TransitionLink></li>
 
