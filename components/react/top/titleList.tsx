@@ -61,13 +61,13 @@ export default class TitleList extends React.Component<Props> {
           gsap.set(this.titles[i], {y: `-=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
         }
 
-        if(this.scrolling) {
-          const newrect = this.titles[i].getBoundingClientRect();
-          const newdist = Math.abs(newrect.top - this.activeElementData.top)
-          const alpha = 1 - (newdist / 80)
-          if(alpha > 0)gsap.to(this.titles[i], { alpha: alpha, duration: 0.1 })  // アニメーションする
-          else gsap.set(this.titles[i], {alpha: 0})  // アニメーションせず、パチっと切り替わる アニメーションすると、上に飛び出て下に追加される要素が一瞬見切れてしまう
-        }
+        const newrect = this.titles[i].getBoundingClientRect();
+        const newdist = Math.abs(newrect.top - this.activeElementData.top)
+        let alpha = 1 - (newdist / 80)
+        // もっとも近いもの以外は結構薄くする
+        alpha = newdist < newrect.height / 2 ? 1 : alpha / 2
+        if(alpha > 0)gsap.to(this.titles[i], { alpha: alpha, duration: 0.1 })  // アニメーションする
+        else gsap.set(this.titles[i], {alpha: 0})  // アニメーションせず、パチっと切り替わる アニメーションすると、上に飛び出て下に追加される要素が一瞬見切れてしまう
 
       }
 
@@ -82,7 +82,7 @@ export default class TitleList extends React.Component<Props> {
     this.scrolling = true
     if(this.titles.length == 0) return
 
-    const scrollY = Math.abs(e.deltaY) > 30 ? -30 : -e.deltaY/3  // e.deltaYを扱いやすい数字に調整
+    const scrollY = Math.abs(e.deltaY) > 60 ? -60/3 : -e.deltaY/3  // e.deltaYを扱いやすい数字に調整
     for(const i in this.titles) {
       gsap.set(this.titles[i], {y: `+=${scrollY}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
     }
@@ -91,23 +91,6 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleScrollEnd = () => {
-    this.scrolling = false
-    if(this.titles.length > 0) {
-      for(const i in this.titles) {
-        const rect = this.titles[i].getBoundingClientRect();
-        const dist = Math.abs(rect.top - this.activeElementData.top)
-        const alpha = 1 - (dist / 80)
-
-        // 自身の高さの半分より近いものをもっともactiveに近い要素としてクラスを付与
-        if(dist < rect.height / 2) {
-          gsap.to(this.titles[i], {alpha: 1, duration: 0.2})
-        } else {
-          gsap.to(this.titles[i], {alpha: alpha/3, duration: 0.5})
-        }
-
-      }
-
-    }
   }
 
   handleReadyItem = (node, i) => {
@@ -121,13 +104,16 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleClickItem = (e) => {
-    this.scrolling = true
     if(e && e.cancelable) e.preventDefault()
     const el = e.target
-    if (el.style.opacity < 0) return  // opacity的に見えてない状態ならクリック不可能とする
+    // opacity的に見えてない状態ならクリック不可能とする
+    if (el.style.opacity < 0) {
+      this.handleScrollEnd()
+      return
+    }
     const offset = this.activeElementData.top - el.getBoundingClientRect().top
     for(const i in this.titles) {
-      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out", onComplete: this.handleScrollEnd})
+      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out"})
     }
   }
 
