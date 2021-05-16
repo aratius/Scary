@@ -41,9 +41,9 @@
         position: absolute;
         left: -5%;
         bottom: 0;
-        z-index: -100;
         opacity: 0;
         transition: 0.3s all $easeInSine;
+        z-index: -1;
       }
 
       display: flex;
