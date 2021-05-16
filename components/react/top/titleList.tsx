@@ -99,7 +99,7 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleScrollEnd = () => {
-    this.props.onSelectWork(this.activeId)
+    this.props.onSelectWork(this.activeId)  // アクティブ要素を親に通知
   }
 
   handleReadyItem = (node, i) => {
@@ -111,6 +111,7 @@ export default class TitleList extends React.Component<Props> {
       if(!this.activeElementData) {  // これは最初のマウント時に一回のみで良い
         this.activeElementData = node.getBoundingClientRect()
         this.activeId = node.id
+        this.handleScrollEnd()
       }
     }
   }
@@ -123,9 +124,13 @@ export default class TitleList extends React.Component<Props> {
       this.handleScrollEnd()
       return
     }
+
+    this.activeId = el.id
+
+    // 全体をスクロールする
     const offset = this.activeElementData.top - el.getBoundingClientRect().top
     for(const i in this.titles) {
-      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out"})
+      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out", onComplete: this.handleScrollEnd})
     }
   }
 

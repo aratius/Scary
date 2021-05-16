@@ -3,7 +3,9 @@ import gsap from "gsap"
 // SSRモード（サーバー上）では使えないためこの条件分岐
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
-
+// SSRモード（サーバー上）では使えないためこの条件分岐
+const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
+process.browser && gsap.registerPlugin(ScrollTrigger)
 
 export default class TweenManager {
 

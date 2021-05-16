@@ -14,14 +14,15 @@
     z-index: -100;
     position: fixed;
 
-    &::after {
-      content: "";
+    // 黒い背景 tweenさせるために実要素を置く
+    &__bg {
       width: 100%;
       height: 100%;
+      display: inline-block;
       position: absolute;
       top: 0;
       background-color: rgb(0, 0, 0);
-      opacity: 0.8;
+      opacity: 0;
     }
 
     // メイン画像 実際はcanvasに差し替わるのでこれはなくなる
@@ -35,7 +36,7 @@
 
   // 仕事内容 （文章とサブ画像
   .work_view {
-    padding-top: 100vh;
+    margin-top: 100vh;
     width: 100%;
   }
 }
