@@ -12,13 +12,29 @@ interface Props {
 
 export default class InfoBar extends React.Component<Props> {
 
+  container: HTMLElement
+
   constructor(props) {
     super(props)
+    this.container
+  }
+
+  handleReadyContainer = (node) => {
+    this.container = node
+    this.container.addEventListener("mousewheel", this.handleScroll, {passive: false})
+  }
+
+  componentWillUnmount() {
+    this.container.removeEventListener("mousewheel", this.handleScroll)
+  }
+
+  handleScroll = (e) => {
+    if(e && e.cancelable) e.preventDefault()
   }
 
   render () {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} ref={this.handleReadyContainer}>
         <TitleList
           works={this.props.works}
         />

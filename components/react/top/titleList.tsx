@@ -56,7 +56,7 @@ export default class TitleList extends React.Component<Props> {
 
         const newrect = this.titles[i].getBoundingClientRect();
         const newdist = Math.abs(newrect.top - this.activeElementData.top)
-        const alpha = 1 - (newdist / 100)
+        const alpha = 1 - (newdist / 80)
         gsap.set(this.titles[i], { alpha: alpha })  // 文字列で+=100と書くと+=現在からの相対移動が可能
 
       }
@@ -67,7 +67,8 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleScroll = (e) => {
-    if(e && e.cancelable) e.preventDefault();
+    // if(e && e.cancelable) e.preventDefault();
+    // 親でpreventDefaultしているのでしなくて良い
     if(this.titles.length == 0) return
 
     for(const i in this.titles) {
