@@ -21,8 +21,9 @@
       font-size: 0.9rem;
       text-decoration: none;
       position: relative;
+      transition: color 0.3s;
 
-      // 下線はアニメーションさせるためにafterで引く
+      // 下線はアニメーションさせるためにafterで引く アニメーションは一旦やめた（背景色のアニメーション
       &::after {
         content: "";
         position: absolute;
@@ -30,7 +31,19 @@
         bottom: 0;
         width: 100%;
         border-bottom: 1px solid rgba(100, 100, 100, 1);
-        transition: 0.7s all $easeOutExpo;
+      }
+      // アニメーション用の背景 ホバーで可視
+      &::before {
+        content: "";
+        width: 0;
+        height: 100%;
+        background-color: #000;
+        position: absolute;
+        left: -5%;
+        bottom: 0;
+        z-index: -100;
+        opacity: 0;
+        transition: 0.3s all $easeInSine;
       }
 
       display: flex;
@@ -38,11 +51,11 @@
       align-items: center;
 
       &:hover {
-
-        // 下線のアニメーション
-        &::after {
-          width: 10px;
-
+        color: #fff;
+        &::before {
+          width: 110%;
+          opacity: 1;
+          transition: 0.3s all $easeOutExpo;
         }
       }
     }

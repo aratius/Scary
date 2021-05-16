@@ -2,6 +2,7 @@ import React from 'react'
 import Base from '../components/react/base'
 import InfoBar from '../components/react/top/infoBar'
 import { getWorks } from '../components/api/works'
+import styles from '../styles/layout/top.module.scss'
 
 interface Props {
   works: {
@@ -21,9 +22,11 @@ const Home: React.FC<Props> = ({works}) => {
     <Base
       title="TOP"
     >
-      <InfoBar
-        works={works}
-      />
+      <div className={styles.container}>
+        <InfoBar
+          works={works}
+        />
+      </div>
     </Base>
   )
 }

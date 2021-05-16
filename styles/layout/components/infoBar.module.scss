@@ -1,16 +1,26 @@
 @import '../../foundation/variables';
 
-$marginVertical: 70px;
+$paddingVertical: 70px;
 
 .container {
   width: 33%;
-  height: calc(100vh - #{$marginVertical} * 2);  // vhは危険？ 100vhから上下のマージンを引く
+  height: 100%;
   min-width: 300px;
-  margin: $marginVertical 0;  // 上下のマージン
-  padding: 0 50px;
-  border-right: 1px solid rgba(100, 100, 100, 0.5);  // 右側の境界線
-
+  margin:  0;  // 上下のマージン
+  padding: $paddingVertical 50px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+
+  // 右の線はafterで引く
+  &::after {
+    content: "";
+    position: absolute;
+    top: $paddingVertical;
+    right: 0;
+    height: calc(100% - #{$paddingVertical} * 2);  // 上下のパディング分を引く
+    border-right: 1px solid rgba(100, 100, 100, 0.5);
+  }
 }
