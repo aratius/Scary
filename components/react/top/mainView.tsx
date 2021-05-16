@@ -19,6 +19,7 @@ export default class MainView extends React.Component<Props> {
   background: HTMLElement
   scrollContent: HTMLElement
   scrollContainer: HTMLElement
+  scrollTween: any
   work: any  // workを記憶する変数 変更があったかどうかを監視する
   id: string
   state: {
@@ -37,18 +38,28 @@ export default class MainView extends React.Component<Props> {
     // idが変わったときに一回下までスクロール
     if(this.id != this.props.id) {
       this.id = this.props.id
-      gsap.to(this.scrollContainer, {
+      if(this.scrollTween) this.scrollTween.kill()
+      this.scrollTween = gsap.to(this.scrollContainer, {
         scrollTo: 0,
         duration: 1,
         ease: 'circ.out',
-        onComplete: this.handleScroll
+        onUpdate: this.handleScrollEnd
       })
     }
   }
 
   handleScroll = ():void => {
     if(!this.background || !this.scrollContent) return
+    if(this.scrollTween) this.scrollTween.kill()
 
+    this.applyAlpha()
+  }
+
+  handleScrollEnd = ():void => {
+    this.applyAlpha()
+  }
+
+  applyAlpha () {
     const scrollTop = this.scrollContent.getBoundingClientRect().top
     let alpha = (window.innerHeight - scrollTop) / window.innerHeight
     alpha = alpha > 0.8 ? 0.8 : alpha
