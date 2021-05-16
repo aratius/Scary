@@ -1,0 +1,46 @@
+@import '../../foundation/variables';
+
+.container {
+  width: 100%;
+  padding: 70px 50px;
+  color: white;
+  * {
+    color: white;
+  }
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid white;
+    }
+  }
+  .utils {
+    margin-bottom: 40px;
+    span {
+      font-size: 0.8rem;
+      padding: 2px 10px;
+      margin-right: 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+  }
+  .detail {
+    &__subimage {
+      // width: 100%;
+      & + br + img {
+        width: 70%;
+      }
+    }
+  }
+
+  hr {
+    margin: 40px 0;
+  }
+  .description {
+    font-size: 0.8rem;
+    line-height: 2.5;
+  }
+}

@@ -17,7 +17,7 @@ export default class MainView extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      work: this.props.works.contents[0]
+      work: this.props.works.contents[2]
     }
   }
 

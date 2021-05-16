@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../../../styles/layout/components/work.module.scss'
 
 export interface Props {
   work: {
@@ -28,11 +29,12 @@ const Work: React.FC<Props> = (props) => {
   const description = (sentence) => {
 
     return (
-      <p >
-        {sentence.length && sentence.split('\n').map((data, i) => {
+      <p>
+        {sentence.split('\n').length && sentence.split('\n').map((data, i) => {
           return (
             <React.Fragment key={i}>
-              <span >{data}</span>
+              <span className={styles.description}>{data}</span>
+              {i != sentence.split('\n').length - 1 && <br/>}
             </React.Fragment>
           )
         })}
@@ -42,9 +44,9 @@ const Work: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div>
-        <h2>{work.title}</h2>
-        <div >
+      <div className={styles.container}>
+        <h1 className={styles.title}>{work.title}</h1>
+        <div className={styles.utils}>
           {/* 使用技術 */}
           {work.utils && work.utils.map((util, key) => {
             return(
@@ -54,24 +56,21 @@ const Work: React.FC<Props> = (props) => {
             )
           })}
         </div>
-        {/* でっかいメイン画像 */}
+
+        {/* メイン説明 */}
         {descriptions[0]  && description(descriptions[0])}
         <hr/>
 
-        {/*
-          サブ画像とサブ説明
-          ここのコードの気持ち悪さ半端ない
-          システム構成見直す
-        */}
-        <div >
+        {/* サブ画像とサブ説明 */}
+        <div className={styles.detail}>
           {work.subimages && work.subimages.map((img ,i) => {
             return (
-              <React.Fragment key={i} >
-                <img src={img.subimage.url} />
+              <React.Fragment key={i}>
+                <img src={img.subimage.url} className={styles.detail__subimage}/>
                 {descriptions[i+1] ?
                   <>
                     <hr/>
-                    {description(descriptions[i+1])}
+                      {description(descriptions[i+1])}
                     <hr/>
                   </>
                   :
