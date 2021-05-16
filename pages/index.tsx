@@ -27,7 +27,7 @@ export default class Home extends React.Component<Props> {
     super(props)
 
     this.state = {
-      id: "hoge"
+      id: null
     }
   }
 

@@ -31,9 +31,6 @@ export default class TitleList extends React.Component<Props> {
     this.scrollEndTimer
     this.scrolling = true
 
-    this.state = {
-      hoge: "h"
-    }
   }
 
   componentDidMount() {
@@ -126,11 +123,12 @@ export default class TitleList extends React.Component<Props> {
     }
 
     this.activeId = el.id
+    this.handleScrollEnd()  // tween長いのでonComplete待たずに実行
 
     // 全体をスクロールする
     const offset = this.activeElementData.top - el.getBoundingClientRect().top
     for(const i in this.titles) {
-      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out", onComplete: this.handleScrollEnd})
+      gsap.to(this.titles[i], {y: `+=${offset}`, duration: 0.4, ease: "circ.out"})
     }
   }
 
