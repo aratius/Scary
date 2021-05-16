@@ -1,5 +1,5 @@
 import React from 'react'
-import aboutStyles from '../../styles/modules/about/index.module.scss'
+import aboutStyles from '../../styles/layout/about.module.scss'
 import gsap from "gsap"
 // SSRモード（サーバー上）では使えないためこの条件分岐
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
@@ -54,8 +54,8 @@ class About extends React.Component<Props> {
     const element = this.searchNearElement(this.blocks)
     gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})
 
-    if(this.scrollTween) this.scrollTween.kill()
-    this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1.5, ease: "circ.inOut"})
+    // if(this.scrollTween) this.scrollTween.kill()
+    // this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1.5, ease: "circ.inOut"})
 
   }
 

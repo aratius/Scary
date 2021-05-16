@@ -3,6 +3,7 @@ import TitleList from './titleList'
 import AboutLink from './aboutLink'
 import styles from '../../../styles/layout/components/infoBar.module.scss'
 import gsap from 'gsap'
+import router from 'next/router'
 
 interface Props {
   works: {
@@ -18,6 +19,7 @@ interface Props {
 export default class InfoBar extends React.Component<Props> {
 
   container: HTMLElement
+  bgWhite: HTMLElement
 
   constructor(props) {
     super(props)
@@ -25,6 +27,7 @@ export default class InfoBar extends React.Component<Props> {
   }
 
   handleReadyContainer = (node) => {
+    if(!node) return
     this.container = node
     this.container.addEventListener("mousewheel", this.handleScroll, {passive: false})
   }
@@ -38,21 +41,28 @@ export default class InfoBar extends React.Component<Props> {
   }
 
   handleClickAbout = ():void => {
-    gsap.to(this.container, {width: window.innerWidth, duration: 1})
+    gsap.to(this.bgWhite, {width: window.innerWidth, duration: 1, ease: "expo.out"})
+    gsap.to(this.container, {alpha: 0, duration: 1, onComplete: ()=>{
+      router.push("/about")
+    }})
+
 
   }
 
   render () {
     return (
-      <div className={styles.container} ref={this.handleReadyContainer}>
-        <TitleList
-          onSelectWork={this.props.onSelectWork}
-          works={this.props.works}
-        />
-        <AboutLink
-          onClickAbout={this.handleClickAbout}
-        />
-      </div>
+      <>
+        <span className={styles.bgWhite} ref={node => this.bgWhite = node}></span>
+        <div className={styles.container} ref={this.handleReadyContainer}>
+          <TitleList
+            onSelectWork={this.props.onSelectWork}
+            works={this.props.works}
+          />
+          <AboutLink
+            onClickAbout={this.handleClickAbout}
+          />
+        </div>
+      </>
     )
   }
 
