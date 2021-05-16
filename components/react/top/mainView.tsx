@@ -40,7 +40,8 @@ export default class MainView extends React.Component<Props> {
       gsap.to(this.scrollContainer, {
         scrollTo: 0,
         duration: 1,
-        ease: 'circ.out'
+        ease: 'circ.out',
+        onComplete: this.handleScroll
       })
     }
   }
