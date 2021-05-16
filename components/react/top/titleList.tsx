@@ -11,12 +11,16 @@ interface Props {
 
 export default class TitleList extends React.Component<Props> {
 
+  handleScroll = (e) => {
+    console.log("scroll");
+
+  }
+
   render () {
     const works = this.props.works.contents
-    console.log(works);
 
     return (
-      <ul className={styles.container}>
+      <ul className={styles.container} onWheel={this.handleScroll}>
         {works.map((data, key) => {
           return (
             <li key={key} className={styles.item}>{data.title.toUpperCase()}</li>
