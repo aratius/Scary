@@ -5,9 +5,11 @@ import gsap from 'gsap'
 interface Props {
   works: {
     contents: Array<{
-      title: string
+      title: string,
+      id: string
     }>
   }
+  onSelectWork: Function
 }
 
 export default class TitleList extends React.Component<Props> {
@@ -15,6 +17,7 @@ export default class TitleList extends React.Component<Props> {
   titles: HTMLElement[]
   titlePositions: number[]
   activeElementData: any
+  activeId: string
   updater: any
   scrollEndTimer: any
   scrolling: boolean
@@ -23,9 +26,14 @@ export default class TitleList extends React.Component<Props> {
     super(props)
     this.titles = []
     this.titlePositions = []
-    this.activeElementData
+    this.activeElementData  // アクティブな要素の情報 最初に一度決定されて、その後は変わることはない 別の要素に映ることもない 値としてアクティブな要素はここにいるべきですよというのを保持するだけ
+    this.activeId  // アクティブ要素のid propsのイベントを発火するときに渡す この値は都度変更される
     this.scrollEndTimer
     this.scrolling = true
+
+    this.state = {
+      hoge: "h"
+    }
   }
 
   componentDidMount() {
@@ -49,6 +57,7 @@ export default class TitleList extends React.Component<Props> {
         // 自身の高さの半分より近いものをもっともactiveに近い要素としてクラスを付与
         if(dist < rect.height / 2) {
           this.titles[i].classList.add(styles.activeItem)
+          this.activeId = this.titles[i].id
         }else {
           this.titles[i].classList.remove(styles.activeItem)
         }
@@ -59,6 +68,7 @@ export default class TitleList extends React.Component<Props> {
         }else if (rect.bottom > bottomThreshold) {
           // 下に消えて上に追加
           gsap.set(this.titles[i], {y: `-=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
+
         }
 
         const newrect = this.titles[i].getBoundingClientRect();
@@ -68,9 +78,7 @@ export default class TitleList extends React.Component<Props> {
         alpha = newdist < newrect.height / 2 ? 1 : alpha / 2
         if(alpha > 0)gsap.to(this.titles[i], { alpha: alpha, duration: 0.1 })  // アニメーションする
         else gsap.set(this.titles[i], {alpha: 0})  // アニメーションせず、パチっと切り替わる アニメーションすると、上に飛び出て下に追加される要素が一瞬見切れてしまう
-
       }
-
     }
 
     this.updater = requestAnimationFrame(this.update)
@@ -91,6 +99,7 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleScrollEnd = () => {
+    this.props.onSelectWork(this.activeId)
   }
 
   handleReadyItem = (node, i) => {
@@ -99,7 +108,10 @@ export default class TitleList extends React.Component<Props> {
 
     // 上から三番目の要素を基準として位置を記憶しておく
     if(i == 2) {
-      this.activeElementData = node.getBoundingClientRect()
+      if(!this.activeElementData) {  // これは最初のマウント時に一回のみで良い
+        this.activeElementData = node.getBoundingClientRect()
+        this.activeId = node.id
+      }
     }
   }
 
@@ -124,7 +136,7 @@ export default class TitleList extends React.Component<Props> {
       <ul className={styles.container} onWheel={this.handleScroll}>
         {works.map((data, i) => {
           return (
-            <li key={i} className={styles.item} onClick={this.handleClickItem} ref={node => this.handleReadyItem(node, i)}>
+            <li key={i} id={data.id} className={styles.item} onClick={this.handleClickItem} ref={node => this.handleReadyItem(node, i)}>
               {data.title.toUpperCase()}
             </li>
           )

@@ -5,9 +5,12 @@ import styles from '../../../styles/layout/components/infoBar.module.scss'
 interface Props {
   works: {
     contents: Array<{
-      title: string
+      title: string,
+      id: string
     }>
   }
+  onSelectWork: Function
+
 }
 
 export default class InfoBar extends React.Component<Props> {
@@ -36,6 +39,7 @@ export default class InfoBar extends React.Component<Props> {
     return (
       <div className={styles.container} ref={this.handleReadyContainer}>
         <TitleList
+          onSelectWork={this.props.onSelectWork}
           works={this.props.works}
         />
         <AboutLink />

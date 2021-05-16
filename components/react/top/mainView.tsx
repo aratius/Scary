@@ -5,7 +5,8 @@ import Work from '../common/work'
 interface Props {
   works: {
     contents: any[]
-  }
+  },
+  id: string
 }
 
 export default class MainView extends React.Component<Props> {
@@ -16,21 +17,23 @@ export default class MainView extends React.Component<Props> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      work: this.props.works.contents[2]
-    }
   }
 
   render () {
+
+    const work = this.props.works.contents.filter((data) => data.id == this.props.id)[0]
+
+    if(!work) return <></>
+
     return (
       <div className={styles.container}>
         {/* <div className={styles.main_view}>* canvasアニメーションはこの中で</div> */}
         <div className={styles.main_view}>
-          <img src={this.state.work.main_image.url} />
+          <img src={work.main_image.url} />
         </div>
 
         <div className={styles.work_view}>
-          <Work work={this.state.work} />
+          <Work work={work} />
         </div>
       </div>
     )

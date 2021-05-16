@@ -17,25 +17,44 @@ interface Props {
   }
 }
 
-const Home: React.FC<Props> = ({works}) => {
+export default class Home extends React.Component<Props> {
 
-  return (
-    <Base
+  state: {
+    id: string
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      id: "hoge"
+    }
+  }
+
+  handleSelectWork = (id: string):void => {
+    this.setState({ id: id })
+  }
+
+  render () {
+
+    return (
+      <Base
       title="TOP"
-    >
-      <div className={styles.container}>
-        <InfoBar
-          works={works}
-        />
-        <MainView
-          works={works}
-        />
-      </div>
-    </Base>
-  )
+      >
+        <div className={styles.container}>
+          <InfoBar
+            onSelectWork={this.handleSelectWork}
+            works={this.props.works}
+            />
+          <MainView
+            works={this.props.works}
+            id={this.state.id}
+            />
+        </div>
+      </Base>
+    )
+  }
 }
-
-export default Home
 
 // SSG WorksはSSGでよい
 // getStaticPropsはビルド時にAPIとかの動的なデータを取りにいく フロントではなくサーバーの段階でこれが実行される SSGの肝と言っても過言ではないみたい
