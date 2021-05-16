@@ -16,6 +16,7 @@ export default class AboutLink extends React.Component<Props> {
         </div>
 
         <p className={styles.text}>arata matsumoto</p>
+        <p className={styles.text}>20 years old</p>
         <p className={styles.text}>front-end developer</p>
       </div>
     )
