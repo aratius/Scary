@@ -25,7 +25,7 @@ export default class TitleList extends React.Component<Props> {
     this.titlePositions = []
     this.activeElementData
     this.scrollEndTimer
-    this.scrolling = false
+    this.scrolling = true
   }
 
   componentDidMount() {
@@ -65,7 +65,8 @@ export default class TitleList extends React.Component<Props> {
           const newrect = this.titles[i].getBoundingClientRect();
           const newdist = Math.abs(newrect.top - this.activeElementData.top)
           const alpha = 1 - (newdist / 80)
-          gsap.set(this.titles[i], { alpha: alpha })  // 文字列で+=100と書くと+=現在からの相対移動が可能
+          if(alpha > 0)gsap.to(this.titles[i], { alpha: alpha, duration: 0.1 })  // アニメーションする
+          else gsap.set(this.titles[i], {alpha: 0})  // アニメーションせず、パチっと切り替わる アニメーションすると、上に飛び出て下に追加される要素が一瞬見切れてしまう
         }
 
       }
