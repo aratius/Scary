@@ -1,8 +1,6 @@
 import React from 'react'
 import { getWorks } from '../../components/api/works'
-import Base from '../../components/react/base'
-import baseStyles from '../../styles/modules/common/base.module.scss'
-import WorkDetailStyles from '../../styles/modules/works/detail.module.scss'
+import _Work from '../../components/react/common/work'
 
 interface Props {
   works: {
@@ -22,82 +20,21 @@ interface Props {
   }
 }
 
-const Work: React.FC<Props> = (props) => {
+export default class Work extends React.Component<Props> {
 
-  const works = props.works
+  constructor(props) {
+    super(props)
+  }
 
-  const descriptions = works.description && works.description.split("<hr>")
-  if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
-
-  const description = (sentence) => {
-
+  render () {
     return (
-      <p className={WorkDetailStyles.description__wrapper}>
-        {sentence.length && sentence.split('\n').map((data, i) => {
-          return (
-            <React.Fragment key={i}>
-              <span className={WorkDetailStyles.description__detail}>{data}</span>
-            </React.Fragment>
-          )
-        })}
-      </p>
+      <_Work
+        works={this.props.works}
+      />
     )
   }
 
-  return (
-    <>
-    <Base
-      title="WORKS"
-    >
-      <div className={baseStyles.main__container}>
-        <h2>{works.title}</h2>
-        <div className={WorkDetailStyles.utils__container}>
-          {/* 使用技術 */}
-          {works.utils && works.utils.map((util, key) => {
-            return(
-              <span className={WorkDetailStyles.utils__detail} key={key}>
-                {util}
-              </span>
-            )
-          })}
-        </div>
-        {/* でっかいメイン画像 */}
-        <img src={works.main_image.url} className={WorkDetailStyles.main__image}></img>
-        <hr/>
-        {descriptions[0]  && description(descriptions[0])}
-        <hr/>
-
-        {/*
-          サブ画像とサブ説明
-          ここのコードの気持ち悪さ半端ない
-          システム構成見直す
-        */}
-        <div className={WorkDetailStyles.subimage__container}>
-          {works.subimages && works.subimages.map((img ,i) => {
-            const subimageStyle = i == 1 ? WorkDetailStyles.img__normal : WorkDetailStyles.img__small;
-            return (
-              <React.Fragment key={i} >
-                <img src={img.subimage.url} className={`${subimageStyle} ${WorkDetailStyles.img__common}`}/>
-                {descriptions[i+1] ?
-                  <>
-                    <hr/>
-                    {description(descriptions[i+1])}
-                    <hr/>
-                  </>
-                  :
-                  <br/>
-                }
-              </React.Fragment>
-            )
-          })}
-        </div>
-      </div>
-    </Base>
-    </>
-  )
 }
-
-export default Work
 
 export async function getStaticPaths () {
   const works = await getWorks()
@@ -111,5 +48,6 @@ export async function getStaticPaths () {
 export async function getStaticProps ({params}) {
   const id = params.id
   const works = await getWorks(id)
+
   return {props: {works}}
 }

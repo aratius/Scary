@@ -1,5 +1,6 @@
 import React from 'react'
 import Base from '../components/react/base'
+import MainView from '../components/react/top/mainView'
 import InfoBar from '../components/react/top/infoBar'
 import { getWorks } from '../components/api/works'
 import styles from '../styles/layout/top.module.scss'
@@ -24,6 +25,9 @@ const Home: React.FC<Props> = ({works}) => {
     >
       <div className={styles.container}>
         <InfoBar
+          works={works}
+        />
+        <MainView
           works={works}
         />
       </div>
