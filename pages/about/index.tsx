@@ -1,7 +1,6 @@
 import React from 'react'
 import Base from '../../components/react/base'
 import _About from '../../components/react/about'
-import baseStyles from '../../styles/modules/common/base.module.scss'
 import { getAbout } from '../../components/api/about'
 
 interface Props {
@@ -14,10 +13,7 @@ const About: React.FC<Props> = ({data}) => {
     <Base
       title="ABOUT"
     >
-      {/* PT打ち消し */}
-      <div className={baseStyles.main__container} style={{paddingTop: 0}}>
-        <_About data={data}/>
-      </div>
+      <_About data={data}/>
     </Base>
   )
 }
