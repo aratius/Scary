@@ -3,7 +3,8 @@ import gsap from 'gsap'
 import EventManager, { Events } from '../../common/events'
 
 interface Props {
-  children: ReactNode
+  children: ReactNode,
+  onReadyElement: Function
 }
 
 // 末端までの子要素をすべて取得してなんかできるコンポーネント
@@ -25,6 +26,11 @@ class Floating extends React.Component<Props> {
     const elements = []
     this.searchChildren(this.wrapper, (el)=>elements.push(el))
     this.elements = elements
+    if(this.props.onReadyElement) {
+      for(const i in this.elements) {
+        this.props.onReadyElement(this.elements[i])
+      }
+    }
 
   }
 

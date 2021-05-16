@@ -1,3 +1,5 @@
+@import '../foundation/variables';
+
 .info__block__wrapper {
   height: 110vh;
   position: relative;
@@ -13,5 +15,28 @@
 
   .info__title {
     text-decoration: underline;
+  }
+
+  * {
+    position: relative;
+    color: white;
+    transition: color 0.3s $easeInCirc;
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #000;
+      z-index: -1;
+      transition: width 0.3s $easeInCirc;
+    }
+    &.show {
+      color: #000;
+      &::before {
+        width: 0;
+      }
+    }
   }
 }

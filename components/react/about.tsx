@@ -1,6 +1,7 @@
 import React from 'react'
-import aboutStyles from '../../styles/layout/about.module.scss'
+import styles from '../../styles/layout/about.module.scss'
 import gsap from "gsap"
+import Floating from './common/floating'
 // SSRモード（サーバー上）では使えないためこの条件分岐
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
 process.browser && gsap.registerPlugin(ScrollTrigger)
@@ -74,21 +75,36 @@ class About extends React.Component<Props> {
     return nearEl
   }
 
+  handleReadyElement = (node):void => {
+    gsap.to(window, {
+      scrollTrigger: {
+        trigger: node,
+        start: "top bottom",
+        onEnter: () => {
+          node.classList.add(styles.show)
+        }
+      }
+    })
+
+  }
+
   // TODO: スクロールバー消す
   render() {
 
     return (
-      <>
-        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[0] = node}>
-          <div className={aboutStyles.info__block} >
+      <Floating
+        onReadyElement={this.handleReadyElement}
+      >
+        <div className={styles.info__block__wrapper} ref={node => this.blocks[0] = node}>
+          <div className={styles.info__block} >
             <h2>arata matsumoto</h2>
             <br/>
           </div>
         </div>
 
-        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[1] = node}>
-          <div className={aboutStyles.info__block}>
-            <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>about me</h3>
+        <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>
+          <div className={styles.info__block}>
+            <h3 className={styles.info__title} ref={this.onReadyTitle}>about me</h3>
             <p>・ 2000.11.29 (20), born in Hyogo</p>
             <p>・ front end developer / backpacker</p>
             <p>・ STARRYWORKS inc.</p>
@@ -97,9 +113,9 @@ class About extends React.Component<Props> {
           </div>
         </div>
 
-        <div className={aboutStyles.info__block__wrapper} ref={node => this.blocks[2] = node}>
-          <div className={aboutStyles.info__block}>
-            <h3 className={aboutStyles.info__title} ref={this.onReadyTitle}>lang</h3>
+        <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
+          <div className={styles.info__block}>
+            <h3 className={styles.info__title} ref={this.onReadyTitle}>lang</h3>
             <br/>
 
             <h4>HTML/CSS</h4>
@@ -122,11 +138,12 @@ class About extends React.Component<Props> {
 
             <h4>C#</h4>
             <p>・ Unity</p>
+
             <br/>
           </div>
         </div>
 
-      </>
+      </Floating>
     )
   }
 }
