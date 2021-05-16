@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../../../styles/layout/components/aboutLink.module.scss'
 
 interface Props {
-
+  onClickAbout: any
 }
 
 export default class AboutLink extends React.Component<Props> {
@@ -12,7 +12,7 @@ export default class AboutLink extends React.Component<Props> {
       <div className={styles.container}>
         <div className={styles.header}>
           <h4 className={styles.header__title}>about</h4>
-          <a className={styles.header__link}>see more</a>
+          <a className={styles.header__link} onClick={this.props.onClickAbout}>see more</a>
         </div>
 
         <p className={styles.text}>arata matsumoto</p>

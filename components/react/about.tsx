@@ -50,7 +50,6 @@ class About extends React.Component<Props> {
   // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e) => {
-    console.log("handle about scroll")
 
     const element = this.searchNearElement(this.blocks)
     gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})

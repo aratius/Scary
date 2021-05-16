@@ -6,11 +6,12 @@ import TweenManager from '../../utils/tweenManager'
 import EventManager, { Events } from '../../common/events'
 
 interface Props {
-  href: string
+  href: string,
+  className: any
 }
 
 // 消えるときにトランジションする用の自前Linkタグ
-const TransitionLink: React.FC<Props> = ({href, children}) => {
+const TransitionLink: React.FC<Props> = ({href, className, children}) => {
 
   const router = useRouter()
 
@@ -22,7 +23,7 @@ const TransitionLink: React.FC<Props> = ({href, children}) => {
 
     // 現在のパスは無効
     if(router.pathname != href)  {
-      EventManager.emit(Events.OnClickLink, ()=>{
+      EventManager.emit(Events.OnAbout, ()=>{
         router.push({
           pathname: href
         })
@@ -32,7 +33,7 @@ const TransitionLink: React.FC<Props> = ({href, children}) => {
 
   return (
     <>
-      <a onClick={handleClick}>{children}</a>
+      <a onClick={handleClick} className={className}>{children}</a>
     </>
   )
 }

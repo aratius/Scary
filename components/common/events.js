@@ -4,6 +4,7 @@ export class Events {
   static OnImgLoad = "onimgload"
   static OnClickLink = "onclicklink"
   static OnTextureLoad = "ontextureload"
+  static OnAbout = "onabout"
 }
 
 /**
