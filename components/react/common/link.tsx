@@ -21,13 +21,13 @@ const TransitionLink: React.FC<Props> = ({href, children}) => {
     TweenManager.scrollToTop(duration)
 
     // 現在のパスは無効
-    if(router.pathname == href) return
-
-    EventManager.emit(Events.OnClickLink, ()=>{
-      router.push({
-        pathname: href
+    if(router.pathname != href)  {
+      EventManager.emit(Events.OnClickLink, ()=>{
+        router.push({
+          pathname: href
+        })
       })
-    })
+    }
   }
 
   return (
