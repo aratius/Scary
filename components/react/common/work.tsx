@@ -24,7 +24,12 @@ const Work: React.FC<Props> = (props) => {
   const work = props.work
 
   const descriptions = work.description && work.description.split("<hr>")
-  if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
+  if(!descriptions)
+    return(
+      <div className={styles.container}>
+        <h1 className={styles.title}>{work.title}</h1>
+      </div>
+    )  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
 
   const description = (sentence) => {
 
