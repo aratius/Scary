@@ -1,0 +1,54 @@
+@import '../../foundation/variables';
+
+.container {
+  padding-top: 15px;
+  position: relative;
+
+  .header {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__title {
+      // NOTE: フォントを太くしたいな
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    &__link {
+      height: 20px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      position: relative;
+
+      // 下線はアニメーションさせるためにafterで引く
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(100, 100, 100, 1);
+        transition: 0.7s all $easeOutExpo;
+      }
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+
+        // 下線のアニメーション
+        &::after {
+          width: 10px;
+
+        }
+      }
+    }
+  }
+  .text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}

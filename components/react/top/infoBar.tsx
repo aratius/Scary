@@ -1,7 +1,7 @@
 import React from 'react'
 import TitleList from './titleList'
 import AboutLink from './aboutLink'
-
+import styles from '../../../styles/layout/components/infoBar.module.scss'
 interface Props {
   works: {
     contents: Array<{
@@ -18,12 +18,12 @@ export default class InfoBar extends React.Component<Props> {
 
   render () {
     return (
-      <>
+      <div className={styles.container}>
         <TitleList
           works={this.props.works}
         />
         <AboutLink />
-      </>
+      </div>
     )
   }
 

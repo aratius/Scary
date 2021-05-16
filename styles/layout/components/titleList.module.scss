@@ -1,0 +1,9 @@
+@import '../../foundation/variables';
+
+.container {
+  height: 100%;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+  .item {
+    font-size: 1.3rem;  // 適当なフォントサイズ
+  }
+}
