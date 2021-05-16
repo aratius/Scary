@@ -41,8 +41,6 @@ export default class TitleList extends React.Component<Props> {
       for(const i in this.titles) {
         const rect = this.titles[i].getBoundingClientRect();
         const dist = Math.abs(rect.top - this.activeElementData.top)
-        const alpha = 1 - (dist / 100)
-        gsap.set(this.titles[i], { alpha: alpha })  // 文字列で+=100と書くと+=現在からの相対移動が可能
 
         // 自身の高さの半分より近いものをもっともactiveに近い要素としてクラスを付与
         if(dist < rect.height / 2) {
@@ -53,22 +51,27 @@ export default class TitleList extends React.Component<Props> {
 
         // 上に消えて下に追加
         if(rect.top < topThresold) {
-          gsap.set(this.titles[i], {y: this.titles[this.titles.length-1].getBoundingClientRect().bottom - 70})  // 70 = コンテナのpaddingTop
+          gsap.set(this.titles[i], {y: this.titles[this.titles.length-1].getBoundingClientRect().bottom - 70})  // NOTE: 70 = コンテナのpaddingTop
         }
+
+        const newrect = this.titles[i].getBoundingClientRect();
+        const newdist = Math.abs(newrect.top - this.activeElementData.top)
+        const alpha = 1 - (newdist / 100)
+        gsap.set(this.titles[i], { alpha: alpha })  // 文字列で+=100と書くと+=現在からの相対移動が可能
+
       }
+
     }
 
     this.updater = requestAnimationFrame(this.update)
-
   }
 
   handleScroll = (e) => {
     if(e && e.cancelable) e.preventDefault();
     if(this.titles.length == 0) return
-    if(Math.abs(e.deltaY) < 2) return
 
     for(const i in this.titles) {
-      gsap.set(this.titles[i], {y: `+=${e.deltaY}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
+      gsap.set(this.titles[i], {y: `+=${e.deltaY/2}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
     }
   }
 
@@ -79,7 +82,6 @@ export default class TitleList extends React.Component<Props> {
     if(i == 2) {
       this.activeElementData = node.getBoundingClientRect()
     }
-
   }
 
   render () {
@@ -89,7 +91,9 @@ export default class TitleList extends React.Component<Props> {
       <ul className={styles.container} onWheel={this.handleScroll}>
         {works.map((data, i) => {
           return (
-            <li key={i} className={styles.item} ref={node => this.handleReadyItem(node, i)}>{data.title.toUpperCase()}</li>
+            <li key={i} className={styles.item} ref={node => this.handleReadyItem(node, i)}>
+              {data.title.toUpperCase()}
+            </li>
           )
         })}
       </ul>
