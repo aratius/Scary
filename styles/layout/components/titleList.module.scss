@@ -9,5 +9,23 @@
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px solid black;
+      transition: all 1s $easeOutExpo;
+    }
+
+    &.activeItem {
+      &::after {
+        width: 100%;
+      }
+    }
   }
+
 }
