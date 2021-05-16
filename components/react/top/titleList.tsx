@@ -82,8 +82,9 @@ export default class TitleList extends React.Component<Props> {
     this.scrolling = true
     if(this.titles.length == 0) return
 
+    const scrollY = Math.abs(e.deltaY) > 30 ? -30 : -e.deltaY/3  // e.deltaYを扱いやすい数字に調整
     for(const i in this.titles) {
-      gsap.set(this.titles[i], {y: `+=${-e.deltaY/2}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
+      gsap.set(this.titles[i], {y: `+=${scrollY}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
     }
     clearTimeout(this.scrollEndTimer)
     this.scrollEndTimer = setTimeout(this.handleScrollEnd, 100)
@@ -110,6 +111,7 @@ export default class TitleList extends React.Component<Props> {
   }
 
   handleReadyItem = (node, i) => {
+    if(!node) return
     this.titles[i] = node
 
     // 上から三番目の要素を基準として位置を記憶しておく
