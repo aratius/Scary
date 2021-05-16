@@ -1,7 +1,7 @@
 import React from 'react'
 
 export interface Props {
-  works: {
+  work: {
     title: string,
     utils: string[],
     description: string,
@@ -20,9 +20,9 @@ export interface Props {
 
 const Work: React.FC<Props> = (props) => {
 
-  const works = props.works
+  const work = props.work
 
-  const descriptions = works.description && works.description.split("<hr>")
+  const descriptions = work.description && work.description.split("<hr>")
   if(!descriptions) return<></>  // TODO: エラー解決のハードコーディング ゆくゆくはdescriptionを必須にする
 
   const description = (sentence) => {
@@ -43,10 +43,10 @@ const Work: React.FC<Props> = (props) => {
   return (
     <>
       <div>
-        <h2>{works.title}</h2>
+        <h2>{work.title}</h2>
         <div >
           {/* 使用技術 */}
-          {works.utils && works.utils.map((util, key) => {
+          {work.utils && work.utils.map((util, key) => {
             return(
               <span key={key}>
                 {util}
@@ -55,8 +55,6 @@ const Work: React.FC<Props> = (props) => {
           })}
         </div>
         {/* でっかいメイン画像 */}
-        <img src={works.main_image.url} ></img>
-        <hr/>
         {descriptions[0]  && description(descriptions[0])}
         <hr/>
 
@@ -66,7 +64,7 @@ const Work: React.FC<Props> = (props) => {
           システム構成見直す
         */}
         <div >
-          {works.subimages && works.subimages.map((img ,i) => {
+          {work.subimages && work.subimages.map((img ,i) => {
             return (
               <React.Fragment key={i} >
                 <img src={img.subimage.url} />
