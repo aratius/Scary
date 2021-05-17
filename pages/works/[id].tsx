@@ -29,7 +29,7 @@ export default class Work extends React.Component<Props> {
   render () {
     return (
       <_Work
-        works={this.props.works}
+        work={this.props.works}
       />
     )
   }
