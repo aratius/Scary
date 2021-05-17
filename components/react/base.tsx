@@ -48,9 +48,7 @@ class _Base extends React.Component<Props> {
       <div className="container">
         <_Head title={`aualrxse | ${this.props.title}`}/>
         <div ref={this.handleReadyDOM}>
-          <Floating>
-            {this.props.children}
-          </Floating>
+          {this.props.children}
         </div>
       </div>
     )
