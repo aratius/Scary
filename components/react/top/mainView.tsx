@@ -35,14 +35,14 @@ export default class MainView extends React.Component<Props> {
 
   componentDidUpdate() {
 
-    // idが変わったときに一回下までスクロール
+    // idが変わったときに一回うえまでスクロール
     if(this.id != this.props.id) {
       this.id = this.props.id
       if(this.scrollTween) this.scrollTween.kill()
       this.scrollTween = gsap.to(this.scrollContainer, {
         scrollTo: 0,
         duration: 1,
-        ease: 'circ.out',
+        ease: 'sine.out',
         onUpdate: this.handleScrollEnd
       })
     }
@@ -64,7 +64,6 @@ export default class MainView extends React.Component<Props> {
     let alpha = (window.innerHeight - scrollTop) / window.innerHeight
     alpha = alpha > 0.8 ? 0.8 : alpha
     gsap.to(this.background, { alpha: alpha, duration: 0.2 })
-
   }
 
   render () {
