@@ -95,54 +95,69 @@ class About extends React.Component<Props> {
       <Floating
         onReadyElement={this.handleReadyElement}
       >
-        <div className={styles.info__block__wrapper} ref={node => this.blocks[0] = node}>
-          <div className={styles.info__block} >
-            <h2>arata matsumoto</h2>
-            <br/>
+        <div className={styles.container}>
+          <div className={styles.info__block__wrapper} ref={node => this.blocks[0] = node}>
+            <div className={styles.info__block} >
+              <h1>arata matsumoto</h1>
+              <br/>
+            </div>
+          </div>
+
+          <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>
+            <div className={styles.info__block}>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}>about me</h3>
+              <p>・ 2000.11.29 (20), born in Hyogo</p>
+              <p>・ front end developer / backpacker</p>
+              <p>・ STARRYWORKS inc.</p>
+              <p>・ osaka univercity of arts ( currently attending )</p>
+              <br/>
+            </div>
+          </div>
+
+          <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
+            <div className={styles.info__block}>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}>what i learning</h3>
+              <br/>
+
+              <h4>HTML/CSS</h4>
+              <p>・ pug (jade)</p>
+              <p>・ sass (scss)</p>
+              <br/>
+
+              <h4>javascript</h4>
+              <p>・ Next.js (React.js)</p>
+              <p>・ pixi.js</p>
+              <p>・ three.js</p>
+              <p>・ gulp.js</p>
+              <br/>
+
+              <h4>C++</h4>
+              <p>・ openframeworks</p>
+              <p>・ GLSL</p>
+              <p>・ Arduino</p>
+              <br/>
+
+              <h4>C#</h4>
+              <p>・ Unity</p>
+
+              <br/>
+            </div>
+          </div>
+
+          <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
+            <div className={styles.info__block}>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}>contact</h3>
+              <br/>
+
+              <p>twitter: @aualrxse</p>
+              <p>twitter: @aualrxse</p>
+              <p>twitter: @aualrxse</p>
+              <p>twitter: @aualrxse</p>
+
+              <br/>
+            </div>
           </div>
         </div>
-
-        <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>
-          <div className={styles.info__block}>
-            <h3 className={styles.info__title} ref={this.onReadyTitle}>about me</h3>
-            <p>・ 2000.11.29 (20), born in Hyogo</p>
-            <p>・ front end developer / backpacker</p>
-            <p>・ STARRYWORKS inc.</p>
-            <p>・ osaka univercity of arts ( currently attending )</p>
-            <br/>
-          </div>
-        </div>
-
-        <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
-          <div className={styles.info__block}>
-            <h3 className={styles.info__title} ref={this.onReadyTitle}>lang</h3>
-            <br/>
-
-            <h4>HTML/CSS</h4>
-            <p>・ pug (jade)</p>
-            <p>・ sass (scss)</p>
-            <br/>
-
-            <h4>javascript</h4>
-            <p>・ Next.js (React.js)</p>
-            <p>・ pixi.js</p>
-            <p>・ three.js</p>
-            <p>・ gulp.js</p>
-            <br/>
-
-            <h4>C++</h4>
-            <p>・ openframeworks</p>
-            <p>・ GLSL</p>
-            <p>・ Arduino</p>
-            <br/>
-
-            <h4>C#</h4>
-            <p>・ Unity</p>
-
-            <br/>
-          </div>
-        </div>
-
       </Floating>
     )
   }

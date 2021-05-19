@@ -1,5 +1,9 @@
 @import '../foundation/variables';
 
+.container {
+  margin-left: 70px;
+}
+
 .info__block__wrapper {
   height: 110vh;
   position: relative;
@@ -7,17 +11,30 @@
 }
 
 .info__block {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   // 中心寄せ (気持ち上めの-60%)
   top: 50%;
   transform: translateY(-60%);
-  // background-color: rgba(0, 100, 0, 0.2);
+
+  // 名前
+  h1 {
+    font-size: 40px;
+  }
 
   .info__title {
     text-decoration: underline;
+    font-size: 30px;
   }
 
+  p {
+    line-height: 2;
+  }
+
+  // 全要素共通のスタイル
   * {
+    display: inline-block;
     position: relative;
     color: white;
     transition: color 0.3s $easeInCirc;
