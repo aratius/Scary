@@ -117,7 +117,7 @@ export default class TitleList extends React.Component<Props> {
     if(e && e.cancelable) e.preventDefault()
     const el = e.target
     // opacity的に見えてない状態ならクリック不可能とする
-    if (el.style.opacity < 0) {
+    if (el.style.opacity < 0.05) {
       this.handleScrollEnd()
       return
     }

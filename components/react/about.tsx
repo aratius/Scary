@@ -31,10 +31,6 @@ class About extends React.Component<Props> {
 
   // タイトルが見えたときになんかする
   onReadyTitle (node) {
-    // gsap.to(node, {
-    //   scrollTrigger: node,
-
-    // })
   }
 
   componentDidMount() {
@@ -52,13 +48,8 @@ class About extends React.Component<Props> {
   // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e) => {
-
     const element = this.searchNearElement(this.blocks)
     gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})
-
-    // if(this.scrollTween) this.scrollTween.kill()
-    // this.scrollTween = gsap.to(window, {scrollTo: this.scrollPos, duration: 1.5, ease: "circ.inOut"})
-
   }
 
   searchNearElement(elements: HTMLElement[]) {
