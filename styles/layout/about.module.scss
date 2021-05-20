@@ -7,7 +7,6 @@
 .info__block__wrapper {
   height: 110vh;
   position: relative;
-  // background-color: rgba(100, 100, 0, 0.2);
 }
 
 .info__block {
@@ -15,25 +14,33 @@
   flex-direction: column;
   position: absolute;
   // 中心寄せ (気持ち上めの-60%)
-  top: 50%;
-  transform: translateY(-60%);
+  top: 40%;
+  transform: translateY(-50%);
 
   // 名前
   h1 {
-    font-size: 40px;
+    font-size: 2rem;
   }
 
   .info__title {
+    margin-bottom: 30px;
     text-decoration: underline;
-    font-size: 30px;
+    font-size: 1.5rem;
   }
 
-  p {
-    line-height: 2;
+  ul {
+    display: flex;
+    flex-direction: column;
+    li {
+      margin-bottom: 5px;
+      span, a {
+        font-size: 0.8rem;
+      }
+    }
   }
 
-  // 全要素共通のスタイル
-  * {
+  // 全要素（背景色アニメーションさせるもの）の共通スタイル
+  h1, h4, span, a {
     display: inline-block;
     position: relative;
     color: white;

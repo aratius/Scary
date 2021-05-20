@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../../styles/layout/about.module.scss'
 import gsap from "gsap"
 import Floating from './common/floating'
+
 // SSRモード（サーバー上）では使えないためこの条件分岐
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
 process.browser && gsap.registerPlugin(ScrollTrigger)
@@ -99,62 +100,67 @@ class About extends React.Component<Props> {
           <div className={styles.info__block__wrapper} ref={node => this.blocks[0] = node}>
             <div className={styles.info__block} >
               <h1>arata matsumoto</h1>
-              <br/>
             </div>
           </div>
 
           <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>
             <div className={styles.info__block}>
-              <h3 className={styles.info__title} ref={this.onReadyTitle}>about me</h3>
-              <p>・ 2000.11.29 (20), born in Hyogo</p>
-              <p>・ front end developer / backpacker</p>
-              <p>・ STARRYWORKS inc.</p>
-              <p>・ osaka univercity of arts ( currently attending )</p>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}><span>about me</span></h3>
+              <ul>
+                <li><span>・ 2000.11.29 (20), born in Hyogo</span></li>
+                <li><span>・ front end developer / backpacker (sometime...)</span></li>
+                <li><span>・ STARRYWORKS inc.</span></li>
+                <li><span>・ osaka univercity of arts ( currently attending )</span></li>
+              </ul>
               <br/>
             </div>
           </div>
 
           <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
             <div className={styles.info__block}>
-              <h3 className={styles.info__title} ref={this.onReadyTitle}>what i learning</h3>
-              <br/>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}><span>what i am learning</span></h3>
 
-              <h4>HTML/CSS</h4>
-              <p>・ pug (jade)</p>
-              <p>・ sass (scss)</p>
-              <br/>
+              <h4>HTML / CSS</h4>
+              <ul>
+                <li><span>・ pug (jade)</span></li>
+                <li><span>・ sass (scss)</span></li>
+              </ul>
 
               <h4>javascript</h4>
-              <p>・ Next.js (React.js)</p>
-              <p>・ pixi.js</p>
-              <p>・ three.js</p>
-              <p>・ gulp.js</p>
-              <br/>
+              <ul>
+                <li><span>・ Next.js (React.js)</span></li>
+                <li><span>・ pixi.js</span></li>
+                <li><span>・ three.js</span></li>
+              </ul>
 
               <h4>C++</h4>
-              <p>・ openframeworks</p>
-              <p>・ GLSL</p>
-              <p>・ Arduino</p>
-              <br/>
+              <ul>
+                <li><span>・ openframeworks</span></li>
+                <li><span>・ GLSL</span></li>
+                <li><span>・ Arduino</span></li>
+              </ul>
 
               <h4>C#</h4>
-              <p>・ Unity</p>
+              <ul>
+                <li><span>・ Unity</span></li>
+              </ul>
 
-              <br/>
             </div>
           </div>
 
           <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
             <div className={styles.info__block}>
-              <h3 className={styles.info__title} ref={this.onReadyTitle}>contact</h3>
-              <br/>
+              <h3 className={styles.info__title} ref={this.onReadyTitle}><span>contact</span></h3>
 
-              <p>twitter: @aualrxse</p>
-              <p>twitter: @aualrxse</p>
-              <p>twitter: @aualrxse</p>
-              <p>twitter: @aualrxse</p>
+              <ul>
+                <li>
+                  <a href="mailto:arata1129matsu@icloud.com"className={styles.text} onClick={():void=>alert("Let me start the mailer")}>mail: arata1129matsu@icloud.com</a>
+                </li>
+                <li><span>twitter: @aualrxse</span></li>
+                <li><span>instagram: @aualrxse</span></li>
+                <li><span>facebook: @aualrxse</span></li>
+              </ul>
 
-              <br/>
             </div>
           </div>
         </div>
