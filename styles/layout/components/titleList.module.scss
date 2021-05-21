@@ -11,6 +11,7 @@
     text-overflow: ellipsis;
     position: relative;
     left: 0;
+    opacity: 0;  // opacityを0にしておく （あとでスクリプトから変えられるので、1にしてあるとパチっと最初に一瞬だけ見えて変になる
     transition: left 1s $easeOutExpo;
 
     &::after {
