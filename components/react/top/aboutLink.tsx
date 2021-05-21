@@ -17,7 +17,7 @@ export default class AboutLink extends React.Component<Props> {
 
         <p className={styles.text}>arata matsumoto</p>
         <p className={styles.text}>front-end developer</p>
-        <a href="mailto:arata1129matsu@icloud.com"className={styles.text} onClick={():void=>alert("メールソフトを起動します")}>arata1129matsu@icloud.com</a>
+        <a href="mailto:arata1129matsu@icloud.com"className={styles.text} onClick={():void=>alert("Let me start the mailer")}>arata1129matsu@icloud.com</a>
       </div>
     )
   }
