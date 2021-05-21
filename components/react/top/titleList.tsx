@@ -55,10 +55,16 @@ export default class TitleList extends React.Component<Props> {
 
   componentDidMount() {
     this.update()
+
+    // ウィンドウ外でUpされると困るのでこれだけwindowに対してaddEventListenerする
+    window.addEventListener("mouseup", this.handleMouseEnd)
+    window.addEventListener("touchend", this.handleMouseEnd)
   }
 
   componentWillUnmount() {
     cancelAnimationFrame(this.updater)
+    window.removeEventListener("mouseup", this.handleMouseEnd)
+    window.removeEventListener("touchend", this.handleMouseEnd)
   }
 
   /**
@@ -165,6 +171,7 @@ export default class TitleList extends React.Component<Props> {
    */
   handleMouseEnd = (e):void => {
     if(e && e.cancelable) e.preventDefault();
+    if(!this.dragging) return
     this.dragging = false
     this.mouseScrollSpeed = this.mouseScrollY - this.lastMouseScrollY
 
@@ -272,8 +279,6 @@ export default class TitleList extends React.Component<Props> {
         onTouchStart={this.handleMouseStart}
         onMouseMove={this.handleMouseMove}
         onTouchMove={this.handleMouseMove}
-        onMouseUp={this.handleMouseEnd}
-        onTouchEnd={this.handleMouseEnd}
         >
         {works.map((data, i) => {
           return (
