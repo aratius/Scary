@@ -12,11 +12,21 @@ interface Props {
   onSelectWork: Function
 }
 
+/**
+ * TODO: 画面外でスクロール終了したとき
+ * スマホのタップイベントはアクティブ要素クラスつけない(戻ってこないことがアル)
+ */
+
 export default class TitleList extends React.Component<Props> {
 
   titles: HTMLElement[]
   titlePositions: number[]
-  activeElementData: any
+  activeElementData: {
+    top: number  // 使うのはtopだけ
+  }
+  elementData: {
+    height: number  // 使うのはheightだけ
+  }
   activeId: string
   updater: any
   scrollEndTimer: any
@@ -32,6 +42,7 @@ export default class TitleList extends React.Component<Props> {
     this.titles = []
     this.titlePositions = []
     this.activeElementData  // アクティブな要素の情報 最初に一度決定されて、その後は変わることはない 別の要素に映ることもない 値としてアクティブな要素はここにいるべきですよというのを保持するだけ
+    this.elementData
     this.activeId  // アクティブ要素のid propsのイベントを発火するときに渡す この値は都度変更される
     this.scrollEndTimer
     this.scrolling = true
@@ -50,10 +61,14 @@ export default class TitleList extends React.Component<Props> {
     cancelAnimationFrame(this.updater)
   }
 
+  /**
+   * TODO: 結構複雑なのでUpdate関数で色々管理する
+   * その内容はまたまとめる
+   */
   update = ():void => {
-    const topThresold = this.activeElementData.top - this.activeElementData.height * 3
-    const bottomThreshold = topThresold + this.activeElementData.height * (this.titles.length+1)
-    const sumItemHeight = this.activeElementData.height * this.titles.length
+    const topThresold = this.activeElementData.top - this.elementData.height * 3
+    const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
+    const sumItemHeight = this.elementData.height * this.titles.length
 
     if(this.titles.length > 0) {
       for(const i in this.titles) {
@@ -90,13 +105,14 @@ export default class TitleList extends React.Component<Props> {
     this.updater = requestAnimationFrame(this.update)
   }
 
+
   /**
    * スワイプスクロール Start
    * dragStartPositionを記憶し、handleItemClick時にy座標が大きく変わっていたら
    * クリックではなくスクロールと判断し、クリックをキャンセルする (handleClickItem参照)
    * @param e
    */
-  handleMouseStart = (e) => {
+  handleMouseStart = (e):void => {
     this.dragging = true
 
     // スマホタップのとき
@@ -112,12 +128,13 @@ export default class TitleList extends React.Component<Props> {
 
   }
 
+
   /**
    * スワイプスクロール Move
    * @param e
    * @returns
    */
-  handleMouseMove = (e) => {
+  handleMouseMove = (e):void => {
     if(!this.dragging) return
 
     const scrollInfo = {deltaY: 0}
@@ -137,11 +154,12 @@ export default class TitleList extends React.Component<Props> {
     }
   }
 
+
   /**
    * スワイプスクロール End
    * @param e
    */
-  handleMouseEnd = (e) => {
+  handleMouseEnd = (e):void => {
     if(e && e.cancelable) e.preventDefault();
     this.dragging = false
     this.mouseScrollSpeed = this.mouseScrollY - this.lastMouseScrollY
@@ -155,6 +173,7 @@ export default class TitleList extends React.Component<Props> {
 
   }
 
+
   /**
    * 実際にスクロール処理をするメソッド
    * マウスホイールスクロール
@@ -162,7 +181,7 @@ export default class TitleList extends React.Component<Props> {
    * @param e
    * @returns
    */
-  handleScroll = (e) => {
+  handleScroll = (e):void => {
     // 親でpreventDefaultしているのでしなくて良い
     this.scrolling = true
     if(this.titles.length == 0) return
@@ -175,17 +194,30 @@ export default class TitleList extends React.Component<Props> {
     this.scrollEndTimer = setTimeout(this.handleScrollEnd, 100)
   }
 
-  handleScrollEnd = () => {
-    this.props.onSelectWork(this.activeId)  // アクティブ要素を親に通知
+
+  /**
+   * スクロール終了時
+   */
+  handleScrollEnd = ():void => {
+    this.props.onSelectWork(this.activeId)  // アクティブ要素を親に通知して、画像を変えさせる
   }
 
-  handleReadyItem = (node, i) => {
+
+  /**
+   * 各title要素のマウントが完了したとき
+   * 配列に追加し、かつ基本的な要素の情報をメンバ変数に保存
+   * @param node
+   * @param i
+   * @returns
+   */
+  handleReadyItem = (node, i):void => {
     if(!node) return
     this.titles[i] = node
 
     // 上から三番目の要素を基準として位置を記憶しておく
     if(i == 2) {
       if(!this.activeElementData) {  // これは最初のマウント時に一回のみで良い
+        this.elementData = node.getBoundingClientRect()
         this.activeElementData = node.getBoundingClientRect()
         this.activeId = node.id
         this.handleScrollEnd()
@@ -193,7 +225,7 @@ export default class TitleList extends React.Component<Props> {
     }
   }
 
-  handleClickItem = (e) => {
+  handleClickItem = (e):void => {
     if(e && e.cancelable) e.preventDefault()
 
     if(e.touches) {
@@ -201,9 +233,8 @@ export default class TitleList extends React.Component<Props> {
       if(dragDist > 5) return  // distが長い = スワイプしてたときは拒否
     }
 
-
     const el = e.target
-    // opacity的に見えてない状態ならクリック不可能とする
+    // opacity的に見えてない状態ならクリック不可能とする（実際はあるけど...）
     if (el.style.opacity < 0.02) {
       this.handleScrollEnd()
       return
