@@ -30,10 +30,12 @@ export default class InfoBar extends React.Component<Props> {
     if(!node) return
     this.container = node
     this.container.addEventListener("mousewheel", this.handleScroll, {passive: false})
+    this.container.addEventListener("touchmove", this.handleScroll, {passive: false})
   }
 
   componentWillUnmount() {
     this.container.removeEventListener("mousewheel", this.handleScroll)
+    this.container.removeEventListener("touchmove", this.handleScroll)
   }
 
   handleScroll = (e) => {

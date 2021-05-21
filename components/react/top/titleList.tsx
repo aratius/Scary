@@ -21,6 +21,11 @@ export default class TitleList extends React.Component<Props> {
   updater: any
   scrollEndTimer: any
   scrolling: boolean
+  mouseScrollY: number
+  lastMouseScrollY: number
+  mouseScrollSpeed: number
+  dragging: boolean
+  dragStartPositionY: number
 
   constructor(props) {
     super(props)
@@ -30,7 +35,11 @@ export default class TitleList extends React.Component<Props> {
     this.activeId  // アクティブ要素のid propsのイベントを発火するときに渡す この値は都度変更される
     this.scrollEndTimer
     this.scrolling = true
-
+    this.mouseScrollY = 0  // マウスのY座標
+    this.lastMouseScrollY = 0  // 前回のマウスのY座標
+    this.mouseScrollSpeed = 0
+    this.dragStartPositionY = 0  // touchend時にほとんど距離動いていなかったらタップとして、それ以外はスクロール
+    this.dragging = false
   }
 
   componentDidMount() {
@@ -81,8 +90,54 @@ export default class TitleList extends React.Component<Props> {
     this.updater = requestAnimationFrame(this.update)
   }
 
+  handleMouseStart = (e) => {
+    this.dragging = true
+
+    // スマホタップのとき
+    if(e.touches) {
+      this.dragStartPositionY = e.touches[0].clientY
+      this.lastMouseScrollY = e.touches[0].clientY
+      this.mouseScrollY = e.touches[0].clientY
+    }else {
+      this.dragStartPositionY = e.clientY
+      this.lastMouseScrollY = e.clientY
+      this.mouseScrollY = e.clientY
+    }
+
+  }
+
+  handleMouseMove = (e) => {
+    if(!this.dragging) return
+
+    // スマホタップのとき
+    if(e.touches) {
+      this.lastMouseScrollY = this.mouseScrollY
+      this.mouseScrollSpeed = e.touches[0].clientY - this.mouseScrollY
+      this.mouseScrollY = e.touches[0].clientY
+      e.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(e)
+    }else {
+      this.lastMouseScrollY = this.mouseScrollY
+      this.mouseScrollSpeed = e.clientY - this.mouseScrollY
+      this.mouseScrollY = e.clientY
+      e.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(e)
+    }
+  }
+
+  handleMouseEnd = (e) => {
+    if(e && e.cancelable) e.preventDefault();
+    this.dragging = false
+    this.mouseScrollSpeed = this.mouseScrollY - this.lastMouseScrollY
+
+    gsap.to(this, {mouseScrollSpeed: 0, duration: 1, onUpdate: ()=>{
+      e.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(e)
+    }})
+
+  }
+
   handleScroll = (e) => {
-    // if(e && e.cancelable) e.preventDefault();
     // 親でpreventDefaultしているのでしなくて良い
     this.scrolling = true
     if(this.titles.length == 0) return
@@ -115,9 +170,16 @@ export default class TitleList extends React.Component<Props> {
 
   handleClickItem = (e) => {
     if(e && e.cancelable) e.preventDefault()
+
+    if(e.touches) {
+      const dragDist = this.mouseScrollY - this.dragStartPositionY
+      if(dragDist > 5) return  // distが長い = スワイプしてたときは拒否
+    }
+
+
     const el = e.target
     // opacity的に見えてない状態ならクリック不可能とする
-    if (el.style.opacity < 0.05) {
+    if (el.style.opacity < 0.02) {
       this.handleScrollEnd()
       return
     }
@@ -136,10 +198,18 @@ export default class TitleList extends React.Component<Props> {
     const works = this.props.works.contents
 
     return (
-      <ul className={styles.container} onWheel={this.handleScroll}>
+      <ul className={styles.container}
+        onWheel={this.handleScroll}
+        onMouseDown={this.handleMouseStart}
+        onTouchStart={this.handleMouseStart}
+        onMouseMove={this.handleMouseMove}
+        onTouchMove={this.handleMouseMove}
+        onMouseUp={this.handleMouseEnd}
+        onTouchEnd={this.handleMouseEnd}
+        >
         {works.map((data, i) => {
           return (
-            <li key={i} id={data.id} className={styles.item} onClick={this.handleClickItem} ref={node => this.handleReadyItem(node, i)}>
+            <li key={i} id={data.id} className={styles.item} onClick={this.handleClickItem} onTouchEnd={this.handleClickItem} ref={node => this.handleReadyItem(node, i)}>
               {data.title.toUpperCase()}
             </li>
           )
