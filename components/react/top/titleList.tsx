@@ -137,20 +137,24 @@ export default class TitleList extends React.Component<Props> {
   handleMouseMove = (e):void => {
     if(!this.dragging) return
 
-    const scrollInfo = {deltaY: 0}
+    const scrollInfo = {
+      deltaY: 0,
+      swipeEvent: true
+    }
+
     // スマホタップのとき
     if(e.touches) {
       this.lastMouseScrollY = this.mouseScrollY
-      this.mouseScrollSpeed = e.touches[0].clientY - this.mouseScrollY
-      this.mouseScrollY = e.touches[0].clientY
-      scrollInfo.deltaY = -this.mouseScrollSpeed
+      this.mouseScrollSpeed = e.touches[0].clientY - this.lastMouseScrollY
+      scrollInfo.deltaY = this.mouseScrollSpeed
       this.handleScroll(scrollInfo)
+      this.mouseScrollY = e.touches[0].clientY
     }else {
       this.lastMouseScrollY = this.mouseScrollY
-      this.mouseScrollSpeed = e.clientY - this.mouseScrollY
-      this.mouseScrollY = e.clientY
-      scrollInfo.deltaY = -this.mouseScrollSpeed
+      this.mouseScrollSpeed = e.clientY - this.lastMouseScrollY
+      scrollInfo.deltaY = this.mouseScrollSpeed
       this.handleScroll(scrollInfo)
+      this.mouseScrollY = e.clientY
     }
   }
 
@@ -166,8 +170,11 @@ export default class TitleList extends React.Component<Props> {
 
     // End時に一定のスピードがあれば、慣性を働かせる
     gsap.to(this, {mouseScrollSpeed: 0, duration: 0.5, ease: "circ.out", onUpdate: ()=>{
-      const scrollInfo = {deltaY: 0}
-      scrollInfo.deltaY = -this.mouseScrollSpeed
+      const scrollInfo = {
+        deltaY: 0,
+        swipeEvent: true
+      }
+      scrollInfo.deltaY = this.mouseScrollSpeed
       this.handleScroll(scrollInfo)
     }})
 
@@ -186,7 +193,12 @@ export default class TitleList extends React.Component<Props> {
     this.scrolling = true
     if(this.titles.length == 0) return
 
-    const scrollY = Math.abs(e.deltaY) > 60 ? -60/3 : -e.deltaY/3  // e.deltaYを扱いやすい数字に調整
+    let scrollY = 0
+    if(!e.swipeEvent) {
+      scrollY = Math.abs(e.deltaY) > 60 ? -60/3 : -e.deltaY/3  // ホイールのときはe.deltaYを扱いやすい数字に調整
+    } else {
+      scrollY = e.deltaY
+    }
     for(const i in this.titles) {
       gsap.set(this.titles[i], {y: `+=${scrollY}`})  // 文字列で+=100と書くと+=現在からの相対移動が可能
     }
