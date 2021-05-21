@@ -90,6 +90,12 @@ export default class TitleList extends React.Component<Props> {
     this.updater = requestAnimationFrame(this.update)
   }
 
+  /**
+   * スワイプスクロール Start
+   * dragStartPositionを記憶し、handleItemClick時にy座標が大きく変わっていたら
+   * クリックではなくスクロールと判断し、クリックをキャンセルする (handleClickItem参照)
+   * @param e
+   */
   handleMouseStart = (e) => {
     this.dragging = true
 
@@ -106,37 +112,56 @@ export default class TitleList extends React.Component<Props> {
 
   }
 
+  /**
+   * スワイプスクロール Move
+   * @param e
+   * @returns
+   */
   handleMouseMove = (e) => {
     if(!this.dragging) return
 
+    const scrollInfo = {deltaY: 0}
     // スマホタップのとき
     if(e.touches) {
       this.lastMouseScrollY = this.mouseScrollY
       this.mouseScrollSpeed = e.touches[0].clientY - this.mouseScrollY
       this.mouseScrollY = e.touches[0].clientY
-      e.deltaY = -this.mouseScrollSpeed
-      this.handleScroll(e)
+      scrollInfo.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
     }else {
       this.lastMouseScrollY = this.mouseScrollY
       this.mouseScrollSpeed = e.clientY - this.mouseScrollY
       this.mouseScrollY = e.clientY
-      e.deltaY = -this.mouseScrollSpeed
-      this.handleScroll(e)
+      scrollInfo.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
     }
   }
 
+  /**
+   * スワイプスクロール End
+   * @param e
+   */
   handleMouseEnd = (e) => {
     if(e && e.cancelable) e.preventDefault();
     this.dragging = false
     this.mouseScrollSpeed = this.mouseScrollY - this.lastMouseScrollY
 
-    gsap.to(this, {mouseScrollSpeed: 0, duration: 1, onUpdate: ()=>{
-      e.deltaY = -this.mouseScrollSpeed
-      this.handleScroll(e)
+    // End時に一定のスピードがあれば、慣性を働かせる
+    gsap.to(this, {mouseScrollSpeed: 0, duration: 0.5, ease: "circ.out", onUpdate: ()=>{
+      const scrollInfo = {deltaY: 0}
+      scrollInfo.deltaY = -this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
     }})
 
   }
 
+  /**
+   * 実際にスクロール処理をするメソッド
+   * マウスホイールスクロール
+   * + スワイプスクロールから呼ばれるイベント
+   * @param e
+   * @returns
+   */
   handleScroll = (e) => {
     // 親でpreventDefaultしているのでしなくて良い
     this.scrolling = true
