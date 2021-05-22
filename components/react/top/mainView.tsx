@@ -3,6 +3,7 @@ import styles from '../../../styles/layout/components/mainView.module.scss'
 import Work from '../common/work'
 import Image from 'next/image'
 import gsap from 'gsap'
+import Loading from './loading'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
@@ -12,7 +13,8 @@ interface Props {
   works: {
     contents: any[]
   },
-  id: string
+  id: string,
+  changed: number
 }
 
 export default class MainView extends React.Component<Props> {
@@ -24,7 +26,7 @@ export default class MainView extends React.Component<Props> {
   work: any  // workを記憶する変数 変更があったかどうかを監視する
   id: string
   state: {
-    work: any
+    loaded: number
   }
 
   constructor(props) {
@@ -32,10 +34,13 @@ export default class MainView extends React.Component<Props> {
     this.background
     this.scrollContent
     this.id
+
+    this.state = {
+      loaded: Date.now()
+    }
   }
 
   componentDidUpdate() {
-
     // idが変わったときに一回うえまでスクロール
     if(this.id != this.props.id) {
       this.id = this.props.id
@@ -47,6 +52,7 @@ export default class MainView extends React.Component<Props> {
         onUpdate: this.handleScrollEnd
       })
     }
+
   }
 
   handleScroll = ():void => {
@@ -58,6 +64,27 @@ export default class MainView extends React.Component<Props> {
 
   handleScrollEnd = ():void => {
     this.applyAlpha()
+  }
+
+  handleLoadMainImage = async (node) => {
+    const el = node.target
+    const load = new Promise<void>((res, rej) => {
+      if(el.naturalWidth > 0 && el.complete){
+        res()
+      }
+      else {
+        // NOTE: イベントはvoidを期待できない？
+        // https://stackoverflow.com/questions/51977823/type-void-is-not-assignable-to-type-event-mouseeventhtmlinputelement
+        el.onload = () => {res()}
+        el.onerror = () => {rej()}
+      }
+    })
+    load.then(() => {
+      setTimeout(() => {
+        console.log("load complete");
+        this.setState({ loaded: Date.now() })
+      }, 100);
+    })
   }
 
   applyAlpha () {
@@ -77,7 +104,19 @@ export default class MainView extends React.Component<Props> {
       <div className={styles.container} onWheel={this.handleScroll} ref={node => this.scrollContainer = node}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
-          <Image className={styles.main_view__img} width="1080" height="1080" src={work.main_image.url}  alt={work.title}/>
+          <Loading
+            changed={this.props.changed}
+            loaded={this.state.loaded}
+          />
+          <Image
+            className={styles.main_view__img}
+            width="1080"
+            height="1080"
+            src={work.main_image.url}
+            alt={work.title}
+            priority={true}
+            onLoad={this.handleLoadMainImage}
+          />
           <span className={styles.main_view__bg} ref={node => this.background = node}></span>
         </div>
 

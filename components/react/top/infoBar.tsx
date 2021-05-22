@@ -13,7 +13,7 @@ interface Props {
     }>
   }
   onSelectWork: Function
-
+  onChangeWork: Function
 }
 
 export default class InfoBar extends React.Component<Props> {
@@ -58,6 +58,7 @@ export default class InfoBar extends React.Component<Props> {
         <div className={styles.container} ref={this.handleReadyContainer}>
           <TitleList
             onSelectWork={this.props.onSelectWork}
+            onChangeWork={this.props.onChangeWork}
             works={this.props.works}
           />
           <AboutLink

@@ -10,6 +10,7 @@ interface Props {
     }>
   }
   onSelectWork: Function
+  onChangeWork: Function
 }
 
 /**
@@ -83,6 +84,7 @@ export default class TitleList extends React.Component<Props> {
 
         // 自身の高さの半分より近いものをもっともactiveに近い要素としてクラスを付与
         if(dist < rect.height / 2) {
+          if(this.activeId != this.titles[i].id) this.props.onChangeWork()
           this.titles[i].classList.add(styles.activeItem)
           this.activeId = this.titles[i].id
         }else {
@@ -95,7 +97,6 @@ export default class TitleList extends React.Component<Props> {
         }else if (rect.bottom > bottomThreshold) {
           // 下に消えて上に追加
           gsap.set(this.titles[i], {y: `-=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
-
         }
 
         const newrect = this.titles[i].getBoundingClientRect();

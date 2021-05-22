@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactComponentElement } from 'react'
 import Base from '../components/react/base'
 import MainView from '../components/react/top/mainView'
 import InfoBar from '../components/react/top/infoBar'
@@ -19,20 +19,27 @@ interface Props {
 
 export default class Home extends React.Component<Props> {
 
+  mainView: React.RefObject<HTMLElement>
   state: {
     id: string
+    changed: number
   }
 
   constructor(props) {
     super(props)
 
     this.state = {
-      id: null
+      id: null,
+      changed: Date.now()
     }
   }
 
   handleSelectWork = (id: string):void => {
     this.setState({ id: id })
+  }
+
+  handleChangeWork = ():void => {
+    this.setState({ changed: Date.now() })
   }
 
   render () {
@@ -44,12 +51,14 @@ export default class Home extends React.Component<Props> {
         <div className={styles.container}>
           <InfoBar
             onSelectWork={this.handleSelectWork}
+            onChangeWork={this.handleChangeWork}
             works={this.props.works}
             />
           <MainView
             works={this.props.works}
             id={this.state.id}
-            />
+            changed={this.state.changed}
+          />
         </div>
       </Base>
     )
