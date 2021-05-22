@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../../../styles/layout/components/mainView.module.scss'
 import Work from '../common/work'
+import Image from 'next/image'
 import gsap from 'gsap'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
@@ -69,13 +70,14 @@ export default class MainView extends React.Component<Props> {
   render () {
     const work = this.props.works.contents.filter((data) => data.id == this.props.id)[0]
 
+
     if(!work) return <>now loading...</>  // ローディングをreturnしたい
 
     return (
       <div className={styles.container} onWheel={this.handleScroll} ref={node => this.scrollContainer = node}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
-          <img src={work.main_image.url}/>
+          <Image className={styles.main_view__img} width="1080" height="1080" src={work.main_image.url}  alt={work.title}/>
           <span className={styles.main_view__bg} ref={node => this.background = node}></span>
         </div>
 
