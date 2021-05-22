@@ -31,6 +31,7 @@ export default class Loading extends React.Component<Props> {
 
     this.fadeTween = gsap.timeline()  // fade tweenのタイムライン
     this.fadeTween.to(this.loadingContainer, { alpha: 1, duration: 0 })
+    gsap.set(this.lottieContainer, {alpha:1})
   }
 
   /**
@@ -41,10 +42,19 @@ export default class Loading extends React.Component<Props> {
     // show tweenが終わってなかったとしても、最低0.3秒待ち（タイムラインなので）、その後表示される
     if(this.fadeTween) {
       console.log("hide")
-      this.fadeTween.to(this.loadingContainer, { alpha: 0, duration: 0.5, delay: 0.3 })
+      this.fadeTween.to(this.loadingContainer, { alpha: 0, duration: 0.5, delay: 0.4 })
+
+      // スケールちっちゃくなりながら(alphaも..）消える
+      gsap.to(this.lottieContainer, {scale: 0, alpha:0, duration: 0.3, delay: 0.2, ease: "back.in(3)", onComplete: ()=>{
+        gsap.set(this.lottieContainer, {scale: 1})
+      }})
     }
   }
 
+  /**
+   * lottieコンテナの準備ができたとき
+   * @param node
+   */
   handleReadyLottieContainer = (node) => {
     this.lottieContainer = node
     lottie.loadAnimation({
