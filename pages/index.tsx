@@ -21,8 +21,9 @@ export default class Home extends React.Component<Props> {
 
   mainView: React.RefObject<HTMLElement>
   state: {
-    id: string
-    changed: number
+    id: string,
+    changed: number,
+    loaded: number
   }
 
   constructor(props) {
@@ -30,12 +31,16 @@ export default class Home extends React.Component<Props> {
 
     this.state = {
       id: null,
+      loaded: Date.now(),
       changed: Date.now()
     }
   }
 
   handleSelectWork = (id: string):void => {
-    this.setState({ id: id })
+    this.setState({
+      id: id,
+      loaded: Date.now()
+    })
   }
 
   handleChangeWork = ():void => {
@@ -57,6 +62,7 @@ export default class Home extends React.Component<Props> {
           <MainView
             works={this.props.works}
             id={this.state.id}
+            loaded={this.state.loaded}
             changed={this.state.changed}
           />
         </div>

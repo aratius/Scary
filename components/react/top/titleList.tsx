@@ -261,7 +261,8 @@ export default class TitleList extends React.Component<Props> {
     }
 
     this.activeId = el.id
-    this.handleScrollEnd()  // tween長いのでonComplete待たずに実行
+    // tween長いのでonComplete待たずに実行 だけどちょっとだけずらす
+    this.scrollEndTimer = setTimeout(this.handleScrollEnd, 100)
 
     // 全体をスクロールする
     const offset = this.activeElementData.top - el.getBoundingClientRect().top

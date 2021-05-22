@@ -2,54 +2,47 @@ import React from 'react'
 import lottie from 'lottie-web'
 import styles from '../../../styles/layout/components/loading.module.scss'
 import gsap from 'gsap'
+import EventEmitter from 'events'
 
 interface Props {
-  changed: number
-  loaded: number
 }
 
 export default class Loading extends React.Component<Props> {
 
   lottieContainer: HTMLElement
   loadingContainer: HTMLElement
-  changed: number
-  loaded: number
   fadeTween: any
 
   constructor(props) {
     super(props)
-    this.changed = 0
-    this.loaded = 0
   }
 
   componentDidMount(){
+    loadingEvent.on(loadingEvent.onSelectStart, this.showLoading)
+    loadingEvent.on(loadingEvent.onImageLoad, this.hideLoading)
   }
 
   componentDidUpdate() {
-    if(this.changed != this.props.changed) {
-      this.changed = this.props.changed
-      this.showLoading()
-    }
-    if(this.loaded != this.props.loaded) {
-      this.loaded = this.props.loaded
-      this.hideLoading()
-    }
   }
 
-  showLoading() {
+  showLoading = () => {
+    console.log("show")
     if(this.fadeTween) this.fadeTween.kill()
 
     this.fadeTween = gsap.timeline()  // fade tweenのタイムライン
     this.fadeTween.to(this.loadingContainer, { alpha: 1, duration: 0 })
-    console.log("show");
-
   }
 
-  hideLoading() {
+  /**
+   * timeline.toするの自体をsetTimeoutする
+   * 即timeline.toのdelay(...)ではいけない
+   */
+  hideLoading = () => {
     // show tweenが終わってなかったとしても、最低0.3秒待ち（タイムラインなので）、その後表示される
-    this.fadeTween.to(this.loadingContainer, { alpha: 0, duration: 0.5, delay: 0.3 })
-    console.log("hide");
-
+    if(this.fadeTween) {
+      console.log("hide")
+      this.fadeTween.to(this.loadingContainer, { alpha: 0, duration: 0.5, delay: 0.3 })
+    }
   }
 
   handleReadyLottieContainer = (node) => {
@@ -73,3 +66,12 @@ export default class Loading extends React.Component<Props> {
   }
 
 }
+
+class LoadingEvent extends EventEmitter {
+
+  onImageLoad:string = "onstartloading"
+  onSelectStart:string = "oncompleteloading"
+
+}
+
+export const loadingEvent = new LoadingEvent()

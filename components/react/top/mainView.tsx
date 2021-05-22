@@ -2,8 +2,9 @@ import React from 'react'
 import styles from '../../../styles/layout/components/mainView.module.scss'
 import Work from '../common/work'
 import Image from 'next/image'
-import gsap from 'gsap'
 import Loading from './loading'
+import { loadingEvent } from './loading'
+import gsap from 'gsap'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
@@ -14,6 +15,7 @@ interface Props {
     contents: any[]
   },
   id: string,
+  loaded: number,
   changed: number
 }
 
@@ -25,25 +27,24 @@ export default class MainView extends React.Component<Props> {
   scrollTween: any
   work: any  // workを記憶する変数 変更があったかどうかを監視する
   id: string
-  state: {
-    loaded: number
-  }
+  loaded: number
+  changed: number
 
   constructor(props) {
     super(props);
     this.background
     this.scrollContent
     this.id
+    this.loaded
+    this.changed
 
-    this.state = {
-      loaded: Date.now()
-    }
   }
 
   componentDidUpdate() {
     // idが変わったときに一回うえまでスクロール
     if(this.id != this.props.id) {
       this.id = this.props.id
+      this.loaded = this.props.loaded
       if(this.scrollTween) this.scrollTween.kill()
       this.scrollTween = gsap.to(this.scrollContainer, {
         scrollTo: 0,
@@ -51,6 +52,16 @@ export default class MainView extends React.Component<Props> {
         ease: 'sine.out',
         onUpdate: this.handleScrollEnd
       })
+    }else if(this.id == this.props.id){
+      // スクロールした結果同じ画像に戻ってきた場合
+      if(this.loaded != this.props.loaded) {
+        this.endLoading()
+      }
+    }
+    if(this.changed != this.props.changed) {
+      this.changed = this.props.changed
+      // ローディング開始
+      this.startLoading()
     }
 
   }
@@ -66,6 +77,10 @@ export default class MainView extends React.Component<Props> {
     this.applyAlpha()
   }
 
+  /**
+   * メイン画像が変わるごとに画像のロードが走り、終わるとローディングを隠す
+   * @param node
+   */
   handleLoadMainImage = async (node) => {
     const el = node.target
     const load = new Promise<void>((res, rej) => {
@@ -80,13 +95,20 @@ export default class MainView extends React.Component<Props> {
       }
     })
     load.then(() => {
-      setTimeout(() => {
-        console.log("load complete");
-        this.setState({ loaded: Date.now() })
-      }, 100);
+      // ローディング完了
+      this.endLoading();
     })
   }
 
+  startLoading() {
+    loadingEvent.emit(loadingEvent.onSelectStart);
+  }
+
+  endLoading() {
+    loadingEvent.emit(loadingEvent.onImageLoad)
+  }
+
+  // 背景の黒をフェードさせる
   applyAlpha () {
     const scrollTop = this.scrollContent.getBoundingClientRect().top
     let alpha = (window.innerHeight - scrollTop) / window.innerHeight
@@ -97,17 +119,13 @@ export default class MainView extends React.Component<Props> {
   render () {
     const work = this.props.works.contents.filter((data) => data.id == this.props.id)[0]
 
-
     if(!work) return <>now loading...</>  // ローディングをreturnしたい
 
     return (
       <div className={styles.container} onWheel={this.handleScroll} ref={node => this.scrollContainer = node}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
-          <Loading
-            changed={this.props.changed}
-            loaded={this.state.loaded}
-          />
+          <Loading />
           <Image
             className={styles.main_view__img}
             width="1080"
