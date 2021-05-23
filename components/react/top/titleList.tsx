@@ -73,7 +73,6 @@ export default class TitleList extends React.Component<Props> {
    * その内容はまたまとめる
    */
   update = ():void => {
-    return
     const topThresold = this.activeElementData.top - this.elementData.height * 3
     const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
     const sumItemHeight = this.elementData.height * this.titles.length
@@ -92,13 +91,13 @@ export default class TitleList extends React.Component<Props> {
           this.titles[i].classList.remove(styles.activeItem)
         }
 
-        if(rect.top < topThresold) {
-          // 上に消えて下に追加
-          gsap.set(this.titles[i], {y: `+=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
-        }else if (rect.bottom > bottomThreshold) {
-          // 下に消えて上に追加
-          gsap.set(this.titles[i], {y: `-=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
-        }
+        // if(rect.top < topThresold) {
+        //   // 上に消えて下に追加
+        //   gsap.set(this.titles[i], {y: `+=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
+        // }else if (rect.bottom > bottomThreshold) {
+        //   // 下に消えて上に追加
+        //   gsap.set(this.titles[i], {y: `-=${sumItemHeight}`})  // NOTE: 70 = コンテナのpaddingTop
+        // }
 
         const newrect = this.titles[i].getBoundingClientRect();
         const newdist = Math.abs(newrect.top - this.activeElementData.top)
