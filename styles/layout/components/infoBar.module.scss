@@ -23,7 +23,10 @@
   top: 0;
   left: 0;
   z-index: 10;
-  transition: all 1s $easeOutQuint;
+
+  &.animate {
+    transition: all 1s $easeOutQuint;
+  }
 
   // overflow-xするために一枚噛ませるコンテナ
   .hide_content {

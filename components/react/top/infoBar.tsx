@@ -33,7 +33,13 @@ export default class InfoBar extends React.Component<Props> {
     this.container = node
     this.container.addEventListener("mousewheel", this.handleScroll, {passive: false})
     this.container.addEventListener("touchmove", this.handleScroll, {passive: false})
+  }
 
+  componentDidMount() {
+    // NOTE: CSSバグ対策 どうか？
+    setTimeout(() => {
+      this.container.classList.add(styles.animate)
+    }, 1000)
   }
 
   componentWillUnmount() {
