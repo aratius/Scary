@@ -27,6 +27,7 @@ class About extends React.Component<Props> {
   updater: any
   scrollTimer: any
   scrollContainer: HTMLElement
+  stopAgainstWarp: boolean  // まず一番下まで見切るまでは逆方向のスクロールワープを禁止する
 
   constructor(props) {
     super(props)
@@ -35,6 +36,7 @@ class About extends React.Component<Props> {
     this.scrollDeltaY = 0
     this.scrollAmount = 0
     this.toNearElAmount = 0
+    this.stopAgainstWarp = true
   }
 
   // タイトルが見えたときになんかする
@@ -42,61 +44,74 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.update()
     window.addEventListener("wheel", this.handleScroll, {passive: false})
     window.addEventListener("touchmove", this.handleScroll, {passive: false})
-    window.scrollTo(0, this.blocks[0].getBoundingClientRect().top)
+    window.scrollTo(0, 0)
+    this.update()
   }
 
   componentWillUnmount() {
-    cancelAnimationFrame(this.updater)
     window.removeEventListener("wheel", this.handleScroll)
     window.removeEventListener("touchmove", this.handleScroll)
+    cancelAnimationFrame(this.updater)
   }
 
   update = ():void => {
-    const nearEl = this.searchNearElement(this.blocks)
-
+    // スクロールする力
     this.scrollAmount += this.scrollDeltaY
     this.scrollAmount *= 0.97
     const scrollAmout = this.scrollAmount * 0.01
 
+    // 近い要素へ向かう力
+    const nearEl = this.searchNearElement(this.blocks)
     const nearElDist = nearEl.getBoundingClientRect().top
     this.toNearElAmount += nearElDist // 近い要素へ向かう力
     this.toNearElAmount *= 0.97
     const toNearElAmount = this.toNearElAmount * 0.001
 
     const scrollTo = scrollAmout + toNearElAmount
-
     gsap.set(window, { scrollTo: `+=${scrollTo}` })
 
-    this.updater = requestAnimationFrame(this.update)
-
+    /**
+     * スクロールワープ
+     */
     if(scrollTo > 0 && window.scrollY == document.body.clientHeight - window.innerHeight) {
+      // 順方向ワープ
       window.scrollTo(0, 0)
+      this.stopAgainstWarp = false  // 最初の順方向ワープしたときに逆方向ワープも許可
     }else if(scrollTo < 0 && window.scrollY == 0) {
-      window.scrollTo(0, document.body.clientHeight - window.innerHeight)
+      // 逆方向ワープ
+      if(!this.stopAgainstWarp) {  // 逆方向ワープ許可されていたら
+        window.scrollTo(0, document.body.clientHeight - window.innerHeight)
+      }
     }
+
+    this.updater = requestAnimationFrame(this.update)
   }
 
 
   // TODO: ここにメイン処理を書くような実装に変える
   // 毎フレームやる
   // 参考は自前スクロール
-  handleScroll = (e) => {
+  handleScroll = (e): void => {
     if(e) e.preventDefault()
 
-    this.scrollDeltaY = e.deltaY / 2
+    this.scrollDeltaY = e.deltaY
 
     clearTimeout(this.scrollTimer)
     this.scrollTimer = setTimeout(this.handleScrollEnd, 100)
   }
 
-  handleScrollEnd = () => {
-    gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})
+  handleScrollEnd = ():void => {
+    gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})  // スクロールする力をtweenで消滅させる scrollイベントは途中で終わっちゃうので
   }
 
-  searchNearElement(elements: HTMLElement[]) {
+  /**
+   * 近い要素を探す
+   * @param elements
+   * @returns
+   */
+  searchNearElement(elements: HTMLElement[]): HTMLElement {
     let near = 9999
     let nearEl
     for(const i in elements) {
@@ -112,7 +127,7 @@ class About extends React.Component<Props> {
     return nearEl
   }
 
-  handleReadyElement = (node):void => {
+  handleReadyElement = (node: HTMLElement):void => {
     gsap.to(window, {
       scrollTrigger: {
         trigger: node,
@@ -128,7 +143,7 @@ class About extends React.Component<Props> {
   // TODO: スクロールバー消す
   render() {
 
-    const duplicateElement = (i) => (
+    const duplicateElement = (i: number) => (
       <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
         <div className={styles.info__block} >
           <h1>arata matsumoto</h1>
@@ -197,16 +212,15 @@ class About extends React.Component<Props> {
                 <li>
                   <a href="mailto:arata1129matsu@icloud.com"className={styles.text} onClick={():void=>alert("Let me start the mailer")}>mail: arata1129matsu@icloud.com</a>
                 </li>
-                <li><span>twitter: @aualrxse</span></li>
-                <li><span>instagram: @aualrxse</span></li>
-                <li><span>facebook: @aualrxse</span></li>
+                <li><a href="https://twitter.com/aualrxse" target="_blank">twitter: @aualrxse</a></li>
+                <li><a href="https://www.instagram.com/aualrxse/" target="_blank">instagram: @aualrxse</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100064373851983" target="_blank">facebook: @aualrxse</a></li>
               </ul>
 
             </div>
           </div>
 
           {duplicateElement(4)}
-
 
         </div>
       </Floating>
