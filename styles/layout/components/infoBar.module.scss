@@ -4,7 +4,7 @@ $paddingVertical: 70px;
 
 @mixin containerWidth {
   width: 33%;
-  min-width: 300px;
+  min-width: $tab / 3;
 
   &.close {
     width: 0;
