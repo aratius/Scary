@@ -13,9 +13,9 @@ body {
   user-select: none;  // 画面タップしまくるサイトなので
 
   // スマホサイズで文字小さくなる
-  @media screen and (max-width: $sp) {
-    font-size: 15px;
-  }
+  // @media screen and (max-width: $sp) {
+  //   font-size: 15px;
+  // }
 }
 
 // スクロールバーあるなしのトランジション見栄えダウンを防ぐ
