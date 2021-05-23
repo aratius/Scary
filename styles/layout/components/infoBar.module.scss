@@ -2,11 +2,19 @@
 
 $paddingVertical: 70px;
 
-.container {
+@mixin containerWidth {
   width: 33%;
   min-width: 300px;
+
+  &.close {
+    width: 0;
+    min-width: 0;
+  }
+}
+
+.container {
+  @include containerWidth();
   height: 100%;
-  // margin: 0;  // 上下のマージン
   padding: $paddingVertical 50px;
   background-color: #fff;
   position: fixed;
@@ -20,7 +28,7 @@ $paddingVertical: 70px;
     width: 100%;
     height: 100%;
 
-    // titleList と aboutLink の縦並び
+    // titleList と aboutLink の縦並び を flexレイアウト
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,23 +40,24 @@ $paddingVertical: 70px;
   }
 
   &.close {
-    width: 0;
-    min-width: 0;
     padding: $paddingVertical 0;
-    // z-index: -2;
   }
 }
 
 .bgWhite {
+  // 幅は親と同じにしておく = アニメーションの見栄えが良い
+  @include containerWidth();
+  height: 100%;
+  background-color: #fff;
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
-  width: 0;
-  height: 100%;
-  background-color: #fff;
+  z-index: 9;
+  transition: all 1s $easeOutQuint;
 }
 
+// 閉じる開くボタン（コンテナ）
 .open_close__btn {
   width: 30px;
   height: 80px;
@@ -57,8 +66,9 @@ $paddingVertical: 70px;
   border-radius: 0 8px 8px 0;
   position: absolute;
   z-index: 100;
-  right: -30px;
+  right: -28px;  // ちょい埋まり
 
+  // 実体
   &::before {
     content: "";
     width: 5px;
