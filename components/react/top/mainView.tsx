@@ -24,7 +24,6 @@ export default class MainView extends React.Component<Props> {
 
   background: HTMLElement
   scrollContent: HTMLElement
-  scrollContainer: HTMLElement
   scrollTween: any
   scrollNotifier: any
   isHideScrollNotifier: boolean  // スクロール補助UIを表示するかどうか
@@ -50,7 +49,7 @@ export default class MainView extends React.Component<Props> {
       this.id = this.props.id
       this.loaded = this.props.loaded
       if(this.scrollTween) this.scrollTween.kill()
-      this.scrollTween = gsap.to(this.scrollContainer, {
+      this.scrollTween = gsap.to(window, {
         scrollTo: 0,
         duration: 1,
         ease: 'sine.out',
@@ -132,7 +131,7 @@ export default class MainView extends React.Component<Props> {
     if(!work) return <>now loading...</>  // ローディングをreturnしたい
 
     return (
-      <div className={styles.container} onWheel={this.handleScroll} ref={node => this.scrollContainer = node}>
+      <div className={styles.container} onWheel={this.handleScroll}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
           <Loading />

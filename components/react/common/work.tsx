@@ -15,7 +15,8 @@ export interface Props {
       }
     }>,
     sub_description_1: string,
-    sub_description_2: string
+    sub_description_2: string,
+    role: []
   }
 }
 
@@ -85,6 +86,17 @@ const Work: React.FC<Props> = (props) => {
             )
           })}
         </div>
+
+        <hr />
+
+        {work.role.length &&
+          work.role.map((data, i) => {
+            return(
+              <span key={i}>{data} / </span>
+            )
+          })
+        }
+
       </div>
     </>
   )
