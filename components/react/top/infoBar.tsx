@@ -44,9 +44,10 @@ export default class InfoBar extends React.Component<Props> {
     if(e && e.cancelable) e.preventDefault()
   }
 
+  // シームレス風に遷移する tween tweenのonCompleteでルーティング実行
   handleClickAbout = ():void => {
-    gsap.to(this.bgWhite, {width: window.innerWidth, duration: 1, ease: "expo.out"})
-    gsap.to(this.container, {alpha: 0, duration: 1, onComplete: ()=>{
+    gsap.to(this.bgWhite, {width: window.innerWidth, duration: 0.7, ease: "expo.out"})
+    gsap.to(this.container, {width: window.innerWidth, alpha: 0, duration: 0.7, ease: "expo.out", onComplete: ()=>{
       router.push("/about")
     }})
   }

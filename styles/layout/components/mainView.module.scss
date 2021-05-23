@@ -10,7 +10,7 @@
 
   // 背景のメインビュー
   .main_view {
-    width: 100%;
+    width: 67%;
     height: 100%;
     z-index: -100;
     position: fixed;
@@ -56,5 +56,8 @@
 @media screen and (max-width: $tab) {
   .container {
     width: 100%;
+    .main_view {
+      width: 100%;
+    }
   }
 }

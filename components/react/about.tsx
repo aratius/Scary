@@ -110,8 +110,6 @@ class About extends React.Component<Props> {
    */
    handleMouseStart = (e):void => {
     this.dragging = true
-    console.log("mouse start");
-
 
     // スマホタップのとき
     if(e.touches) {
