@@ -17,6 +17,8 @@
     top: 0;
     right: 0;
 
+
+
     // 黒い背景 tweenさせるために実要素を置く
     &__bg {
       width: 100%;
@@ -42,6 +44,19 @@
         object-fit: cover;
       }
     }
+  }
+  // 下矢印
+  .arrow {
+    content: "";
+    width: 50px;
+    height: 50px;
+    background: url(/assets/images/common/arrow.svg);
+    background-repeat: no-repeat;
+    position: fixed;
+    right: 60px;
+    bottom: 30px;
+    z-index: 10;
+
   }
 
   // 仕事内容 （文章とサブ画像

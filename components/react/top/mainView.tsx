@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Loading from './loading'
 import { loadingEvent } from './loading'
 import gsap from 'gsap'
+import ScrollNotifier from './scrollNotifier'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
@@ -25,6 +26,8 @@ export default class MainView extends React.Component<Props> {
   scrollContent: HTMLElement
   scrollContainer: HTMLElement
   scrollTween: any
+  scrollNotifier: any
+  isHideScrollNotifier: boolean  // スクロール補助UIを表示するかどうか
   work: any  // workを記憶する変数 変更があったかどうかを監視する
   id: string
   loaded: number
@@ -37,6 +40,7 @@ export default class MainView extends React.Component<Props> {
     this.id
     this.loaded
     this.changed
+    this.isHideScrollNotifier = false
 
   }
 
@@ -114,6 +118,12 @@ export default class MainView extends React.Component<Props> {
     let alpha = (window.innerHeight - scrollTop) / window.innerHeight
     alpha = alpha > 0.8 ? 0.8 : alpha
     gsap.to(this.background, { alpha: alpha, duration: 0.2 })
+
+    // ローディング補助UIは最初に一回消したらずっと隠す
+    if(alpha > 0.5) {
+      this.scrollNotifier.hide()
+      this.isHideScrollNotifier = true
+    }
   }
 
   render () {
@@ -138,6 +148,10 @@ export default class MainView extends React.Component<Props> {
           <span className={styles.main_view__bg} ref={node => this.background = node}></span>
         </div>
 
+        <ScrollNotifier
+          ref={node =>this.scrollNotifier = node}
+          isHide={this.isHideScrollNotifier}
+        />
         <div className={styles.work_view} ref={node => this.scrollContent = node}>
           <Work work={work} />
         </div>

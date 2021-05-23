@@ -1,0 +1,16 @@
+.container {
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  right: 5px;
+  bottom: 8px;
+
+  .notifier {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+}

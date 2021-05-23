@@ -61,6 +61,10 @@ class About extends React.Component<Props> {
 
     this.stopAgainstWarp = true
     window.scrollTo(0, 0)
+
+    // スクロールできることをわからせるために最初にスクロールする
+    gsap.to(window, {scrollTo: document.body.clientHeight - window.innerHeight , duration: 3, delay: 0.8, ease: "circ.inOut"})
+
     this.update()
   }
 
@@ -223,6 +227,9 @@ class About extends React.Component<Props> {
         start: "top bottom",
         onEnter: () => {
           node.classList.add(styles.show)
+        },
+        onLeaveBack: () => {
+          node.classList.remove(styles.show)
         }
       }
     })
@@ -246,10 +253,10 @@ class About extends React.Component<Props> {
       <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
         <div className={styles.info__block} >
           <h1 className={`${i!=0 ? styles.ignore : ""} ${styles.info__name}`}>arata matsumoto</h1>
-          <h3 className={styles.back__link}
+          <h3 className={`${i!=0 ? styles.ignore : ""} ${styles.back__link}`}
             onClick={this.onClickBackLink}
           >
-            <span>back to home</span>
+            <span className={i!=0 ? styles.ignore : ""}>back to home</span>
           </h3>
         </div>
       </div>
