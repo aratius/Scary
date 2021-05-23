@@ -11,6 +11,11 @@ body {
   line-height: 1.6;
   font-size: 18px;
   user-select: none;  // 画面タップしまくるサイトなので
+
+  // スマホサイズで文字小さくなる
+  @media screen and (max-width: $sp) {
+    font-size: 15px;
+  }
 }
 
 // スクロールバーあるなしのトランジション見栄えダウンを防ぐ

@@ -64,7 +64,9 @@ class About extends React.Component<Props> {
 
   componentWillUnmount() {
     window.removeEventListener("wheel", this.handleScroll)
-    window.removeEventListener("touchmove", this.handleScroll)
+    window.removeEventListener("touchstart", this.handleMouseStart)
+    window.removeEventListener("touchmove", this.handleMouseMove)
+    window.removeEventListener("touchend", this.handleMouseEnd)
 
     cancelAnimationFrame(this.updater)
   }
