@@ -66,8 +66,8 @@ $paddingVertical: 70px;
   border: none;
   border-radius: 0 8px 8px 0;
   position: absolute;
-  z-index: 100;
   right: -28px;  // ちょい埋まり
+  z-index: 100;
 
   // 実体
   &::before {
