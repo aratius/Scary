@@ -73,6 +73,7 @@ export default class TitleList extends React.Component<Props> {
    * その内容はまたまとめる
    */
   update = ():void => {
+    return
     const topThresold = this.activeElementData.top - this.elementData.height * 3
     const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
     const sumItemHeight = this.elementData.height * this.titles.length
@@ -232,7 +233,7 @@ export default class TitleList extends React.Component<Props> {
    */
   handleReadyItem = (node, i):void => {
     if(!node) return
-    // this.titles[i] = node
+    this.titles[i] = node
 
     // 上から三番目の要素を基準として位置を記憶しておく
     if(i == 2) {
