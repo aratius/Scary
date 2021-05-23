@@ -1,6 +1,6 @@
 @import '../../foundation/variables';
 
-$paddingVertical: 70px;
+// $paddingVertical: 70px;
 
 @mixin containerWidth {
   width: 33%;
@@ -15,7 +15,8 @@ $paddingVertical: 70px;
 .container {
   @include containerWidth();
   height: 100%;
-  padding: $paddingVertical 50px;
+  // padding: $paddingVertical 50px;
+  padding: 70px 50px;
   background-color: #fff;
   box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
   position: fixed;
@@ -41,7 +42,8 @@ $paddingVertical: 70px;
   }
 
   &.close {
-    padding: $paddingVertical 0;
+    // padding: $paddingVertical 0;
+    padding: 70px 0;
   }
 }
 
