@@ -38,8 +38,6 @@ export default class TitleList extends React.Component<Props> {
   dragging: boolean
   dragStartPositionY: number
 
-  static shouldStopUpdate: boolean = true
-
   constructor(props) {
     super(props)
     this.titles = []
@@ -57,14 +55,15 @@ export default class TitleList extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.update()
 
     // ウィンドウ外でUpされると困るのでこれだけwindowに対してaddEventListenerする
     window.addEventListener("mouseup", this.handleMouseEnd)
     window.addEventListener("touchend", this.handleMouseEnd)
 
     setTimeout(() => {
-      TitleList.shouldStopUpdate = false
+      this.update()
+      console.log("hello update");
+
     }, 500)
   }
 
@@ -79,7 +78,6 @@ export default class TitleList extends React.Component<Props> {
    * その内容はまたまとめる
    */
   update = ():void => {
-    if(TitleList.shouldStopUpdate) return
     const topThresold = this.activeElementData.top - this.elementData.height * 3
     const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
     const sumItemHeight = this.elementData.height * this.titles.length
