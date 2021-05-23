@@ -17,7 +17,9 @@ interface Props {
     }>,
     sub_description_1: string,
     sub_description_2: string
+    role: []
   }
+
 }
 
 export default class Work extends React.Component<Props> {
