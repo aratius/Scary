@@ -26,6 +26,11 @@ class About extends React.Component<Props> {
   updater: any                  // cancelAnimationFrameのための名前
   scrollTimer: any              // scrollEndを取るためのtimer
   stopAgainstWarp: boolean      // まず一番下まで見切るまでは逆方向のスクロールワープを禁止する
+  dragging: boolean
+  mouseScrollY: number
+  lastMouseScrollY: number
+  dragStartPositionY: number
+  mouseScrollSpeed: number
 
   constructor(props) {
     super(props)
@@ -35,6 +40,11 @@ class About extends React.Component<Props> {
     this.scrollAmount = 0
     this.toNearElAmount = 0
     this.stopAgainstWarp = true
+    this.dragging = false
+    this.mouseScrollY = 0
+    this.lastMouseScrollY = 0
+    this.dragStartPositionY = 0
+    this.mouseScrollSpeed = 0
   }
 
   // タイトルが見えたときになんかする
@@ -43,7 +53,10 @@ class About extends React.Component<Props> {
 
   componentDidMount() {
     window.addEventListener("wheel", this.handleScroll, {passive: false})
-    window.addEventListener("touchmove", this.handleScroll, {passive: false})
+    window.addEventListener("touchstart", this.handleMouseStart)
+    window.addEventListener("touchmove", this.handleMouseMove)
+    window.addEventListener("touchend", this.handleMouseEnd)
+
     this.stopAgainstWarp = true
     window.scrollTo(0, 0)
     this.update()
@@ -52,6 +65,7 @@ class About extends React.Component<Props> {
   componentWillUnmount() {
     window.removeEventListener("wheel", this.handleScroll)
     window.removeEventListener("touchmove", this.handleScroll)
+
     cancelAnimationFrame(this.updater)
   }
 
@@ -66,7 +80,7 @@ class About extends React.Component<Props> {
     const nearElDist = nearEl.getBoundingClientRect().top
     this.toNearElAmount += nearElDist // 近い要素へ向かう力
     this.toNearElAmount *= 0.6
-    const toNearElAmount = this.toNearElAmount * 0.01
+    const toNearElAmount = this.toNearElAmount * 0.013
 
     const scrollTo = scrollAmout + toNearElAmount
     gsap.set(window, { scrollTo: `+=${scrollTo}` })
@@ -74,10 +88,10 @@ class About extends React.Component<Props> {
     /**
      * スクロールワープ
      */
-    if(scrollTo > 0 && window.scrollY == document.body.clientHeight - window.innerHeight) {
+    if(scrollTo > 0 && window.scrollY >= document.body.clientHeight - window.innerHeight - 1) {
       // 順方向ワープ
       window.scrollTo(0, 0)
-    }else if(scrollTo < 0 && window.scrollY == 0) {
+    }else if(scrollTo < 0 && window.scrollY < 0 + 1) {
       // 逆方向ワープ
       window.scrollTo(0, document.body.clientHeight - window.innerHeight)
     }
@@ -86,11 +100,89 @@ class About extends React.Component<Props> {
   }
 
 
+  /**
+   * スワイプスクロール Start
+   * dragStartPositionを記憶し、handleItemClick時にy座標が大きく変わっていたら
+   * クリックではなくスクロールと判断し、クリックをキャンセルする (handleClickItem参照)
+   * @param e
+   */
+   handleMouseStart = (e):void => {
+    this.dragging = true
+    console.log("mouse start");
+
+
+    // スマホタップのとき
+    if(e.touches) {
+      this.dragStartPositionY = e.touches[0].clientY
+      this.lastMouseScrollY = e.touches[0].clientY
+      this.mouseScrollY = e.touches[0].clientY
+    }else {
+      this.dragStartPositionY = e.clientY
+      this.lastMouseScrollY = e.clientY
+      this.mouseScrollY = e.clientY
+    }
+
+  }
+
+
+  /**
+   * スワイプスクロール Move
+   * @param e
+   * @returns
+   */
+  handleMouseMove = (e):void => {
+    if(!this.dragging) return
+
+    const scrollInfo = {
+      deltaY: 0,
+      swipeEvent: true
+    }
+
+    // スマホタップのとき
+    if(e.touches) {
+      this.lastMouseScrollY = this.mouseScrollY
+      this.mouseScrollSpeed = e.touches[0].clientY - this.lastMouseScrollY
+      scrollInfo.deltaY = this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
+      this.mouseScrollY = e.touches[0].clientY
+    }else {
+      this.lastMouseScrollY = this.mouseScrollY
+      this.mouseScrollSpeed = e.clientY - this.lastMouseScrollY
+      scrollInfo.deltaY = this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
+      this.mouseScrollY = e.clientY
+    }
+  }
+
+
+  /**
+   * スワイプスクロール End
+   * @param e
+   */
+  handleMouseEnd = (e):void => {
+    // if(e && e.cancelable) e.preventDefault();  // リンクのクリックイベントまでキャンセルされてしまう それでもpreventDefaultしたい場合はその事を考える
+    if(!this.dragging) return
+    this.dragging = false
+    this.mouseScrollSpeed = this.mouseScrollY - this.lastMouseScrollY
+
+    // End時に一定のスピードがあれば、慣性を働かせる
+    gsap.to(this, {mouseScrollSpeed: 0, duration: 0.5, ease: "circ.out", onUpdate: ()=>{
+      const scrollInfo = {
+        deltaY: 0,
+        swipeEvent: true
+      }
+      scrollInfo.deltaY = this.mouseScrollSpeed
+      this.handleScroll(scrollInfo)
+    }})
+
+  }
+
+
   // TODO: ここにメイン処理を書くような実装に変える
   // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e): void => {
-    if(e) e.preventDefault()
+    if(e && e.cancelable) e.preventDefault()
 
     this.scrollDeltaY = e.deltaY
 
@@ -142,7 +234,7 @@ class About extends React.Component<Props> {
     const duplicateElement = (i: number) => (
       <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
         <div className={styles.info__block} >
-          <h1 className={i!=0 && styles.ignore}>arata matsumoto</h1>
+          <h1 className={i!=0 ? styles.ignore : ""}>arata matsumoto</h1>
         </div>
       </div>
     )
