@@ -20,10 +20,12 @@ export default class InfoBar extends React.Component<Props> {
 
   container: HTMLElement
   bgWhite: HTMLElement
+  isClosing: boolean
 
   constructor(props) {
     super(props)
     this.container
+    this.isClosing = false
   }
 
   handleReadyContainer = (node) => {
@@ -49,21 +51,32 @@ export default class InfoBar extends React.Component<Props> {
     }})
   }
 
+  handleClickCloseBtn = ():void => {
+    if(this.isClosing) {
+      this.container.classList.remove(styles.close)
+    } else {
+      this.container.classList.add(styles.close)
+    }
+    this.isClosing = !this.isClosing
+  }
+
   render () {
     return (
       <>
         {/* ページ遷移のときに広がっていく背景白 */}
         <span className={styles.bgWhite} ref={node => this.bgWhite = node}></span>
         <div className={styles.container} ref={this.handleReadyContainer}>
-          <span className={styles.open_close__btn}></span>
-          <TitleList
-            onSelectWork={this.props.onSelectWork}
-            onChangeWork={this.props.onChangeWork}
-            works={this.props.works}
-          />
-          <AboutLink
-            onClickAbout={this.handleClickAbout}
-          />
+          <span className={styles.open_close__btn} onClick={this.handleClickCloseBtn}></span>
+          <div className={styles.hide_content}>
+            <TitleList
+              onSelectWork={this.props.onSelectWork}
+              onChangeWork={this.props.onChangeWork}
+              works={this.props.works}
+            />
+            <AboutLink
+              onClickAbout={this.handleClickAbout}
+            />
+          </div>
         </div>
       </>
     )
