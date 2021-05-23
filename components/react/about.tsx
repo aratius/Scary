@@ -34,6 +34,8 @@ class About extends React.Component<Props> {
   dragStartPositionY: number
   mouseScrollSpeed: number
 
+  static isMounted:boolean = false
+
   constructor(props) {
     super(props)
 
@@ -47,6 +49,7 @@ class About extends React.Component<Props> {
     this.lastMouseScrollY = 0
     this.dragStartPositionY = 0
     this.mouseScrollSpeed = 0
+
   }
 
   // タイトルが見えたときになんかする
@@ -62,8 +65,11 @@ class About extends React.Component<Props> {
     this.stopAgainstWarp = true
     window.scrollTo(0, 0)
 
-    // スクロールできることをわからせるために最初にスクロールする
-    gsap.to(window, {scrollTo: document.body.clientHeight - window.innerHeight , duration: 3, delay: 0.8, ease: "circ.inOut"})
+    // 最初に一回だけ、スクロールできることをわからせるために自動スクロール挟む
+    if(!About.isMounted) {
+      About.isMounted = true
+      gsap.to(window, {scrollTo: document.body.clientHeight - window.innerHeight , duration: 3, delay: 0.8, ease: "circ.inOut"})
+    }
 
     this.update()
   }
