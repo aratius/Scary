@@ -232,7 +232,7 @@ export default class TitleList extends React.Component<Props> {
    */
   handleReadyItem = (node, i):void => {
     if(!node) return
-    this.titles[i] = node
+    // this.titles[i] = node
 
     // 上から三番目の要素を基準として位置を記憶しておく
     if(i == 2) {
