@@ -61,9 +61,12 @@ export default class TitleList extends React.Component<Props> {
     window.addEventListener("touchend", this.handleMouseEnd)
 
     setTimeout(() => {
+      // NOTE: ここ！
+      this.elementData = this.titles[2].getBoundingClientRect()
+      this.activeElementData = this.titles[2].getBoundingClientRect()
+      this.activeId = this.titles[2].id
+      this.handleScrollEnd()
       this.update()
-      console.log("hello update");
-
     }, 500)
   }
 
