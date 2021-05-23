@@ -11,7 +11,7 @@ $paddingVertical: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  position: relative;
 
   // 右の線はafterで引く
   &::after {
@@ -20,7 +20,7 @@ $paddingVertical: 70px;
     top: $paddingVertical;
     right: 0;
     height: calc(100% - #{$paddingVertical} * 2);  // 上下のパディング分を引く
-    border-right: 1px solid rgba(100, 100, 100, 0.5);
+    // border-right: 1px solid rgba(100, 100, 100, 0.5);  // NOTE: この線いらんか
   }
 }
 
@@ -32,4 +32,33 @@ $paddingVertical: 70px;
   width: 0;
   height: 100%;
   background-color: #fff;
+}
+
+.open_close__btn {
+  width: 30px;
+  height: 80px;
+  background-color: #fff;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  position: absolute;
+  z-index: 100;
+  right: -30px;
+
+  &::before {
+    content: "";
+    width: 5px;
+    height: 45px;
+    background-color: rgb(220, 220, 220);
+    border-radius: 2.5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-60%, -50%, 0);
+  }
+
+  &:hover {
+    &::before{
+      background-color: rgb(200, 200, 200);
+    }
+  }
 }

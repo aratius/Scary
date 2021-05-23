@@ -47,15 +47,15 @@ export default class InfoBar extends React.Component<Props> {
     gsap.to(this.container, {alpha: 0, duration: 1, onComplete: ()=>{
       router.push("/about")
     }})
-
-
   }
 
   render () {
     return (
       <>
+        {/* ページ遷移のときに広がっていく背景白 */}
         <span className={styles.bgWhite} ref={node => this.bgWhite = node}></span>
         <div className={styles.container} ref={this.handleReadyContainer}>
+          <span className={styles.open_close__btn}></span>
           <TitleList
             onSelectWork={this.props.onSelectWork}
             onChangeWork={this.props.onChangeWork}
