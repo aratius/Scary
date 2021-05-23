@@ -242,17 +242,17 @@ export default class TitleList extends React.Component<Props> {
     if(!node) return
     this.titles[i] = node
 
+    // NOTE: ここでこの処理をすると、DOMの準備ができきらず、バグってしまうことがある（おもにProduction
     // 上から三番目の要素を基準として位置を記憶しておく
-    if(i == 2) {
-      if(!this.activeElementData) {  // これは最初のマウント時に一回のみで良い
-        this.elementData = node.getBoundingClientRect()
-        this.activeElementData = node.getBoundingClientRect()
-        this.activeId = node.id
-        this.handleScrollEnd()
-        console.log(this.elementData, this.activeElementData, this.activeId);
+    // if(i == 2) {
+    //   if(!this.activeElementData) {  // これは最初のマウント時に一回のみで良い
+    //     this.elementData = node.getBoundingClientRect()
+    //     this.activeElementData = node.getBoundingClientRect()
+    //     this.activeId = node.id
+    //     this.handleScrollEnd()
 
-      }
-    }
+    //   }
+    // }
   }
 
   handleClickItem = (e):void => {
