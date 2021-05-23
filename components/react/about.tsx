@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from '../../styles/layout/about.module.scss'
-import gsap from "gsap"
 import Floating from './common/floating'
-
+import gsap from "gsap"
+const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
+process.browser && gsap.registerPlugin(ScrollToPlugin)
 // SSRモード（サーバー上）では使えないためこの条件分岐
 const ScrollTrigger = process.browser ? require("gsap/ScrollTrigger") : undefined
 process.browser && gsap.registerPlugin(ScrollTrigger)
@@ -19,14 +20,21 @@ interface Props {
 class About extends React.Component<Props> {
 
   blocks: HTMLElement[]
-  scrollPos: number  // y方向のスクロールポジション
+  scrollDeltaY: number
+  scrollAmount: number
+  toNearElAmount: number
   scrollTween: any
+  updater: any
+  scrollTimer: any
+  scrollContainer: HTMLElement
 
   constructor(props) {
     super(props)
 
     this.blocks = []
-    this.scrollPos = 0
+    this.scrollDeltaY = 0
+    this.scrollAmount = 0
+    this.toNearElAmount = 0
   }
 
   // タイトルが見えたときになんかする
@@ -34,13 +42,41 @@ class About extends React.Component<Props> {
   }
 
   componentDidMount() {
-    window.addEventListener("wheel", this.handleScroll)
-    window.addEventListener("touchmove", this.handleScroll)
+    this.update()
+    window.addEventListener("wheel", this.handleScroll, {passive: false})
+    window.addEventListener("touchmove", this.handleScroll, {passive: false})
+    window.scrollTo(0, this.blocks[0].getBoundingClientRect().top)
   }
 
   componentWillUnmount() {
+    cancelAnimationFrame(this.updater)
     window.removeEventListener("wheel", this.handleScroll)
     window.removeEventListener("touchmove", this.handleScroll)
+  }
+
+  update = ():void => {
+    const nearEl = this.searchNearElement(this.blocks)
+
+    this.scrollAmount += this.scrollDeltaY
+    this.scrollAmount *= 0.97
+    const scrollAmout = this.scrollAmount * 0.01
+
+    const nearElDist = nearEl.getBoundingClientRect().top
+    this.toNearElAmount += nearElDist // 近い要素へ向かう力
+    this.toNearElAmount *= 0.97
+    const toNearElAmount = this.toNearElAmount * 0.001
+
+    const scrollTo = scrollAmout + toNearElAmount
+
+    gsap.set(window, { scrollTo: `+=${scrollTo}` })
+
+    this.updater = requestAnimationFrame(this.update)
+
+    if(scrollTo > 0 && window.scrollY == document.body.clientHeight - window.innerHeight) {
+      window.scrollTo(0, 0)
+    }else if(scrollTo < 0 && window.scrollY == 0) {
+      window.scrollTo(0, document.body.clientHeight - window.innerHeight)
+    }
   }
 
 
@@ -48,8 +84,16 @@ class About extends React.Component<Props> {
   // 毎フレームやる
   // 参考は自前スクロール
   handleScroll = (e) => {
-    const element = this.searchNearElement(this.blocks)
-    gsap.set(this, {scrollPos: window.pageYOffset + element.getBoundingClientRect().top})
+    if(e) e.preventDefault()
+
+    this.scrollDeltaY = e.deltaY / 2
+
+    clearTimeout(this.scrollTimer)
+    this.scrollTimer = setTimeout(this.handleScrollEnd, 100)
+  }
+
+  handleScrollEnd = () => {
+    gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})
   }
 
   searchNearElement(elements: HTMLElement[]) {
@@ -64,6 +108,7 @@ class About extends React.Component<Props> {
         nearEl = el
       }
     }
+
     return nearEl
   }
 
@@ -83,16 +128,21 @@ class About extends React.Component<Props> {
   // TODO: スクロールバー消す
   render() {
 
+    const duplicateElement = (i) => (
+      <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
+        <div className={styles.info__block} >
+          <h1>arata matsumoto</h1>
+        </div>
+      </div>
+    )
+
     return (
       <Floating
         onReadyElement={this.handleReadyElement}
       >
         <div className={styles.container}>
-          <div className={styles.info__block__wrapper} ref={node => this.blocks[0] = node}>
-            <div className={styles.info__block} >
-              <h1>arata matsumoto</h1>
-            </div>
-          </div>
+
+          {duplicateElement(0)}
 
           <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>
             <div className={styles.info__block}>
@@ -139,7 +189,7 @@ class About extends React.Component<Props> {
             </div>
           </div>
 
-          <div className={styles.info__block__wrapper} ref={node => this.blocks[2] = node}>
+          <div className={styles.info__block__wrapper} ref={node => this.blocks[3] = node}>
             <div className={styles.info__block}>
               <h3 className={styles.info__title} ref={this.onReadyTitle}><span>contact</span></h3>
 
@@ -154,6 +204,10 @@ class About extends React.Component<Props> {
 
             </div>
           </div>
+
+          {duplicateElement(4)}
+
+
         </div>
       </Floating>
     )
