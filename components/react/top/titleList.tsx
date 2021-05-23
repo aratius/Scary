@@ -77,7 +77,7 @@ export default class TitleList extends React.Component<Props> {
     const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
     const sumItemHeight = this.elementData.height * this.titles.length
 
-    if(this.titles.length > 0) {
+    if(this.titles.length == this.props.works.contents.length) {
       for(const i in this.titles) {
         const rect = this.titles[i].getBoundingClientRect();
         const dist = Math.abs(rect.top - this.activeElementData.top)
