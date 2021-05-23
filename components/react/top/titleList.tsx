@@ -81,7 +81,6 @@ export default class TitleList extends React.Component<Props> {
     const topThresold = this.activeElementData.top - this.elementData.height * 3
     const bottomThreshold = topThresold + this.elementData.height * (this.titles.length+1)
     const sumItemHeight = this.elementData.height * this.titles.length
-    console.log(topThresold, bottomThreshold, sumItemHeight);
 
     if(this.titles.length == this.props.works.contents.length) {
       for(const i in this.titles) {
@@ -247,6 +246,8 @@ export default class TitleList extends React.Component<Props> {
         this.activeElementData = node.getBoundingClientRect()
         this.activeId = node.id
         this.handleScrollEnd()
+        console.log(this.elementData, this.activeElementData, this.activeId);
+
       }
     }
   }
