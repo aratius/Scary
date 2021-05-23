@@ -90,7 +90,7 @@ const Work: React.FC<Props> = (props) => {
         <hr />
 
         {work.role.length &&
-          work.role.map((data, i) => {
+          work.role.map((data:string, i: number) => {
             return(
               <span key={i}>{data} / </span>
             )
