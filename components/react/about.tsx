@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from '../../styles/layout/about.module.scss'
 import Floating from './common/floating'
-import gsap from "gsap"
+import gsap from 'gsap'
+import router from 'next/router'
+import { route } from 'next/dist/next-server/server/router'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
 // SSRモード（サーバー上）では使えないためこの条件分岐
@@ -124,7 +126,6 @@ class About extends React.Component<Props> {
 
   }
 
-
   /**
    * スワイプスクロール Move
    * @param e
@@ -228,13 +229,28 @@ class About extends React.Component<Props> {
 
   }
 
+  // フェードアウトさせてから遷移
+  onClickBackLink = async (e) => {
+    const tasks = []
+    for(const i in this.blocks) {
+      tasks.push(gsap.to(this.blocks[i], {alpha: 0, duration: 0.6}))
+    }
+    await Promise.all(tasks)
+    router.push("/")
+  }
+
   // TODO: スクロールバー消す
   render() {
 
     const duplicateElement = (i: number) => (
       <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
         <div className={styles.info__block} >
-          <h1 className={i!=0 ? styles.ignore : ""}>arata matsumoto</h1>
+          <h1 className={`${i!=0 ? styles.ignore : ""} ${styles.info__name}`}>arata matsumoto</h1>
+          <h3 className={styles.back__link}
+            onClick={this.onClickBackLink}
+          >
+            <span>back to home</span>
+          </h3>
         </div>
       </div>
     )
@@ -244,7 +260,6 @@ class About extends React.Component<Props> {
         onReadyElement={this.handleReadyElement}
       >
         <div className={styles.container}>
-
           {duplicateElement(0)}
 
           <div className={styles.info__block__wrapper} ref={node => this.blocks[1] = node}>

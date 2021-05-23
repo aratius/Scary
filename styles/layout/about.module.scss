@@ -18,7 +18,8 @@
   transform: translateY(-50%);
 
   // 名前
-  h1 {
+  .info__name {
+    margin-bottom: 30px;
     font-size: 2rem;
   }
 
@@ -26,6 +27,40 @@
     margin-bottom: 30px;
     text-decoration: underline;
     font-size: 1.5rem;
+  }
+
+  .back__link {
+    span {
+      display: inline-block;
+      position: relative;
+      transition: all 0.3s;
+      &::before {
+        content: "";
+        width: 0;
+        height: 100%;
+        background-color: #000;
+        position: absolute;
+        left: 0;
+        z-index: -10;
+        transition: 0.3s all;
+      }
+      &::after {
+        content: "";
+        width: 100%;
+        border-bottom: 1px solid black;
+        position: absolute;
+        left: 0;
+        bottom: 3px;
+      }
+
+      &:hover {
+        color: #fff!important;
+        &::before {
+          width: 100%;
+          z-index: -10;
+        }
+      }
+    }
   }
 
   ul {
