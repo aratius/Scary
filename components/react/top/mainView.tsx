@@ -120,8 +120,10 @@ export default class MainView extends React.Component<Props> {
 
     // ローディング補助UIは最初に一回消したらずっと隠す
     if(alpha > 0.5) {
-      this.scrollNotifier.hide()
-      this.isHideScrollNotifier = true
+      if(!this.isHideScrollNotifier) {
+        this.scrollNotifier.hide()
+        this.isHideScrollNotifier = true
+      }
     }
   }
 
