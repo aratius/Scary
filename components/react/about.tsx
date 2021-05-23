@@ -23,11 +23,9 @@ class About extends React.Component<Props> {
   scrollDeltaY: number
   scrollAmount: number
   toNearElAmount: number
-  scrollTween: any
-  updater: any
-  scrollTimer: any
-  scrollContainer: HTMLElement
-  stopAgainstWarp: boolean  // まず一番下まで見切るまでは逆方向のスクロールワープを禁止する
+  updater: any                  // cancelAnimationFrameのための名前
+  scrollTimer: any              // scrollEndを取るためのtimer
+  stopAgainstWarp: boolean      // まず一番下まで見切るまでは逆方向のスクロールワープを禁止する
 
   constructor(props) {
     super(props)
@@ -46,6 +44,7 @@ class About extends React.Component<Props> {
   componentDidMount() {
     window.addEventListener("wheel", this.handleScroll, {passive: false})
     window.addEventListener("touchmove", this.handleScroll, {passive: false})
+    this.stopAgainstWarp = true
     window.scrollTo(0, 0)
     this.update()
   }
@@ -59,15 +58,15 @@ class About extends React.Component<Props> {
   update = ():void => {
     // スクロールする力
     this.scrollAmount += this.scrollDeltaY
-    this.scrollAmount *= 0.97
+    this.scrollAmount *= 0.95
     const scrollAmout = this.scrollAmount * 0.01
 
     // 近い要素へ向かう力
     const nearEl = this.searchNearElement(this.blocks)
     const nearElDist = nearEl.getBoundingClientRect().top
     this.toNearElAmount += nearElDist // 近い要素へ向かう力
-    this.toNearElAmount *= 0.97
-    const toNearElAmount = this.toNearElAmount * 0.001
+    this.toNearElAmount *= 0.6
+    const toNearElAmount = this.toNearElAmount * 0.01
 
     const scrollTo = scrollAmout + toNearElAmount
     gsap.set(window, { scrollTo: `+=${scrollTo}` })
@@ -78,12 +77,9 @@ class About extends React.Component<Props> {
     if(scrollTo > 0 && window.scrollY == document.body.clientHeight - window.innerHeight) {
       // 順方向ワープ
       window.scrollTo(0, 0)
-      this.stopAgainstWarp = false  // 最初の順方向ワープしたときに逆方向ワープも許可
     }else if(scrollTo < 0 && window.scrollY == 0) {
       // 逆方向ワープ
-      if(!this.stopAgainstWarp) {  // 逆方向ワープ許可されていたら
-        window.scrollTo(0, document.body.clientHeight - window.innerHeight)
-      }
+      window.scrollTo(0, document.body.clientHeight - window.innerHeight)
     }
 
     this.updater = requestAnimationFrame(this.update)
@@ -103,7 +99,7 @@ class About extends React.Component<Props> {
   }
 
   handleScrollEnd = ():void => {
-    gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})  // スクロールする力をtweenで消滅させる scrollイベントは途中で終わっちゃうので
+    // gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})  // スクロールする力をtweenで消滅させる scrollイベントは途中で終わっちゃうので
   }
 
   /**
@@ -146,7 +142,7 @@ class About extends React.Component<Props> {
     const duplicateElement = (i: number) => (
       <div className={styles.info__block__wrapper} ref={node => this.blocks[i] = node}>
         <div className={styles.info__block} >
-          <h1>arata matsumoto</h1>
+          <h1 className={i!=0 && styles.ignore}>arata matsumoto</h1>
         </div>
       </div>
     )
