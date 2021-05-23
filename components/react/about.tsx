@@ -99,7 +99,7 @@ class About extends React.Component<Props> {
   }
 
   handleScrollEnd = ():void => {
-    // gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})  // スクロールする力をtweenで消滅させる scrollイベントは途中で終わっちゃうので
+    gsap.to(this, {scrollDeltaY: 0, duration: 0.1, ease: "sine.out"})  // スクロールする力をtweenで消滅させる scrollイベントは途中で終わっちゃうので
   }
 
   /**
