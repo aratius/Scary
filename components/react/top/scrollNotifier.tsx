@@ -27,8 +27,6 @@ export default class ScrollNotifier extends React.Component<Props> {
   }
 
   hide() {
-    console.log("hide as");
-
     gsap.to(this.lottieContainer, {alpha: 0,scale: 0, duration: 0.3, ease: "back.in(1)"})
   }
 

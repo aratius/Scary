@@ -291,7 +291,7 @@ export default class TitleList extends React.Component<Props> {
         onTouchStart={this.handleMouseStart}
         onMouseMove={this.handleMouseMove}
         onTouchMove={this.handleMouseMove}
-        >
+      >
         {works.map((data, i) => {
           return (
             <li key={i} id={data.id} className={styles.item} onClick={this.handleClickItem} onTouchEnd={this.handleClickItem} ref={node => this.handleReadyItem(node, i)}>

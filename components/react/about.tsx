@@ -3,7 +3,6 @@ import styles from '../../styles/layout/about.module.scss'
 import Floating from './common/floating'
 import gsap from 'gsap'
 import router from 'next/router'
-import { route } from 'next/dist/next-server/server/router'
 const ScrollToPlugin = process.browser ? require("gsap/ScrollToPlugin") : undefined
 process.browser && gsap.registerPlugin(ScrollToPlugin)
 // SSRモード（サーバー上）では使えないためこの条件分岐
@@ -34,8 +33,6 @@ class About extends React.Component<Props> {
   dragStartPositionY: number
   mouseScrollSpeed: number
 
-  static isMounted:boolean = false
-
   constructor(props) {
     super(props)
 
@@ -65,12 +62,6 @@ class About extends React.Component<Props> {
     this.stopAgainstWarp = true
     window.scrollTo(0, 0)
 
-    // 最初に一回だけ、スクロールできることをわからせるために自動スクロール挟む
-    if(!About.isMounted) {
-      About.isMounted = true
-      gsap.to(window, {scrollTo: document.body.clientHeight - window.innerHeight , duration: 3, delay: 0.8, ease: "circ.inOut"})
-    }
-
     this.update()
   }
 
@@ -87,16 +78,16 @@ class About extends React.Component<Props> {
     // スクロールする力
     this.scrollAmount += this.scrollDeltaY
     this.scrollAmount *= 0.95
-    const scrollAmout = this.scrollAmount * 0.01
+    const scrollAmount = this.scrollAmount * 0.01
 
     // 近い要素へ向かう力
     const nearEl = this.searchNearElement(this.blocks)
     const nearElDist = nearEl.getBoundingClientRect().top
     this.toNearElAmount += nearElDist // 近い要素へ向かう力
-    this.toNearElAmount *= 0.6
-    const toNearElAmount = this.toNearElAmount * 0.013
+    this.toNearElAmount *= 0.2
+    const toNearElAmount = this.toNearElAmount * 0.05
 
-    const scrollTo = scrollAmout + toNearElAmount
+    const scrollTo = scrollAmount + toNearElAmount
     gsap.set(window, { scrollTo: `+=${scrollTo}` })
 
     /**
