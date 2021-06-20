@@ -133,7 +133,7 @@ export default class MainView extends React.Component<Props> {
     if(!work) return <>now loading...</>  // ローディングをreturnしたい
 
     return (
-      <div className={styles.container} onWheel={this.handleScroll}>
+      <div className={styles.container} onWheel={this.handleScroll} onTouchMove={this.handleScroll}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
           <Loading />
