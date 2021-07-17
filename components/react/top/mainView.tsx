@@ -31,6 +31,7 @@ export default class MainView extends React.Component<Props> {
   id: string
   loaded: number
   changed: number
+  scrollEndTimer: any
 
   constructor(props) {
     super(props);
@@ -70,10 +71,15 @@ export default class MainView extends React.Component<Props> {
   }
 
   handleScroll = ():void => {
+
     if(!this.background || !this.scrollContent) return
     if(this.scrollTween) this.scrollTween.kill()
 
     this.applyAlpha()
+
+    if(this.scrollEndTimer != null) clearTimeout(this.scrollEndTimer)
+    this.scrollEndTimer = setTimeout(this.handleScrollEnd, 200)
+
   }
 
   handleScrollEnd = ():void => {
@@ -133,7 +139,7 @@ export default class MainView extends React.Component<Props> {
     if(!work) return <>now loading...</>  // ローディングをreturnしたい
 
     return (
-      <div className={styles.container} onScroll={this.handleScroll}>
+      <div className={styles.container} onScroll={this.handleScroll} onWheel={this.handleScroll} onTouchMove={this.handleScroll}>
         <div className={styles.main_view}>
           {/* 今後canvasアニメーションに差し替える */}
           <Loading />
